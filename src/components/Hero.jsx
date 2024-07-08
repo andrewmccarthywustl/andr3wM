@@ -1,0 +1,39 @@
+import React, { useState, useEffect } from "react";
+import YouTubeEmbed from "./YouTubeEmbed";
+import "./Hero.css";
+
+const TypewriterEffect = ({ text, delay = 50 }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      const timer = setTimeout(() => {
+        setDisplayedText((prevText) => prevText + text[currentIndex]);
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+      }, delay);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex, delay, text]);
+
+  return <span>{displayedText}</span>;
+};
+
+const Hero = () => (
+  <section className="hero">
+    <div className="hero-content">
+      <h1>
+        <TypewriterEffect text="Welcome To My Website" />
+      </h1>
+      <p>
+        Slite's AI-powered knowledge base is the fastest way to access trusted
+        company information. From onboarding guides to all-hands notes — just
+        ask Slite for it.
+      </p>
+      <YouTubeEmbed embedId="dQw4w9WgXcQ" />
+    </div>
+  </section>
+);
+
+export default Hero;

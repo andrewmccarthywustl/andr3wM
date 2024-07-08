@@ -1,0 +1,38 @@
+import React, { useState } from "react";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Features from "./components/Features";
+import Reviews from "./components/Reviews";
+import "./App.css";
+
+const App = () => {
+  const [currentView, setCurrentView] = useState("home");
+
+  const renderContent = () => {
+    switch (currentView) {
+      case "reviews":
+        return <Reviews />;
+      case "home":
+      default:
+        return (
+          <>
+            <Hero />
+            <Features />
+          </>
+        );
+    }
+  };
+
+  const handleNavigation = (view) => {
+    setCurrentView(view);
+  };
+
+  return (
+    <>
+      <Header onNavigate={handleNavigation} />
+      <main>{renderContent()}</main>
+    </>
+  );
+};
+
+export default App;
