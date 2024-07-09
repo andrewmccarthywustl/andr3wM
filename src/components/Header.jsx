@@ -8,28 +8,22 @@ const Header = ({ onNavigate }) => (
         slite
       </div>
       <div className="nav-links">
-        <a href="#product" onClick={() => onNavigate("home")}>
+        <a href="product" onClick={() => onNavigate("home")}>
           Product
         </a>
-        <a href="#solutions" onClick={() => onNavigate("home")}>
-          Solutions
+        <a href="blog" onClick={() => onNavigate("home")}>
+          Blog
         </a>
-        <a href="#pricing" onClick={() => onNavigate("home")}>
+        <a href="pricing" onClick={() => onNavigate("home")}>
           Pricing
         </a>
-        <a href="#resources" onClick={() => onNavigate("home")}>
+        <a href="resources" onClick={() => onNavigate("home")}>
           Resources
         </a>
-        <a href="#reviews" onClick={() => onNavigate("reviews")}>
+        <a href="reviews" onClick={() => onNavigate("reviews")}>
           Reviews
         </a>
-        <a href="#sign-in">Sign in</a>
-        <a href="#" className="button button-outline">
-          Book a demo
-        </a>
-        <a href="#" className="button button-primary">
-          Start for free
-        </a>
+        <a href="sign-in">Sign in</a>
       </div>
     </nav>
   </header>

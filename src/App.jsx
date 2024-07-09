@@ -1,43 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
-import Reviews from "./components/Reviews";
-import AdminPanel from "./components/AdminPanel";
+import MediaReviews from "./components/MediaReviews";
+import Blog from "./components/Blog";
 import Footer from "./components/Footer";
 import "./App.css";
 
-const App = () => {
-  const [currentView, setCurrentView] = useState("home");
-
-  const renderContent = () => {
-    switch (currentView) {
-      case "reviews":
-        return <Reviews />;
-      case "admin":
-        return <AdminPanel />;
-      case "home":
-      default:
-        return (
-          <>
-            <Hero />
-            <Features />
-          </>
-        );
-    }
-  };
-
-  const handleNavigation = (view) => {
-    setCurrentView(view);
-  };
-
+function App() {
   return (
-    <div className="app-container">
-      <Header onNavigate={handleNavigation} />
-      <main className="main-content">{renderContent()}</main>
-      <Footer onNavigate={handleNavigation} />
-    </div>
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Hero />
+                  <Features />
+                </>
+              }
+            />
+            <Route path="/reviews" element={<MediaReviews />} />
+            <Route path="/blog" element={<Blog />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
-};
+}
 
 export default App;

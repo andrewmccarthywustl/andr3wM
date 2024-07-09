@@ -5,12 +5,9 @@ const Footer = ({ onNavigate }) => (
   <footer className="site-footer">
     <div className="container">
       <div className="footer-content">
-        <p>&copy; 2024 Your Company Name. All rights reserved.</p>
         <nav className="footer-nav">
-          <a href="#terms">Terms of Service</a>
-          <a href="#privacy">Privacy Policy</a>
           <a
-            href="#admin"
+            href="admin"
             onClick={(e) => {
               e.preventDefault();
               onNavigate("admin");
