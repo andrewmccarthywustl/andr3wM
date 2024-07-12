@@ -1,36 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap");
+
 header {
   width: 100%;
   background-color: var(--primary-bg);
   padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  flex-wrap: wrap;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 .nav-links > * {
-  margin: 0.5rem;
+  margin-right: 1.5rem;
 }
 
 .nav-links a {
   color: var(--primary-text);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-family: "Playfair Display", serif;
+  font-size: 1.1rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   transition: color 0.3s ease;
@@ -42,8 +42,11 @@ nav {
 
 @media (max-width: 768px) {
   .nav-links {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .nav-links > * {
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
   }
 }

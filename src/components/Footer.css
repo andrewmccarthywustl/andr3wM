@@ -1,21 +1,37 @@
-.site-footer {
-  background-color: #f8f8f8;
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap");
+
+.footer {
+  width: 100%;
+  background-color: var(--primary-bg);
   padding: 1rem 0;
-  margin-top: 2rem;
+  border-top: 1px solid var(--border-color);
 }
 
 .footer-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-.footer-nav a {
-  margin-left: 1rem;
-  color: #333;
+.login-link,
+.logout-button {
+  font-family: "Playfair Display", serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary-text);
   text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.footer-nav a:hover {
-  text-decoration: underline;
+.login-link:hover,
+.logout-button:hover {
+  color: var(--accent-color);
 }

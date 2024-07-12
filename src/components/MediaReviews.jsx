@@ -1,171 +1,184 @@
 import React, { useState, useEffect } from "react";
-import { api } from "../services/api";
+import { api, MediaType } from "../services/api";
 import { useAuth } from "../context/AuthContext";
+import ReviewItem from "./ReviewItem";
+import ReviewForm from "./ReviewForm";
+import ReviewPopup from "./ReviewPopup";
+import DeleteConfirmationPopup from "./DeleteConfirmationPopup";
 import "./MediaReviews.css";
 
 const MediaReviews = () => {
-  const [reviews, setReviews] = useState([]);
-  const [mediaType, setMediaType] = useState("all");
-  const [imageFile, setImageFile] = useState(null);
-  const { user } = useAuth(); // Now this should work
+  const [reviews, setReviews] = useState({
+    [MediaType.MOVIE]: [],
+    [MediaType.SHOW]: [],
+    [MediaType.BOOK]: [],
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedReview, setSelectedReview] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     fetchReviews();
-  }, [mediaType]);
+  }, []);
 
   const fetchReviews = async () => {
     try {
-      const fetchedReviews = await api.getReviews(
-        mediaType === "all" ? null : mediaType
-      );
-      setReviews(fetchedReviews);
+      setIsLoading(true);
+      const allReviews = await api.getReviews();
+      const categorizedReviews = {
+        [MediaType.MOVIE]: allReviews.filter(
+          (review) => review.media_type === MediaType.MOVIE
+        ),
+        [MediaType.SHOW]: allReviews.filter(
+          (review) => review.media_type === MediaType.SHOW
+        ),
+        [MediaType.BOOK]: allReviews.filter(
+          (review) => review.media_type === MediaType.BOOK
+        ),
+      };
+      setReviews(categorizedReviews);
     } catch (error) {
       console.error("Error fetching reviews:", error);
+      setError("Failed to load reviews. Please try again later.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setImageFile(e.target.files[0]);
-    }
-  };
-
-  const handleReviewSubmit = async (e) => {
-    e.preventDefault();
-    const form = e.target;
-
-    let imageUrl = "";
-    if (imageFile) {
-      try {
-        imageUrl = await api.uploadImage(imageFile);
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        return;
-      }
-    }
-
-    const newReview = {
-      title: form.title.value,
-      media_type: form.media_type.value,
-      author_or_director: form.author_or_director.value,
-      release_year: parseInt(form.release_year.value),
-      rating: parseFloat(form.rating.value),
-      review_text: form.review_text.value,
-      image_url: imageUrl,
-    };
-
+  const handleReviewSubmit = async (reviewData) => {
     try {
-      await api.addReview(newReview);
-      fetchReviews();
-      form.reset();
-      setImageFile(null);
+      // Ensure the media_type is valid
+      if (!Object.values(MediaType).includes(reviewData.media_type)) {
+        throw new Error("Invalid media type");
+      }
+
+      const addedReview = await api.addReview({
+        ...reviewData,
+        director:
+          reviewData.media_type === MediaType.MOVIE
+            ? reviewData.director
+            : null,
+        author:
+          reviewData.media_type === MediaType.BOOK ? reviewData.author : null,
+      });
+      setReviews((prevReviews) => ({
+        ...prevReviews,
+        [addedReview.media_type]: [
+          addedReview,
+          ...prevReviews[addedReview.media_type],
+        ],
+      }));
     } catch (error) {
       console.error("Error adding review:", error);
+      setError("Failed to add review. Please try again.");
     }
   };
 
-  const handleReviewEdit = async (id, updatedReview) => {
+  const handleEditReview = async (updatedReview) => {
     try {
-      await api.updateReview(id, updatedReview);
-      fetchReviews();
+      const editedReview = await api.updateReview(updatedReview.id, {
+        ...updatedReview,
+        director:
+          updatedReview.media_type === MediaType.MOVIE
+            ? updatedReview.director
+            : null,
+        author:
+          updatedReview.media_type === MediaType.BOOK
+            ? updatedReview.author
+            : null,
+      });
+      setReviews((prevReviews) => {
+        const updatedReviews = { ...prevReviews };
+        Object.keys(updatedReviews).forEach((mediaType) => {
+          updatedReviews[mediaType] = updatedReviews[mediaType].map((review) =>
+            review.id === editedReview.id ? editedReview : review
+          );
+        });
+        return updatedReviews;
+      });
+      setSelectedReview(editedReview);
+      setIsEditing(false);
     } catch (error) {
       console.error("Error updating review:", error);
+      setError("Failed to update review. Please try again.");
     }
   };
 
-  const handleReviewDelete = async (id) => {
+  const handleDeleteReview = (reviewId) => {
+    setDeleteConfirmation(reviewId);
+  };
+
+  const confirmDeleteReview = async () => {
+    if (!deleteConfirmation) return;
+
     try {
-      await api.deleteReview(id);
-      fetchReviews();
+      await api.deleteReview(deleteConfirmation);
+      setReviews((prevReviews) => {
+        const updatedReviews = { ...prevReviews };
+        Object.keys(updatedReviews).forEach((mediaType) => {
+          updatedReviews[mediaType] = updatedReviews[mediaType].filter(
+            (review) => review.id !== deleteConfirmation
+          );
+        });
+        return updatedReviews;
+      });
+      setSelectedReview(null);
+      setDeleteConfirmation(null);
     } catch (error) {
       console.error("Error deleting review:", error);
+      setError("Failed to delete review. Please try again.");
     }
   };
+
+  const cancelDeleteReview = () => {
+    setDeleteConfirmation(null);
+  };
+
+  if (isLoading) return <div>Loading reviews...</div>;
+  if (error) return <div className="error-message">{error}</div>;
 
   return (
     <div className="media-reviews">
-      <h2>Media Reviews</h2>
-      <select value={mediaType} onChange={(e) => setMediaType(e.target.value)}>
-        <option value="all">All</option>
-        <option value="book">Books</option>
-        <option value="movie">Movies</option>
-      </select>
-      {user && (
-        <form onSubmit={handleReviewSubmit}>
-          <input name="title" type="text" placeholder="Title" required />
-          <select name="media_type" required>
-            <option value="book">Book</option>
-            <option value="movie">Movie</option>
-          </select>
-          <input
-            name="author_or_director"
-            type="text"
-            placeholder="Author/Director"
-            required
-          />
-          <input
-            name="release_year"
-            type="number"
-            placeholder="Release Year"
-            required
-          />
-          <input
-            name="rating"
-            type="number"
-            step="0.1"
-            min="0"
-            max="5"
-            placeholder="Rating"
-            required
-          />
-          <textarea name="review_text" placeholder="Review Text" required />
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-          <button type="submit">Add Review</button>
-        </form>
-      )}
-      <ul>
-        {reviews.map((review) => (
-          <li key={review.id}>
-            <h3>{review.title}</h3>
-            {review.image_url && (
-              <img
-                src={review.image_url}
-                alt={review.title}
-                style={{ maxWidth: "200px" }}
+      {user && <ReviewForm onSubmit={handleReviewSubmit} />}
+      {[MediaType.MOVIE, MediaType.SHOW, MediaType.BOOK].map((mediaType) => (
+        <section key={mediaType} className={`${mediaType}-reviews`}>
+          <h2>
+            {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} Reviews
+          </h2>
+          <div className="scroll-container">
+            {reviews[mediaType].map((review) => (
+              <ReviewItem
+                key={review.id}
+                review={review}
+                onClick={() => setSelectedReview(review)}
               />
-            )}
-            <p>Type: {review.media_type}</p>
-            <p>
-              {review.media_type === "book" ? "Author" : "Director"}:{" "}
-              {review.author_or_director}
-            </p>
-            <p>Release Year: {review.release_year}</p>
-            <p>Rating: {review.rating}/5</p>
-            <p>{review.review_text}</p>
-            <p>Created: {new Date(review.created_at).toLocaleDateString()}</p>
-            <p>
-              Last Updated: {new Date(review.updated_at).toLocaleDateString()}
-            </p>
-            {user?.id === review.reviewer && (
-              <>
-                <button
-                  onClick={() =>
-                    handleReviewEdit(review.id, {
-                      ...review,
-                      review_text: prompt("Edit review:", review.review_text),
-                    })
-                  }
-                >
-                  Edit
-                </button>
-                <button onClick={() => handleReviewDelete(review.id)}>
-                  Delete
-                </button>
-              </>
-            )}
-          </li>
-        ))}
-      </ul>
+            ))}
+          </div>
+        </section>
+      ))}
+      {selectedReview && (
+        <ReviewPopup
+          review={selectedReview}
+          onClose={() => {
+            setSelectedReview(null);
+            setIsEditing(false);
+          }}
+          onEdit={handleEditReview}
+          onDelete={handleDeleteReview}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+          currentUser={user}
+        />
+      )}
+      {deleteConfirmation && (
+        <DeleteConfirmationPopup
+          onConfirm={confirmDeleteReview}
+          onCancel={cancelDeleteReview}
+        />
+      )}
     </div>
   );
 };

@@ -1,32 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./Header.css";
 
-const Header = ({ onNavigate }) => (
-  <header>
-    <nav className="container">
-      <div className="logo" onClick={() => onNavigate("home")}>
-        slite
-      </div>
-      <div className="nav-links">
-        <a href="product" onClick={() => onNavigate("home")}>
-          Product
-        </a>
-        <a href="blog" onClick={() => onNavigate("home")}>
-          Blog
-        </a>
-        <a href="pricing" onClick={() => onNavigate("home")}>
-          Pricing
-        </a>
-        <a href="resources" onClick={() => onNavigate("home")}>
-          Resources
-        </a>
-        <a href="reviews" onClick={() => onNavigate("reviews")}>
-          Reviews
-        </a>
-        <a href="sign-in">Sign in</a>
-      </div>
-    </nav>
-  </header>
-);
+const Header = () => {
+  const { user, isAdmin } = useAuth();
+
+  return (
+    <header className="header">
+      <nav>
+        <div className="nav-links">
+          <Link to="/">Home</Link>
+          <Link to="/reviews">Reviews</Link>
+          <Link to="/blog">Blog</Link>
+        </div>
+      </nav>
+    </header>
+  );
+};
 
 export default Header;
