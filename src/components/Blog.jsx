@@ -111,83 +111,92 @@ const Blog = () => {
     </div>
   );
 
-  if (isLoading) return <div>Loading blog posts...</div>;
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+      </div>
+    );
+  }
   if (error) return <div className="error-message">{error}</div>;
 
   return (
-    <div className="blog-container">
-      <h2 className="blog-title">Blog Posts</h2>
-      {user && (
-        <form onSubmit={handleBlogPostSubmit} className="blog-form">
-          <input
-            name="title"
-            type="text"
-            placeholder="Blog Post Title"
-            required
-          />
-          <textarea
-            name="content"
-            placeholder="Blog Post Content"
-            required
-            onKeyDown={handleTabKey}
-          />
-          <button type="submit">Add Blog Post</button>
-        </form>
-      )}
-      <div className="blog-posts">
-        {blogPosts.map((post) => (
-          <div key={post.id} className="blog-post">
-            {editingPost && editingPost.id === post.id ? (
-              <form onSubmit={handleEditSubmit} className="edit-form">
-                <input
-                  name="title"
-                  type="text"
-                  defaultValue={post.title}
-                  required
-                />
-                <textarea
-                  name="content"
-                  defaultValue={post.content}
-                  required
-                  onKeyDown={handleTabKey}
-                />
-                <button type="submit">Save Changes</button>
-                <button type="button" onClick={() => setEditingPost(null)}>
-                  Cancel
-                </button>
-              </form>
-            ) : (
-              <>
-                <h3 className="post-title">{post.title}</h3>
-                <pre className="post-content">{post.content}</pre>
-                <p className="post-meta">
-                  <span className="post-date">
-                    {new Date(post.created_at).toLocaleDateString()}
-                  </span>
-                </p>
-                {user && (user.id === post.author || isAdmin) && (
-                  <div className="post-actions">
-                    <button
-                      onClick={() => setEditingPost(post)}
-                      className="edit-post-button"
-                    >
-                      Edit Post
-                    </button>
-                    <button
-                      onClick={() => handleDeletePost(post.id)}
-                      className="delete-post-button"
-                    >
-                      Delete Post
-                    </button>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        ))}
+    <>
+      <div className="blog-background"></div>
+      <div className="blog-container">
+        <h2 className="blog-title">The Blog</h2>
+        {user && (
+          <form onSubmit={handleBlogPostSubmit} className="blog-form">
+            <input
+              name="title"
+              type="text"
+              placeholder="Blog Post Title"
+              required
+            />
+            <textarea
+              name="content"
+              placeholder="Blog Post Content"
+              required
+              onKeyDown={handleTabKey}
+            />
+            <button type="submit">Add Blog Post</button>
+          </form>
+        )}
+        <div className="blog-posts">
+          {blogPosts.map((post) => (
+            <div key={post.id} className="blog-post">
+              {editingPost && editingPost.id === post.id ? (
+                <form onSubmit={handleEditSubmit} className="edit-form">
+                  <input
+                    name="title"
+                    type="text"
+                    defaultValue={post.title}
+                    required
+                  />
+                  <textarea
+                    name="content"
+                    defaultValue={post.content}
+                    required
+                    onKeyDown={handleTabKey}
+                  />
+                  <button type="submit">Save Changes</button>
+                  <button type="button" onClick={() => setEditingPost(null)}>
+                    Cancel
+                  </button>
+                </form>
+              ) : (
+                <>
+                  <h3 className="post-title">{post.title}</h3>
+                  <pre className="post-content">{post.content}</pre>
+                  <p className="post-meta">
+                    <span className="post-date">
+                      {new Date(post.created_at).toLocaleDateString()}
+                    </span>
+                  </p>
+                  {user && (user.id === post.author || isAdmin) && (
+                    <div className="post-actions">
+                      <button
+                        onClick={() => setEditingPost(post)}
+                        className="edit-post-button"
+                      >
+                        Edit Post
+                      </button>
+                      <button
+                        onClick={() => handleDeletePost(post.id)}
+                        className="delete-post-button"
+                      >
+                        Delete Post
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+        {deleteConfirmation && <DeleteConfirmationPopup />}
       </div>
-      {deleteConfirmation && <DeleteConfirmationPopup />}
-    </div>
+    </>
   );
 };
 

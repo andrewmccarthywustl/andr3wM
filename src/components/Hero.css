@@ -1,9 +1,46 @@
 .hero {
   text-align: center;
   padding: 4rem 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.gradient-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.gradient-area::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  width: 200vw;
+  height: 200vw;
+  background: radial-gradient(
+    circle,
+    #ff69b4 0%,
+    #8a2be2 10%,
+    #00bfff 20%,
+    #8a2be2 10%,
+    #a18cd1 20%,
+    #ff4500 40%,
+    rgba(255, 69, 0, 0.3) 60%,
+    rgba(255, 69, 0, 0) 70%
+  );
+  background-attachment: fixed;
+  background-size: 100% 150%;
 }
 
 .hero-content {
+  position: relative;
+  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 15px;
@@ -15,16 +52,23 @@
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  min-height: 8.5rem; /* Adjust based on your text size and line height */
+  min-height: 8.5rem;
+  color: #000000; /* Ensure text color contrasts with the background */
 }
 
 .hero p {
   font-size: 1.2rem;
-  color: var(--secondary-text);
+  color: #000000; /* Ensure text color contrasts with the background */
   max-width: 600px;
+  margin-top: 0.5rem;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 2rem;
+}
+
+.video-responsive-container {
+  position: relative;
+  z-index: 2;
 }
 
 @media (max-width: 768px) {
@@ -34,6 +78,14 @@
 
   .hero h1 {
     font-size: 2.5rem;
-    min-height: 6rem; /* Adjust for smaller screens */
+    min-height: 6rem;
   }
+}
+
+.hero-subheader {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 1rem;
+  text-align: center;
 }

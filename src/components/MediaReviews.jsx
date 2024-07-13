@@ -137,7 +137,13 @@ const MediaReviews = () => {
     setDeleteConfirmation(null);
   };
 
-  if (isLoading) return <div>Loading reviews...</div>;
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+      </div>
+    );
+  }
   if (error) return <div className="error-message">{error}</div>;
 
   return (

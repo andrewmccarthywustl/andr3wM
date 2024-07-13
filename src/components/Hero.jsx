@@ -22,16 +22,17 @@ const TypewriterEffect = ({ text, delay = 50 }) => {
 
 const Hero = () => (
   <section className="hero">
+    <div className="gradient-area"></div>
     <div className="hero-content">
       <h1>
         <TypewriterEffect text="Welcome To My Website" />
       </h1>
       <p>
-        Slite's AI-powered knowledge base is the fastest way to access trusted
-        company information. From onboarding guides to all-hands notes — just
-        ask Slite for it.
+        I am not too sure what to put on here yet, but I will add more content
+        and improve on the design and layout as I go along.
       </p>
-      <YouTubeEmbed embedId="dQw4w9WgXcQ" />
+      <h2 className="hero-subheader">Most Recent YouTube Video</h2>
+      <YouTubeEmbed embedId="DZNno1tk-2A" />
     </div>
   </section>
 );
