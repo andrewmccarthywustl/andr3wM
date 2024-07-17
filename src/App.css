@@ -1,3 +1,5 @@
+/* src/App.css */
+
 :root {
   --primary-bg: #ffffff;
   --secondary-bg: #ffffff;
@@ -34,25 +36,5 @@ body {
 .main-content {
   flex: 1;
 }
-.gradient-area::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 75%;
-  transform: translate(-50%, -50%);
-  width: 200vw;
-  height: 200vw;
-  background: radial-gradient(
-    circle,
-    #ff69b4 0%,
-    #8a2be2 10%,
-    #00bfff 20%,
-    /* Purple */ #8a2be2 10%,
-    /* Deeper purple in the center */ #a18cd1 20%,
-    /* Purple */ #ff4500 40%,
-    /* Bright orange */ rgba(255, 69, 0, 0.3) 60%,
-    /* Fading orange */ rgba(255, 69, 0, 0) 70% /* Transparent */
-  );
-  background-attachment: fixed;
-  background-size: 100% 150%;
-}
+
+/* Remove or comment out the .gradient-area styles */

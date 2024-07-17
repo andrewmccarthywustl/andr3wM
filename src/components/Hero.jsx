@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+// src/components/Hero.jsx
+
+import React from "react";
 import YouTubeEmbed from "./YouTubeEmbed";
+import { useState, useEffect } from "react";
 import "./Hero.css";
 
 const TypewriterEffect = ({ text, delay = 50 }) => {
@@ -21,8 +24,7 @@ const TypewriterEffect = ({ text, delay = 50 }) => {
 };
 
 const Hero = () => (
-  <section className="hero">
-    <div className="gradient-area"></div>
+  <div className="hero-container">
     <div className="hero-content">
       <h1>
         <TypewriterEffect text="Welcome To My Website" />
@@ -34,7 +36,7 @@ const Hero = () => (
       <h2 className="hero-subheader">Most Recent YouTube Video</h2>
       <YouTubeEmbed embedId="DZNno1tk-2A" />
     </div>
-  </section>
+  </div>
 );
 
 export default Hero;

@@ -1,15 +1,30 @@
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background-attachment: fixed;
-  background: linear-gradient(to right, #f0fff3, #d9e7ff);
-}
+/* src/components/Blog.css */
+
 .blog-container {
+  min-height: calc(
+    100vh - 120px
+  ); /* Adjust based on your header and footer height */
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to right, #89cff0, #d9e7ff);
+  z-index: -1;
+}
+
+.blog-content {
   max-width: 800px;
-  margin: 0 0 0 20px;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .blog-title {
@@ -27,7 +42,8 @@ body {
 .blog-post {
   padding: 20px;
   margin-bottom: 20px;
-  max-width: 800px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
 }
 
 .post-title {
@@ -60,7 +76,6 @@ body {
 .edit-form {
   margin-bottom: 40px;
   width: 100%;
-  max-width: 600px;
 }
 
 .blog-form input,
@@ -131,50 +146,8 @@ body {
   z-index: 1000;
 }
 
-.delete-confirmation-popup p {
-  margin-bottom: 15px;
-}
-
-.delete-confirmation-popup button {
-  margin-right: 10px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.delete-confirmation-popup button:first-of-type {
-  background-color: #dc3545;
-  color: white;
-}
-
-.delete-confirmation-popup button:last-of-type {
-  background-color: #6c757d;
-  color: white;
-}
-
-@media (max-width: 600px) {
-  .blog-container {
-    margin: 0 10px;
-    padding: 10px;
-  }
-
-  .blog-title {
-    font-size: 2em;
-  }
-
-  .post-title {
-    font-size: 1.5em;
-  }
-
-  .blog-post,
-  .blog-form,
-  .edit-form {
-    max-width: 100%;
-  }
-}
 .loading-container {
-  min-height: calc(100vh - 60px); /* Adjust 60px to match your header height */
+  min-height: calc(100vh - 120px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -195,5 +168,19 @@ body {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .blog-container {
+    padding: 1rem;
+  }
+
+  .blog-title {
+    font-size: 2em;
+  }
+
+  .post-title {
+    font-size: 1.5em;
   }
 }

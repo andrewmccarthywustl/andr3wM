@@ -121,9 +121,8 @@ const Blog = () => {
   if (error) return <div className="error-message">{error}</div>;
 
   return (
-    <>
-      <div className="blog-background"></div>
-      <div className="blog-container">
+    <div className="blog-container">
+      <div className="blog-content">
         <h2 className="blog-title">The Blog</h2>
         {user && (
           <form onSubmit={handleBlogPostSubmit} className="blog-form">
@@ -196,7 +195,7 @@ const Blog = () => {
         </div>
         {deleteConfirmation && <DeleteConfirmationPopup />}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,30 +1,27 @@
-.hero {
-  text-align: center;
-  padding: 4rem 0;
+/* src/components/Hero.css */
+
+.hero-container {
+  min-height: calc(
+    100vh - 120px
+  ); /* Adjust based on your header and footer height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
 }
 
-.gradient-area {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-}
-
-.gradient-area::before {
+.hero-container::before {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 75%;
-  transform: translate(-50%, -50%);
-  width: 200vw;
-  height: 200vw;
+  bottom: 0%;
+  right: 0%;
+  width: 150%;
+  height: 150%;
   background: radial-gradient(
-    circle,
+    circle at bottom right,
     #ff69b4 0%,
     #8a2be2 10%,
     #00bfff 20%,
@@ -34,52 +31,27 @@
     rgba(255, 69, 0, 0.3) 60%,
     rgba(255, 69, 0, 0) 70%
   );
-  background-attachment: fixed;
-  background-size: 100% 150%;
+  background-size: 100% 100%;
+  z-index: -1;
 }
 
 .hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 1200px;
+  text-align: center;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 0 15px;
+  z-index: 1;
 }
 
-.hero h1 {
+.hero-content h1 {
   font-size: 3.5rem;
   margin-bottom: 1rem;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  min-height: 8.5rem;
-  color: #000000; /* Ensure text color contrasts with the background */
+  color: #000000;
 }
 
-.hero p {
+.hero-content p {
   font-size: 1.2rem;
-  color: #000000; /* Ensure text color contrasts with the background */
-  max-width: 600px;
-  margin-top: 0.5rem;
-  margin-left: auto;
-  margin-right: auto;
+  color: #000000;
   margin-bottom: 2rem;
-}
-
-.video-responsive-container {
-  position: relative;
-  z-index: 2;
-}
-
-@media (max-width: 768px) {
-  .hero {
-    padding: 2rem 0;
-  }
-
-  .hero h1 {
-    font-size: 2.5rem;
-    min-height: 6rem;
-  }
 }
 
 .hero-subheader {
@@ -87,5 +59,10 @@
   font-weight: 600;
   color: #000;
   margin-bottom: 1rem;
-  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
 }
