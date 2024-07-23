@@ -1,63 +1,36 @@
-/* src/components/Hero.css */
-
 .hero-container {
-  min-height: calc(
-    100vh - 120px
-  ); /* Adjust based on your header and footer height */
+  min-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-container::before {
-  content: "";
-  position: absolute;
-  bottom: 0%;
-  right: 0%;
-  width: 150%;
-  height: 150%;
-  background: radial-gradient(
-    circle at bottom right,
-    #ff69b4 0%,
-    #8a2be2 10%,
-    #00bfff 20%,
-    #8a2be2 10%,
-    #a18cd1 20%,
-    #ff4500 40%,
-    rgba(255, 69, 0, 0.3) 60%,
-    rgba(255, 69, 0, 0) 70%
-  );
-  background-size: 100% 100%;
-  z-index: -1;
+  background-color: #2b2a28;
 }
 
 .hero-content {
   text-align: center;
   max-width: 800px;
   margin: 0 auto;
-  z-index: 1;
+  color: white;
 }
 
 .hero-content h1 {
   font-size: 3.5rem;
   margin-bottom: 1rem;
-  color: #000000;
+  color: white;
 }
 
 .hero-content p {
   font-size: 1.2rem;
-  color: #000000;
+  color: white;
   margin-bottom: 2rem;
 }
 
 .hero-subheader {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #000;
+  color: white;
   margin-bottom: 1rem;
 }
 

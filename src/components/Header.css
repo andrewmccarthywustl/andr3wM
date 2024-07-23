@@ -1,8 +1,8 @@
-header {
+.header {
   width: 100%;
-  background-color: white;
+  background-color: #31312e;
   padding: 1rem 0;
-  border-bottom: 5px solid black;
+  border-bottom: 5px solid #d7e8cd;
 }
 
 nav {
@@ -24,17 +24,18 @@ nav {
 }
 
 .nav-links a {
-  color: var(--primary-text);
+  color: #d97757;
   text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 30px;
+  font-weight: bold;
+  text-transform: none;
+  letter-spacing: normal;
   transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-  color: var(--accent-color);
+  color: #b85f3d; /* Darker shade for hover effect */
 }
 
 @media (max-width: 768px) {
@@ -45,5 +46,9 @@ nav {
   .nav-links > * {
     margin-right: 1rem;
     margin-bottom: 0.5rem;
+  }
+
+  .nav-links a {
+    font-size: 24px; /* Slightly smaller font size for mobile */
   }
 }

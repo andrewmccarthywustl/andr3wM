@@ -1,8 +1,8 @@
 .footer {
   width: 100%;
-  background-color: white;
+  background-color: #31312e;
   padding: 1rem 0;
-  border-top: 5px solid black;
+  border-top: 5px solid #d7e8cd;
 }
 
 .footer-content {
@@ -20,13 +20,13 @@
 }
 
 .social-icons a {
-  color: black;
-  font-size: 1.5rem;
+  color: #d97757;
+  font-size: 30px;
   transition: color 0.3s ease;
 }
 
 .social-icons a:hover {
-  color: var(--accent-color);
+  color: #b85f3d;
 }
 
 .admin-link {
@@ -36,11 +36,10 @@
 
 .login-link,
 .logout-button {
-  font-size: 1rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--primary-text);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: #d97757;
   text-decoration: none;
   background: none;
   border: none;
@@ -50,7 +49,7 @@
 
 .login-link:hover,
 .logout-button:hover {
-  color: var(--accent-color);
+  color: #b85f3d;
 }
 
 @media (max-width: 768px) {
@@ -65,5 +64,11 @@
 
   .admin-link {
     order: 1;
+  }
+
+  .social-icons a,
+  .login-link,
+  .logout-button {
+    font-size: 24px;
   }
 }

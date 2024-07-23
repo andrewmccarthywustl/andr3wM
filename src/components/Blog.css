@@ -1,23 +1,7 @@
-/* src/components/Blog.css */
-
 .blog-container {
-  min-height: calc(
-    100vh - 120px
-  ); /* Adjust based on your header and footer height */
+  min-height: calc(100vh - 120px);
   padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.blog-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to right, #89cff0, #d9e7ff);
-  z-index: -1;
+  background-color: #2b2a28;
 }
 
 .blog-content {
@@ -29,7 +13,7 @@
 
 .blog-title {
   font-size: 2.5em;
-  color: #000;
+  color: #d97757;
   margin-bottom: 30px;
 }
 
@@ -42,19 +26,20 @@
 .blog-post {
   padding: 20px;
   margin-bottom: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #31312e;
   border-radius: 8px;
 }
 
 .post-title {
   font-size: 1.8em;
-  color: #000;
+  color: #d7e8cd;
   margin-bottom: 10px;
   font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .post-content {
-  color: #000;
+  color: #fff;
   font-family: inherit;
   line-height: 1.6;
   white-space: pre-wrap;
@@ -64,7 +49,7 @@
 
 .post-meta {
   font-size: 0.9em;
-  color: #666;
+  color: #ccc;
   margin-top: 10px;
 }
 
@@ -85,11 +70,13 @@
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
   font-family: inherit;
   box-sizing: border-box;
+  background-color: #31312e;
+  color: #fff;
 }
 
 .blog-form textarea,
@@ -101,7 +88,7 @@
 .blog-form button,
 .edit-form button,
 .post-actions button {
-  background-color: #007bff;
+  background-color: #d97757;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -114,7 +101,7 @@
 .blog-form button:hover,
 .edit-form button:hover,
 .post-actions button:hover {
-  background-color: #0056b3;
+  background-color: #b85f3d;
 }
 
 .post-actions {
@@ -130,7 +117,7 @@
 }
 
 .error-message {
-  color: red;
+  color: #ff6b6b;
   margin-top: 5px;
 }
 
@@ -139,7 +126,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: #31312e;
+  color: #fff;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -151,13 +139,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #2b2a28;
 }
 
 .loading-spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid #000;
+  border: 5px solid #fff;
+  border-top: 5px solid #d97757;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
