@@ -1,10 +1,12 @@
+// src/components/Footer/Footer.jsx
+
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { FaXTwitter, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa6";
-import "./Footer.css";
+import styles from "./Footer.module.css";
 
-const Footer = () => {
+function Footer() {
   const { user, logout } = useAuth();
 
   const handleLogout = async () => {
@@ -16,13 +18,14 @@ const Footer = () => {
   };
 
   return (
-    <footer className="footer">
-      <div className="footer-content">
-        <div className="social-icons">
+    <footer className={styles.footer}>
+      <div className={styles.footerContent}>
+        <div className={styles.socialIcons}>
           <a
             href="https://x.com/andr_3wM"
             target="_blank"
             rel="noopener noreferrer"
+            className={styles.socialLink}
           >
             <FaXTwitter />
           </a>
@@ -30,6 +33,7 @@ const Footer = () => {
             href="https://www.youtube.com/@ndr3wM"
             target="_blank"
             rel="noopener noreferrer"
+            className={styles.socialLink}
           >
             <FaYoutube />
           </a>
@@ -37,6 +41,7 @@ const Footer = () => {
             href="https://www.tiktok.com/@andr.3wm"
             target="_blank"
             rel="noopener noreferrer"
+            className={styles.socialLink}
           >
             <FaTiktok />
           </a>
@@ -44,17 +49,18 @@ const Footer = () => {
             href="https://instagram.com/andr.3wm"
             target="_blank"
             rel="noopener noreferrer"
+            className={styles.socialLink}
           >
             <FaInstagram />
           </a>
         </div>
-        <div className="admin-link">
+        <div className={styles.adminLink}>
           {user ? (
-            <button onClick={handleLogout} className="logout-button">
+            <button onClick={handleLogout} className={styles.logoutButton}>
               Logout
             </button>
           ) : (
-            <Link to="/login" className="login-link">
+            <Link to="/login" className={styles.loginLink}>
               Admin
             </Link>
           )}
@@ -62,6 +68,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;

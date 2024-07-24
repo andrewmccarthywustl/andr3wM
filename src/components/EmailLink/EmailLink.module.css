@@ -1,0 +1,30 @@
+/* src/components/EmailLink/EmailLink.module.css */
+
+.emailLink {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #31312e;
+  border-radius: 8px;
+  padding: 12px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.emailLink:hover {
+  background-color: #3e3e3a;
+}
+
+.emailContent {
+  display: flex;
+  align-items: center;
+}
+
+.emailIcon {
+  color: #d97757;
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+.emailAddress {
+  color: #ffffff;
+  font-size: 16px;
+}

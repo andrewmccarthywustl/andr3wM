@@ -1,3 +1,5 @@
+/* src/components/Footer/Footer.module.css */
+
 .footer {
   width: 100%;
   background-color: #31312e;
@@ -5,7 +7,7 @@
   border-top: 5px solid #d7e8cd;
 }
 
-.footer-content {
+.footerContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -14,28 +16,28 @@
   padding: 0 1rem;
 }
 
-.social-icons {
+.socialIcons {
   display: flex;
   gap: 1rem;
 }
 
-.social-icons a {
+.socialLink {
   color: #d97757;
   font-size: 30px;
   transition: color 0.3s ease;
 }
 
-.social-icons a:hover {
+.socialLink:hover {
   color: #b85f3d;
 }
 
-.admin-link {
+.adminLink {
   display: flex;
   align-items: center;
 }
 
-.login-link,
-.logout-button {
+.loginLink,
+.logoutButton {
   font-family: "Times New Roman", Times, serif;
   font-size: 30px;
   font-weight: bold;
@@ -47,28 +49,28 @@
   transition: color 0.3s ease;
 }
 
-.login-link:hover,
-.logout-button:hover {
+.loginLink:hover,
+.logoutButton:hover {
   color: #b85f3d;
 }
 
 @media (max-width: 768px) {
-  .footer-content {
+  .footerContent {
     flex-direction: column;
     gap: 1rem;
   }
 
-  .social-icons {
+  .socialIcons {
     order: 2;
   }
 
-  .admin-link {
+  .adminLink {
     order: 1;
   }
 
-  .social-icons a,
-  .login-link,
-  .logout-button {
+  .socialLink,
+  .loginLink,
+  .logoutButton {
     font-size: 24px;
   }
 }

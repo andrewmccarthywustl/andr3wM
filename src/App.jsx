@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
+import Home from "./pages/Home";
 import MediaReviews from "./components/MediaReviews";
 import Blog from "./components/Blog";
 import Login from "./components/Login";
@@ -34,7 +34,7 @@ function App() {
               path="/"
               element={
                 <>
-                  <Hero />
+                  <Home />
                 </>
               }
             />

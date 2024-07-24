@@ -1,3 +1,5 @@
+/* src/components/Header.module.css */
+
 .header {
   width: 100%;
   background-color: #31312e;
@@ -5,7 +7,7 @@
   border-bottom: 5px solid #d7e8cd;
 }
 
-nav {
+.nav {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -14,41 +16,33 @@ nav {
   padding: 0 1rem;
 }
 
-.nav-links {
+.navLinks {
   display: flex;
   align-items: center;
 }
 
-.nav-links > * {
-  margin-right: 1.5rem;
-}
-
-.nav-links a {
+.navLink {
   color: #d97757;
   text-decoration: none;
   font-family: "Times New Roman", Times, serif;
   font-size: 30px;
   font-weight: bold;
-  text-transform: none;
-  letter-spacing: normal;
+  margin-right: 1.5rem;
   transition: color 0.3s ease;
 }
 
-.nav-links a:hover {
-  color: #b85f3d; /* Darker shade for hover effect */
+.navLink:hover {
+  color: #b85f3d;
 }
 
 @media (max-width: 768px) {
-  .nav-links {
+  .navLinks {
     flex-wrap: wrap;
   }
 
-  .nav-links > * {
+  .navLink {
+    font-size: 24px;
     margin-right: 1rem;
     margin-bottom: 0.5rem;
-  }
-
-  .nav-links a {
-    font-size: 24px; /* Slightly smaller font size for mobile */
   }
 }
