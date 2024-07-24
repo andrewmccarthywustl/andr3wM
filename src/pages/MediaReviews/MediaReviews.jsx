@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { api, MediaType } from "../services/api";
-import { useAuth } from "../context/AuthContext";
-import ReviewItem from "./ReviewItem";
-import ReviewForm from "./ReviewForm";
-import ReviewPopup from "./ReviewPopup";
-import DeleteConfirmationPopup from "./DeleteConfirmationPopup";
-import "./MediaReviews.css";
+// src/pages/MediaReviews/MediaReviews.jsx
 
-const MediaReviews = () => {
+import React, { useState, useEffect } from "react";
+import { api, MediaType } from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
+import ReviewItem from "../../components/ReviewItem/ReviewItem";
+import ReviewForm from "../../components/ReviewForm";
+import ReviewPopup from "../../components/ReviewPopup/ReviewPopup";
+import DeleteConfirmation from "../../components/DeleteConfirmation";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import styles from "./MediaReviews.module.css";
+
+function MediaReviews() {
   const [reviews, setReviews] = useState({
     [MediaType.MOVIE]: [],
     [MediaType.SHOW]: [],
@@ -50,20 +53,7 @@ const MediaReviews = () => {
 
   const handleReviewSubmit = async (reviewData) => {
     try {
-      // Ensure the media_type is valid
-      if (!Object.values(MediaType).includes(reviewData.media_type)) {
-        throw new Error("Invalid media type");
-      }
-
-      const addedReview = await api.addReview({
-        ...reviewData,
-        director:
-          reviewData.media_type === MediaType.MOVIE
-            ? reviewData.director
-            : null,
-        author:
-          reviewData.media_type === MediaType.BOOK ? reviewData.author : null,
-      });
+      const addedReview = await api.addReview(reviewData);
       setReviews((prevReviews) => ({
         ...prevReviews,
         [addedReview.media_type]: [
@@ -79,24 +69,17 @@ const MediaReviews = () => {
 
   const handleEditReview = async (updatedReview) => {
     try {
-      const editedReview = await api.updateReview(updatedReview.id, {
-        ...updatedReview,
-        director:
-          updatedReview.media_type === MediaType.MOVIE
-            ? updatedReview.director
-            : null,
-        author:
-          updatedReview.media_type === MediaType.BOOK
-            ? updatedReview.author
-            : null,
-      });
+      const editedReview = await api.updateReview(
+        updatedReview.id,
+        updatedReview
+      );
       setReviews((prevReviews) => {
         const updatedReviews = { ...prevReviews };
-        Object.keys(updatedReviews).forEach((mediaType) => {
-          updatedReviews[mediaType] = updatedReviews[mediaType].map((review) =>
-            review.id === editedReview.id ? editedReview : review
-          );
-        });
+        updatedReviews[editedReview.media_type] = updatedReviews[
+          editedReview.media_type
+        ].map((review) =>
+          review.id === editedReview.id ? editedReview : review
+        );
         return updatedReviews;
       });
       setSelectedReview(editedReview);
@@ -137,24 +120,18 @@ const MediaReviews = () => {
     setDeleteConfirmation(null);
   };
 
-  if (isLoading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-      </div>
-    );
-  }
-  if (error) return <div className="error-message">{error}</div>;
+  if (isLoading) return <LoadingSpinner />;
+  if (error) return <div className={styles.error}>{error}</div>;
 
   return (
-    <div className="media-reviews">
+    <div className={styles.mediaReviews}>
       {user && <ReviewForm onSubmit={handleReviewSubmit} />}
       {[MediaType.MOVIE, MediaType.SHOW, MediaType.BOOK].map((mediaType) => (
-        <section key={mediaType} className={`${mediaType}-reviews`}>
-          <h2>
+        <section key={mediaType} className={styles.reviewSection}>
+          <h2 className={styles.sectionTitle}>
             {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} Reviews
           </h2>
-          <div className="scroll-container">
+          <div className={styles.reviewList}>
             {reviews[mediaType].map((review) => (
               <ReviewItem
                 key={review.id}
@@ -180,13 +157,14 @@ const MediaReviews = () => {
         />
       )}
       {deleteConfirmation && (
-        <DeleteConfirmationPopup
+        <DeleteConfirmation
           onConfirm={confirmDeleteReview}
           onCancel={cancelDeleteReview}
+          itemName="review"
         />
       )}
     </div>
   );
-};
+}
 
 export default MediaReviews;

@@ -1,0 +1,96 @@
+/* src/components/EditReviewForm/EditReviewForm.module.css */
+
+.editReviewForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  color: #fff;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #d97757;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+  background-color: #2b2a28;
+  color: #fff;
+  font-size: 16px;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #d97757;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.submitButton,
+.cancelButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton {
+  background-color: #d97757;
+  color: white;
+}
+
+.submitButton:hover {
+  background-color: #b85f3d;
+}
+
+.cancelButton {
+  background-color: #4a4a4a;
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: #5f5f5f;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .submitButton,
+  .cancelButton {
+    width: 100%;
+  }
+}

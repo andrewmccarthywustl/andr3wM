@@ -1,0 +1,101 @@
+/* src/components/BlogPost/BlogPost.module.css */
+
+.blogPost {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #31312e;
+  border-radius: 8px;
+}
+
+.postTitle {
+  font-size: 1.8em;
+  color: #d7e8cd;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.postContent {
+  color: #fff;
+  font-family: inherit;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.postMeta {
+  font-size: 0.9em;
+  color: #ccc;
+  margin-top: 10px;
+}
+
+.postDate {
+  margin-right: 15px;
+}
+
+.postActions {
+  margin-top: 15px;
+}
+
+.editButton,
+.deleteButton,
+.saveButton,
+.cancelButton {
+  padding: 5px 10px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.editButton {
+  background-color: #d97757;
+  color: white;
+}
+
+.deleteButton {
+  background-color: #d97757;
+  color: white;
+}
+
+.saveButton {
+  background-color: #d97757;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #d97757;
+  color: white;
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.editInput,
+.editTextarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: inherit;
+  box-sizing: border-box;
+  background-color: #2b2a28;
+  color: #fff;
+}
+
+.editTextarea {
+  height: 200px;
+  resize: vertical;
+}
+
+.editButtons {
+  display: flex;
+  justify-content: flex-end;
+}

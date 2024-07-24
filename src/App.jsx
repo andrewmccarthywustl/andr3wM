@@ -1,49 +1,43 @@
+// src/App.jsx
+
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import MediaReviews from "./components/MediaReviews";
-import Blog from "./components/Blog";
-import Login from "./components/Login";
+import MediaReviews from "./pages/MediaReviews";
+import Blog from "./pages/Blog";
+import Login from "./pages/Login";
 import Footer from "./components/Footer";
+import LoadingSpinner from "./components/LoadingSpinner";
 import "./App.css";
 
-// Protected route component
-const ProtectedRoute = ({ children }) => {
-  const { user, isAdmin } = useAuth();
-  if (!user || !isAdmin) {
-    return <Navigate to="/login" replace />;
+function AppContent() {
+  const { isLoading } = useAuth();
+
+  if (isLoading) {
+    return <LoadingSpinner />;
   }
-  return children;
-};
+
+  return (
+    <div className="App">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/reviews" element={<MediaReviews />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      <Footer />
+    </div>
+  );
+}
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="App">
-          <Header />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <Home />
-                </>
-              }
-            />
-            <Route path="/reviews" element={<MediaReviews />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-          <Footer />
-        </div>
+        <AppContent />
       </Router>
     </AuthProvider>
   );

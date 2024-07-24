@@ -1,0 +1,134 @@
+/* src/components/ReviewPopup/ReviewPopup.module.css */
+
+.reviewPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(43, 42, 40, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.reviewPopupContent {
+  background-color: #31312e;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
+  color: #fff;
+  position: relative;
+}
+
+.closeButton {
+  position: sticky;
+  top: 10px;
+  float: right;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  background-color: #d97757;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.closeButton:hover {
+  background-color: #b85f3d;
+}
+
+.reviewPopupContent::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.reviewPopupImageContainer {
+  width: 200px;
+  height: 300px;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.reviewPopupImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.reviewPopupText {
+  clear: both;
+  padding-top: 10px;
+  width: 100%;
+}
+
+.reviewPopupText h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #d97757;
+}
+
+.reviewPopupText p {
+  margin-bottom: 10px;
+  color: #ccc;
+}
+
+.reviewContent {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.reviewPopupButtons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.reviewPopupButtons button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #d97757;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.reviewPopupButtons button:hover {
+  background-color: #b85f3d;
+}
+
+@media (max-width: 768px) {
+  .reviewPopupContent {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .reviewPopupButtons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .reviewPopupButtons button {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}

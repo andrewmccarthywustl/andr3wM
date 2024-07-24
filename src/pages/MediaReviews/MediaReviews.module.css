@@ -1,0 +1,45 @@
+/* src/pages/MediaReviews/MediaReviews.module.css */
+
+.mediaReviews {
+  padding: 20px;
+  background-color: #2b2a28;
+  min-height: calc(100vh - 120px);
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 120px);
+  font-size: 1.5rem;
+  color: #ff6b6b;
+  text-align: center;
+  padding: 20px;
+}
+
+.reviewSection {
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  color: #d97757;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.reviewList {
+  display: flex;
+  overflow-x: auto;
+  padding: 20px 0;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .mediaReviews {
+    padding: 10px;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+}

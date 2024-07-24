@@ -1,0 +1,91 @@
+/* src/components/ReviewForm/ReviewForm.module.css */
+
+.reviewForm {
+  background-color: #31312e;
+  padding: 30px;
+  border-radius: 8px;
+  margin: 0 auto 30px;
+  color: #fff;
+  max-width: 700px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.formTitle {
+  color: #d97757;
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  color: #d7e8cd;
+  font-weight: bold;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+  background-color: #2b2a28;
+  color: #fff;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #d97757;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submitButton {
+  background-color: #d97757;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  display: block;
+  width: 100%;
+  margin-top: 25px;
+}
+
+.submitButton:hover {
+  background-color: #b85f3d;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .reviewForm {
+    padding: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .formTitle {
+    font-size: 1.2rem;
+  }
+}
