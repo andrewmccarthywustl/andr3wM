@@ -14,7 +14,6 @@ function ReviewPopup({
   currentUser,
 }) {
   useEffect(() => {
-    // Prevent background scrolling when the popup is open
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "unset";
@@ -38,25 +37,27 @@ function ReviewPopup({
           />
         ) : (
           <>
-            <div className={styles.reviewPopupImageContainer}>
-              <img
-                src={review.image_url}
-                alt={review.title}
-                className={styles.reviewPopupImage}
-              />
-            </div>
-            <div className={styles.reviewPopupText}>
-              <h2>{review.title}</h2>
-              {review.media_type === "movie" && review.director && (
-                <p>Director: {review.director}</p>
-              )}
-              {review.media_type === "book" && review.author && (
-                <p>Author: {review.author}</p>
-              )}
-              <p>Rating: {review.rating.toFixed(1)}/10</p>
-              <p>Date: {new Date(review.created_at).toLocaleDateString()}</p>
-              <div className={styles.reviewContent}>
-                <p>{review.review_text}</p>
+            <div className={styles.reviewPopupContentWrapper}>
+              <div className={styles.reviewPopupImageContainer}>
+                <img
+                  src={review.image_url}
+                  alt={review.title}
+                  className={styles.reviewPopupImage}
+                />
+              </div>
+              <div className={styles.reviewPopupText}>
+                <h2>{review.title}</h2>
+                {review.media_type === "movie" && review.director && (
+                  <p>Director: {review.director}</p>
+                )}
+                {review.media_type === "book" && review.author && (
+                  <p>Author: {review.author}</p>
+                )}
+                <p>Rating: {review.rating.toFixed(1)}/10</p>
+                <p>Date: {new Date(review.created_at).toLocaleDateString()}</p>
+                <div className={styles.reviewContent}>
+                  <p>{review.review_text}</p>
+                </div>
               </div>
             </div>
             {currentUser && currentUser.id === review.reviewer && (
