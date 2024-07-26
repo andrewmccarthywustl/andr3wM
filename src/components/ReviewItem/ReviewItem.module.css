@@ -3,10 +3,12 @@
 .reviewItem {
   flex: 0 0 auto;
   width: 200px;
-  margin-right: 20px;
+  margin-left: 20px;
   position: relative;
   cursor: pointer;
   transition: transform 0.3s ease;
+  border-radius: 8px;
+  background-color: #31312e;
 }
 
 .reviewItem:hover {
@@ -16,7 +18,8 @@
 .imageContainer {
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   width: 200px;
   height: 300px;
 }
@@ -50,16 +53,18 @@
 .reviewTitle {
   font-size: 16px;
   font-weight: bold;
-  margin: 10px 0 5px;
+  margin: 10px 10px 5px;
   color: #fff;
 }
 
 .reviewRating {
   font-size: 14px;
   color: #d97757;
+  padding-left: 10px;
 }
 
 .reviewDate {
   font-size: 12px;
   color: #999;
+  padding-left: 10px;
 }
