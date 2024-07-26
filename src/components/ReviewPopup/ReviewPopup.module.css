@@ -58,6 +58,15 @@
   background-color: #b85f3d;
 }
 
+/* iOS-specific styles */
+@supports (-webkit-touch-callout: none) {
+  .closeButton {
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
 .reviewPopupContent::after {
   content: "";
   display: table;
