@@ -137,30 +137,47 @@
 
   .reviewPopupContent {
     padding: 15px;
-    padding-left: 5px;
+    margin: 10px;
+    height: calc(100% - 20px);
+    max-height: none;
+    display: flex;
+    flex-direction: column;
   }
 
   .closeButton {
-    top: 15px;
-    margin-top: -5px;
-    margin-right: -5px;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    margin: 0;
+    z-index: 1002;
   }
 
   .reviewPopupContentWrapper {
     flex-direction: column;
+    overflow-y: auto;
+    flex-grow: 1;
   }
 
   .reviewPopupImageContainer {
-    margin: 0;
+    width: 200px;
+    height: 300px;
+    margin: 0 auto 15px;
+  }
+
+  .reviewPopupText {
+    padding: 15px;
+    overflow-y: visible;
+    border-radius: 5px;
   }
 
   .reviewPopupButtons {
     flex-direction: column;
-    align-items: stretch;
-    margin: 20px;
+    margin-top: 15px;
   }
 
   .reviewPopupButtons button {
-    margin-left: 0px;
+    margin-left: 0;
+    margin-bottom: 10px;
+    width: 100%;
   }
 }
