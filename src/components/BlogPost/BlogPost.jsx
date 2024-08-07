@@ -1,12 +1,20 @@
 // src/components/BlogPost/BlogPost.jsx
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./BlogPost.module.css";
 
-function BlogPost({ post, onEdit, onDelete, currentUser }) {
+function BlogPost({ post, onEdit, onDelete, currentUser, index }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(post.title);
   const [editedContent, setEditedContent] = useState(post.content);
+  const postRef = useRef(null);
+
+  useEffect(() => {
+    const post = postRef.current;
+    if (post) {
+      post.style.animationDelay = `${index * 0.1}s`;
+    }
+  }, [index]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -37,7 +45,7 @@ function BlogPost({ post, onEdit, onDelete, currentUser }) {
   };
 
   return (
-    <div className={styles.blogPost}>
+    <div ref={postRef} className={`${styles.blogPost} ${styles.slideIn}`}>
       {isEditing ? (
         <form className={styles.editForm}>
           <input

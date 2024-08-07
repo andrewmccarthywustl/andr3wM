@@ -1,11 +1,24 @@
 // src/components/ReviewItem/ReviewItem.jsx
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./ReviewItem.module.css";
 
-function ReviewItem({ review, onClick }) {
+function ReviewItem({ review, onClick, index }) {
+  const itemRef = useRef(null);
+
+  useEffect(() => {
+    const item = itemRef.current;
+    if (item) {
+      item.style.animationDelay = `${index * 0.1}s`;
+    }
+  }, [index]);
+
   return (
-    <div className={styles.reviewItem} onClick={onClick}>
+    <div
+      ref={itemRef}
+      className={`${styles.reviewItem} ${styles.slideIn}`}
+      onClick={onClick}
+    >
       <div className={styles.imageContainer}>
         <img
           src={review.image_url}

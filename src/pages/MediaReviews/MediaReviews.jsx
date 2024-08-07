@@ -132,11 +132,12 @@ function MediaReviews() {
             {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} Reviews
           </h2>
           <div className={styles.reviewList}>
-            {reviews[mediaType].map((review) => (
+            {reviews[mediaType].map((review, index) => (
               <ReviewItem
                 key={review.id}
                 review={review}
                 onClick={() => setSelectedReview(review)}
+                index={index}
               />
             ))}
           </div>

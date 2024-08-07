@@ -89,13 +89,14 @@ function Blog() {
         <h2 className={styles.blogTitle}>The Blog</h2>
         {user && <BlogPostForm onSubmit={handleBlogPostSubmit} />}
         <div className={styles.blogPosts}>
-          {blogPosts.map((post) => (
+          {blogPosts.map((post, index) => (
             <BlogPost
               key={post.id}
               post={post}
               onEdit={handleEditSubmit}
               onDelete={handleDeletePost}
               currentUser={user}
+              index={index}
             />
           ))}
         </div>

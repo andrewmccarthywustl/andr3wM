@@ -5,6 +5,19 @@
   margin-bottom: 20px;
   background-color: #31312e;
   border-radius: 8px;
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.slideIn {
+  animation: slideIn 0.5s ease forwards;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .postTitle {
