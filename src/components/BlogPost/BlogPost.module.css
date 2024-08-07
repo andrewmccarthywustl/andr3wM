@@ -52,63 +52,19 @@
 }
 
 .editButton,
-.deleteButton,
-.saveButton,
-.cancelButton {
+.deleteButton {
   padding: 5px 10px;
   margin-right: 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  background-color: #d97757;
+  color: white;
   transition: background-color 0.3s ease;
 }
 
-.editButton {
-  background-color: #d97757;
-  color: white;
-}
-
-.deleteButton {
-  background-color: #d97757;
-  color: white;
-}
-
-.saveButton {
-  background-color: #d97757;
-  color: white;
-}
-
-.cancelButton {
-  background-color: #d97757;
-  color: white;
-}
-
-.editForm {
-  display: flex;
-  flex-direction: column;
-}
-
-.editInput,
-.editTextarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #4a4a4a;
-  border-radius: 4px;
-  font-size: 16px;
-  font-family: inherit;
-  box-sizing: border-box;
-  background-color: #2b2a28;
-  color: #fff;
-}
-
-.editTextarea {
-  height: 200px;
-  resize: vertical;
-}
-
-.editButtons {
-  display: flex;
-  justify-content: flex-end;
+.editButton:hover,
+.deleteButton:hover {
+  background-color: #b85f3d;
 }

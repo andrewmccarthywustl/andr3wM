@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./BlogPost.module.css";
+import EditBlogPostForm from "../EditBlogPostForm";
 
 function BlogPost({ post, onEdit, onDelete, currentUser, index }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedTitle, setEditedTitle] = useState(post.title);
-  const [editedContent, setEditedContent] = useState(post.content);
   const postRef = useRef(null);
 
   useEffect(() => {
@@ -22,53 +21,21 @@ function BlogPost({ post, onEdit, onDelete, currentUser, index }) {
 
   const handleCancelEdit = () => {
     setIsEditing(false);
-    setEditedTitle(post.title);
-    setEditedContent(post.content);
   };
 
-  const handleSaveEdit = () => {
-    onEdit({ ...post, title: editedTitle, content: editedContent });
+  const handleSaveEdit = (editedPost) => {
+    onEdit(editedPost);
     setIsEditing(false);
-  };
-
-  const handleTabKey = (e) => {
-    if (e.key === "Tab") {
-      e.preventDefault();
-      const target = e.target;
-      const start = target.selectionStart;
-      const end = target.selectionEnd;
-
-      target.value =
-        target.value.substring(0, start) + "\t" + target.value.substring(end);
-      target.selectionStart = target.selectionEnd = start + 1;
-    }
   };
 
   return (
     <div ref={postRef} className={`${styles.blogPost} ${styles.slideIn}`}>
       {isEditing ? (
-        <form className={styles.editForm}>
-          <input
-            type="text"
-            value={editedTitle}
-            onChange={(e) => setEditedTitle(e.target.value)}
-            className={styles.editInput}
-          />
-          <textarea
-            value={editedContent}
-            onChange={(e) => setEditedContent(e.target.value)}
-            onKeyDown={handleTabKey}
-            className={styles.editTextarea}
-          />
-          <div className={styles.editButtons}>
-            <button onClick={handleSaveEdit} className={styles.saveButton}>
-              Save Changes
-            </button>
-            <button onClick={handleCancelEdit} className={styles.cancelButton}>
-              Cancel
-            </button>
-          </div>
-        </form>
+        <EditBlogPostForm
+          post={post}
+          onSubmit={handleSaveEdit}
+          onCancel={handleCancelEdit}
+        />
       ) : (
         <>
           <h3 className={styles.postTitle}>{post.title}</h3>
