@@ -1,3 +1,5 @@
+// src/services/api.js
+
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -19,42 +21,74 @@ export const api = {
       .select("*")
       .order("created_at", { ascending: false });
     if (error) throw error;
-    return data;
+    console.log("Raw blog posts from database:", data);
+    const parsedPosts = data.map((post) => ({
+      ...post,
+      content: JSON.parse(post.content),
+    }));
+    console.log("Parsed blog posts:", parsedPosts);
+    return parsedPosts;
   },
 
   addBlogPost: async (blogPost) => {
     const { data: userData, error: userError } = await supabase.auth.getUser();
     if (userError) throw userError;
 
+    console.log("Adding blog post with content:", blogPost.content);
+
     const { data, error } = await supabase
       .from("blog_posts")
       .insert([
         {
           title: blogPost.title,
-          content: blogPost.content,
+          content: JSON.stringify(blogPost.content),
           author: userData.user.id,
-          created_at: new Date().toISOString(),
         },
       ])
       .select();
 
-    if (error) throw error;
-    return data[0];
+    if (error) {
+      console.error("Error adding blog post:", error);
+      throw error;
+    }
+
+    console.log("Added blog post:", data[0]);
+    return {
+      ...data[0],
+      content: JSON.parse(data[0].content),
+    };
   },
 
   updateBlogPost: async (id, updatedPost) => {
+    console.log("Updating blog post:", id, updatedPost);
     const { data, error } = await supabase
       .from("blog_posts")
-      .update(updatedPost)
+      .update({
+        title: updatedPost.title,
+        content: JSON.stringify(updatedPost.content),
+        updated_at: new Date().toISOString(),
+      })
       .eq("id", id)
       .select();
-    if (error) throw error;
-    return data[0];
+    if (error) {
+      console.error("Error updating blog post:", error);
+      throw error;
+    }
+    console.log("Updated blog post:", data[0]);
+    return {
+      ...data[0],
+      content: JSON.parse(data[0].content),
+    };
   },
 
   deleteBlogPost: async (id) => {
+    console.log("Deleting blog post:", id);
     const { error } = await supabase.from("blog_posts").delete().eq("id", id);
-    if (error) throw error;
+    if (error) {
+      console.error("Error deleting blog post:", error);
+      throw error;
+    }
+    console.log("Blog post deleted successfully");
     return { message: "Blog post deleted successfully" };
   },
 

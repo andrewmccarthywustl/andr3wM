@@ -1,17 +1,15 @@
-// src/components/BlogPost/BlogPost.jsx
-
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./BlogPost.module.css";
-import EditBlogPostForm from "../EditBlogPostForm";
+import RichBlogPostEditor from "../RichBlogPostEditor/RichBlogPostEditor";
 
 function BlogPost({ post, onEdit, onDelete, currentUser, index }) {
   const [isEditing, setIsEditing] = useState(false);
   const postRef = useRef(null);
 
   useEffect(() => {
-    const post = postRef.current;
-    if (post) {
-      post.style.animationDelay = `${index * 0.1}s`;
+    const postElement = postRef.current;
+    if (postElement) {
+      postElement.style.animationDelay = `${index * 0.1}s`;
     }
   }, [index]);
 
@@ -24,16 +22,62 @@ function BlogPost({ post, onEdit, onDelete, currentUser, index }) {
   };
 
   const handleSaveEdit = (editedPost) => {
-    onEdit(editedPost);
+    onEdit({ ...post, ...editedPost });
     setIsEditing(false);
+  };
+
+  const renderContent = () => {
+    if (!post.content) {
+      console.error("Post content is undefined:", post);
+      return <p>Error: Content not available</p>;
+    }
+
+    const { text, images } = post.content;
+    const paragraphs = (text || "").split("\n");
+    const content = [];
+    let imageIndex = 0;
+
+    paragraphs.forEach((paragraph, index) => {
+      if (paragraph.trim() !== "") {
+        if (images && images[imageIndex]) {
+          content.push(
+            <div key={`content${index}`} className={styles.contentWrapper}>
+              <img
+                src={images[imageIndex]}
+                alt={`Blog image ${imageIndex + 1}`}
+                className={styles.inlineImage}
+              />
+              <p>{paragraph}</p>
+            </div>
+          );
+          imageIndex++;
+        } else {
+          content.push(<p key={`p${index}`}>{paragraph}</p>);
+        }
+      }
+    });
+
+    // Add any remaining images
+    for (let i = imageIndex; i < (images?.length || 0); i++) {
+      content.push(
+        <img
+          key={`img${i}`}
+          src={images[i]}
+          alt={`Blog image ${i + 1}`}
+          className={styles.inlineImage}
+        />
+      );
+    }
+
+    return content;
   };
 
   return (
     <div ref={postRef} className={`${styles.blogPost} ${styles.slideIn}`}>
       {isEditing ? (
-        <EditBlogPostForm
-          post={post}
-          onSubmit={handleSaveEdit}
+        <RichBlogPostEditor
+          initialContent={{ title: post.title, ...post.content }}
+          onSave={handleSaveEdit}
           onCancel={handleCancelEdit}
         />
       ) : (
@@ -42,7 +86,7 @@ function BlogPost({ post, onEdit, onDelete, currentUser, index }) {
           <p className={styles.postMeta}>
             {new Date(post.created_at).toLocaleDateString()}
           </p>
-          <div className={styles.postContent}>{post.content}</div>
+          <div className={styles.postContent}>{renderContent()}</div>
           {currentUser &&
             (currentUser.id === post.author || currentUser.isAdmin) && (
               <div className={styles.postActions}>

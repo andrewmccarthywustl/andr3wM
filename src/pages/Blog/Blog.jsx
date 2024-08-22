@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { api } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
-import BlogPostForm from "../../components/BlogPostForm";
-import BlogPost from "../../components/BlogPost";
-import DeleteConfirmation from "../../components/DeleteConfirmation";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import RichBlogPostEditor from "../../components/RichBlogPostEditor/RichBlogPostEditor";
+import BlogPost from "../../components/BlogPost/BlogPost";
+import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import styles from "./Blog.module.css";
 
 function Blog() {
@@ -14,6 +14,7 @@ function Blog() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [deleteConfirmation, setDeleteConfirmation] = useState(null);
+  const [isAddingPost, setIsAddingPost] = useState(false);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -24,6 +25,7 @@ function Blog() {
     try {
       setIsLoading(true);
       const data = await api.getBlogPosts();
+      console.log("Fetched blog posts:", data);
       setBlogPosts(data);
     } catch (error) {
       console.error("Error fetching blog posts:", error);
@@ -36,8 +38,11 @@ function Blog() {
   const handleBlogPostSubmit = async (newBlogPost) => {
     try {
       setError(null);
+      console.log("Submitting new blog post:", newBlogPost);
       const addedPost = await api.addBlogPost(newBlogPost);
+      console.log("Received added post from API:", addedPost);
       setBlogPosts([addedPost, ...blogPosts]);
+      setIsAddingPost(false);
     } catch (error) {
       console.error("Error adding blog post:", error);
       setError(error.message || "Failed to add blog post. Please try again.");
@@ -46,15 +51,15 @@ function Blog() {
 
   const handleEditSubmit = async (updatedPost) => {
     try {
+      console.log("Submitting edited post:", updatedPost);
       const editedPost = await api.updateBlogPost(updatedPost.id, updatedPost);
+      console.log("Received edited post from API:", editedPost);
       setBlogPosts(
         blogPosts.map((post) => (post.id === editedPost.id ? editedPost : post))
       );
     } catch (error) {
       console.error("Error updating blog post:", error);
-      setError(
-        error.message || "Failed to update blog post. Please try again."
-      );
+      setError("Failed to update blog post. Please try again.");
     }
   };
 
@@ -87,7 +92,20 @@ function Blog() {
     <div className={styles.blogContainer}>
       <div className={styles.blogContent}>
         <h1 className={styles.blogTitle}>The Blog</h1>
-        {user && <BlogPostForm onSubmit={handleBlogPostSubmit} />}
+        {user && !isAddingPost && (
+          <button
+            onClick={() => setIsAddingPost(true)}
+            className={styles.addPostButton}
+          >
+            Add Blog Post
+          </button>
+        )}
+        {isAddingPost && (
+          <RichBlogPostEditor
+            onSave={handleBlogPostSubmit}
+            onCancel={() => setIsAddingPost(false)}
+          />
+        )}
         <div className={styles.blogPosts}>
           {blogPosts.map((post, index) => (
             <BlogPost

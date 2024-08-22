@@ -37,6 +37,22 @@
   margin-top: 2rem;
 }
 
+.addPostButton {
+  background-color: var(--accent-orange);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.addPostButton:hover {
+  background-color: var(--hover-orange);
+}
+
 @keyframes fadeInDown {
   from {
     opacity: 0;

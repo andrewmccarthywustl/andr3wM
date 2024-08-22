@@ -1,49 +1,51 @@
-/* src/components/BlogPost/BlogPost.module.css */
-
 .blogPost {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #31312e;
   border-radius: 8px;
   padding: 1.5rem;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s ease-out;
-}
-
-.slideIn {
-  animation: slideIn 0.5s ease forwards;
-}
-
-@keyframes slideIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .postTitle {
-  font-size: 1.5rem;
-  color: var(--pale-green);
+  font-size: 1.8rem;
+  color: #d97757;
   margin-bottom: 0.5rem;
 }
 
 .postMeta {
   font-size: 0.9rem;
-  color: var(--accent-orange);
+  color: #a0a0a0;
   margin-bottom: 1rem;
 }
 
 .postContent {
-  font-size: 1rem;
+  color: #fff;
   line-height: 1.6;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+}
+
+.contentWrapper {
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.inlineImage {
+  float: right;
+  max-width: 40%;
+  height: auto;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.1rem;
+  border-radius: 4px;
+}
+
+.postContent p {
+  margin-bottom: 1rem;
 }
 
 .postActions {
-  margin-top: 1rem;
   display: flex;
   gap: 1rem;
+  margin-top: 1rem;
 }
 
 .editButton,
@@ -57,19 +59,43 @@
 }
 
 .editButton {
-  background-color: var(--accent-orange);
-  color: var(--text-color);
+  background-color: #4a90e2;
+  color: white;
 }
 
 .editButton:hover {
-  background-color: var(--hover-orange);
+  background-color: #3a7bc8;
 }
 
 .deleteButton {
-  background-color: #e63946;
-  color: var(--text-color);
+  background-color: #e74c3c;
+  color: white;
 }
 
 .deleteButton:hover {
-  background-color: #d00000;
+  background-color: #c0392b;
+}
+
+.slideIn {
+  animation: slideInAnimation 0.5s ease-out;
+}
+
+@keyframes slideInAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .inlineImage {
+    float: none;
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
 }
