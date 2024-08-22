@@ -3,19 +3,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./ReviewItem.module.css";
 
-function ReviewItem({ review, onClick, index }) {
+function ReviewItem({ review, onClick, index, animate }) {
   const itemRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const item = itemRef.current;
-    if (item) {
+    if (item && animate) {
       // Trigger the slide-in effect after a short delay
       setTimeout(() => {
         setIsVisible(true);
       }, index * 100);
+    } else {
+      setIsVisible(false);
     }
-  }, [index]);
+  }, [index, animate]);
 
   return (
     <div

@@ -8,6 +8,7 @@ import ReviewForm from "../../components/ReviewForm";
 import ReviewPopup from "../../components/ReviewPopup/ReviewPopup";
 import DeleteConfirmation from "../../components/DeleteConfirmation";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import SortDropdown from "../../components/SortDropdown";
 import styles from "./MediaReviews.module.css";
 
 function MediaReviews() {
@@ -21,11 +22,35 @@ function MediaReviews() {
   const [selectedReview, setSelectedReview] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(null);
+  const [animateItems, setAnimateItems] = useState({
+    [MediaType.MOVIE]: false,
+    [MediaType.SHOW]: false,
+    [MediaType.BOOK]: false,
+  });
   const { user } = useAuth();
+
+  const defaultSortOptions = {
+    [MediaType.MOVIE]: { key: "created_at", order: "desc" },
+    [MediaType.SHOW]: { key: "created_at", order: "desc" },
+    [MediaType.BOOK]: { key: "created_at", order: "desc" },
+  };
+
+  const [sortOptions, setSortOptions] = useState(defaultSortOptions);
 
   useEffect(() => {
     fetchReviews();
   }, []);
+
+  useEffect(() => {
+    const sortedReviews = {};
+    Object.keys(reviews).forEach((mediaType) => {
+      sortedReviews[mediaType] = sortReviews(
+        reviews[mediaType],
+        sortOptions[mediaType]
+      );
+    });
+    setReviews(sortedReviews);
+  }, [sortOptions]);
 
   const fetchReviews = async () => {
     try {
@@ -43,6 +68,11 @@ function MediaReviews() {
         ),
       };
       setReviews(categorizedReviews);
+      setAnimateItems({
+        [MediaType.MOVIE]: true,
+        [MediaType.SHOW]: true,
+        [MediaType.BOOK]: true,
+      });
     } catch (error) {
       console.error("Error fetching reviews:", error);
       setError("Failed to load reviews. Please try again later.");
@@ -120,6 +150,42 @@ function MediaReviews() {
     setDeleteConfirmation(null);
   };
 
+  const handleSort = (mediaType, key, order) => {
+    setSortOptions((prevOptions) => ({
+      ...prevOptions,
+      [mediaType]: { key, order },
+    }));
+    setAnimateItems((prevState) => ({
+      ...prevState,
+      [mediaType]: false,
+    }));
+    setTimeout(() => {
+      setAnimateItems((prevState) => ({
+        ...prevState,
+        [mediaType]: true,
+      }));
+    }, 50);
+  };
+
+  const sortReviews = (reviewsToSort, sortOption) => {
+    return [...reviewsToSort].sort((a, b) => {
+      if (sortOption.key === "title") {
+        return sortOption.order === "asc"
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
+      } else if (sortOption.key === "created_at") {
+        return sortOption.order === "asc"
+          ? new Date(a.created_at) - new Date(b.created_at)
+          : new Date(b.created_at) - new Date(a.created_at);
+      } else if (sortOption.key === "rating") {
+        return sortOption.order === "asc"
+          ? a.rating - b.rating
+          : b.rating - a.rating;
+      }
+      return 0;
+    });
+  };
+
   if (isLoading) return <LoadingSpinner />;
   if (error) return <div className={styles.error}>{error}</div>;
 
@@ -128,9 +194,17 @@ function MediaReviews() {
       {user && <ReviewForm onSubmit={handleReviewSubmit} />}
       {[MediaType.MOVIE, MediaType.SHOW, MediaType.BOOK].map((mediaType) => (
         <section key={mediaType} className={styles.reviewSection}>
-          <h2 className={styles.sectionTitle}>
-            {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} Reviews
-          </h2>
+          <div className={styles.sectionHeader}>
+            <div className={styles.titleContainer}>
+              <h2 className={styles.sectionTitle}>
+                {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} Reviews
+              </h2>
+              <SortDropdown
+                onSort={(key, order) => handleSort(mediaType, key, order)}
+                currentSort={sortOptions[mediaType]}
+              />
+            </div>
+          </div>
           <div className={styles.reviewList}>
             {reviews[mediaType].map((review, index) => (
               <ReviewItem
@@ -138,6 +212,7 @@ function MediaReviews() {
                 review={review}
                 onClick={() => setSelectedReview(review)}
                 index={index}
+                animate={animateItems[mediaType]}
               />
             ))}
           </div>

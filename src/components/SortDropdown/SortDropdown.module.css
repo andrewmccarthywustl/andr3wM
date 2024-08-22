@@ -1,0 +1,116 @@
+/* src/components/SortDropdown/SortDropdown.module.css */
+
+.sortDropdownContainer {
+  display: inline-flex;
+  align-items: stretch;
+  position: relative;
+}
+
+.sortButton,
+.orderButton {
+  background-color: #d97757;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.sortButton {
+  border-radius: 4px 0 0 4px;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.orderButton {
+  border-radius: 0 4px 4px 0;
+  padding: 10px 10px;
+}
+
+.sortButton:hover,
+.orderButton:hover {
+  background-color: #b85f3d;
+}
+
+.sortButton:focus,
+.orderButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(217, 119, 87, 0.5);
+}
+
+.sortDropdownContainer > * {
+  margin: 0;
+}
+
+.dropdownContent {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #31312e;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1000;
+  margin-top: 4px;
+}
+
+.dropdownContent button {
+  color: #fff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  gap: 8px;
+}
+
+.dropdownContent button:hover {
+  background-color: #3e3e3a;
+}
+
+/* Icon styles */
+.sortButton svg,
+.orderButton svg,
+.dropdownContent button svg {
+  font-size: 18px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .sortDropdownContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sortButton,
+  .orderButton {
+    border-radius: 4px;
+  }
+
+  .sortButton {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dropdownContent {
+    width: 100%;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .sortButton,
+  .orderButton,
+  .dropdownContent button {
+    transition: none;
+  }
+}

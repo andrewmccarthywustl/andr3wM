@@ -21,11 +21,21 @@
   margin-bottom: 40px;
 }
 
+.sectionHeader {
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+}
+
 .sectionTitle {
   color: #d97757;
   font-size: 2rem;
-  margin-bottom: 20px;
-  margin-left: 20px;
+  margin-right: 15px;
 }
 
 .reviewList {
@@ -42,5 +52,14 @@
 
   .sectionTitle {
     font-size: 1.5rem;
+  }
+
+  .titleContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sectionTitle {
+    margin-bottom: 10px;
   }
 }
