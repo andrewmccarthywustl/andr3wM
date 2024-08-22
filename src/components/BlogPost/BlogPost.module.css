@@ -1,12 +1,12 @@
 /* src/components/BlogPost/BlogPost.module.css */
 
 .blogPost {
-  padding: 20px;
-  margin-bottom: 20px;
-  background-color: #31312e;
+  background-color: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
+  padding: 1.5rem;
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(20px);
+  transition: all 0.3s ease-out;
 }
 
 .slideIn {
@@ -21,50 +21,55 @@
 }
 
 .postTitle {
-  font-size: 1.8em;
-  color: #d7e8cd;
-  margin-bottom: 10px;
-  font-weight: bold;
-  font-family: "Times New Roman", Times, serif;
+  font-size: 1.5rem;
+  color: var(--pale-green);
+  margin-bottom: 0.5rem;
+}
+
+.postMeta {
+  font-size: 0.9rem;
+  color: var(--accent-orange);
+  margin-bottom: 1rem;
 }
 
 .postContent {
-  color: #fff;
-  font-family: inherit;
+  font-size: 1rem;
   line-height: 1.6;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-.postMeta {
-  font-size: 0.9em;
-  color: #ccc;
-  margin-top: 10px;
-}
-
-.postDate {
-  margin-right: 15px;
-}
-
 .postActions {
-  margin-top: 15px;
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .editButton,
 .deleteButton {
-  padding: 5px 10px;
-  margin-right: 10px;
+  padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
-  background-color: #d97757;
-  color: white;
+  font-size: 0.9rem;
   transition: background-color 0.3s ease;
 }
 
-.editButton:hover,
+.editButton {
+  background-color: var(--accent-orange);
+  color: var(--text-color);
+}
+
+.editButton:hover {
+  background-color: var(--hover-orange);
+}
+
+.deleteButton {
+  background-color: #e63946;
+  color: var(--text-color);
+}
+
 .deleteButton:hover {
-  background-color: #b85f3d;
+  background-color: #d00000;
 }

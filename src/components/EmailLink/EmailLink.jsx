@@ -7,10 +7,8 @@ import styles from "./EmailLink.module.css";
 function EmailLink({ email }) {
   return (
     <a href={`mailto:${email}`} className={styles.emailLink}>
-      <div className={styles.emailContent}>
-        <FaEnvelope className={styles.emailIcon} />
-        <span className={styles.emailAddress}>{email}</span>
-      </div>
+      <FaEnvelope className={styles.emailIcon} />
+      <span className={styles.emailAddress}>{email}</span>
     </a>
   );
 }

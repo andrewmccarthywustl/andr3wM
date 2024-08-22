@@ -54,17 +54,17 @@ function Footer() {
             <FaInstagram />
           </a>
         </div>
-        <div className={styles.adminLink}>
-          {user ? (
-            <button onClick={handleLogout} className={styles.logoutButton}>
-              Logout
-            </button>
-          ) : (
-            <Link to="/login" className={styles.loginLink}>
-              Admin
-            </Link>
-          )}
-        </div>
+      </div>
+      <div className={styles.adminLink}>
+        {user ? (
+          <button onClick={handleLogout} className={styles.logoutButton}>
+            Logout
+          </button>
+        ) : (
+          <Link to="/login" className={styles.loginLink}>
+            Admin
+          </Link>
+        )}
       </div>
     </footer>
   );

@@ -1,21 +1,19 @@
 /* src/App.css */
 
 :root {
-  --primary-bg: #31312e;
-  --secondary-bg: #31312e;
-  --primary-text: #000000;
-  --secondary-text: #000000;
-  --accent-color: gray;
-  --accent-color-dark: gray;
-  --border-color: white;
+  --dark-bg: #31312e;
+  --text-color: #ffffff;
+  --pale-green: #d7e8cd;
+  --accent-orange: #d97757;
+  --hover-orange: #b85f3d;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: var(--primary-bg);
-  color: var(--primary-text);
+  font-family: "Roboto", sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
   line-height: 1.6;
 }
 

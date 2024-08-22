@@ -195,10 +195,10 @@ function MediaReviews() {
       {[MediaType.MOVIE, MediaType.SHOW, MediaType.BOOK].map((mediaType) => (
         <section key={mediaType} className={styles.reviewSection}>
           <div className={styles.sectionHeader}>
-            <div className={styles.titleContainer}>
-              <h2 className={styles.sectionTitle}>
-                {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} Reviews
-              </h2>
+            <h2 className={styles.sectionTitle}>
+              {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} Reviews
+            </h2>
+            <div className={styles.sortContainer}>
               <SortDropdown
                 onSort={(key, order) => handleSort(mediaType, key, order)}
                 currentSort={sortOptions[mediaType]}

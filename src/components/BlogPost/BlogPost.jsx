@@ -38,24 +38,22 @@ function BlogPost({ post, onEdit, onDelete, currentUser, index }) {
         />
       ) : (
         <>
-          <h3 className={styles.postTitle}>{post.title}</h3>
-          <pre className={styles.postContent}>{post.content}</pre>
+          <h2 className={styles.postTitle}>{post.title}</h2>
           <p className={styles.postMeta}>
-            <span className={styles.postDate}>
-              {new Date(post.created_at).toLocaleDateString()}
-            </span>
+            {new Date(post.created_at).toLocaleDateString()}
           </p>
+          <div className={styles.postContent}>{post.content}</div>
           {currentUser &&
             (currentUser.id === post.author || currentUser.isAdmin) && (
               <div className={styles.postActions}>
                 <button onClick={handleEdit} className={styles.editButton}>
-                  Edit Post
+                  Edit
                 </button>
                 <button
                   onClick={() => onDelete(post.id)}
                   className={styles.deleteButton}
                 >
-                  Delete Post
+                  Delete
                 </button>
               </div>
             )}

@@ -1,36 +1,41 @@
-// src/components/Header.jsx
+// src/components/Header/Header.jsx
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./Header.module.css";
 
 function Header() {
-  // Access user and isAdmin from AuthContext
   const { user, isAdmin } = useAuth();
+  const location = useLocation();
+
+  const navItems = [
+    { path: "/", label: "Home" },
+    { path: "/reviews", label: "Reviews" },
+    { path: "/blog", label: "Blog" },
+  ];
+
+  if (user && isAdmin) {
+    navItems.push({ path: "/admin", label: "Admin" });
+  }
 
   return (
     <header className={styles.header}>
-      <nav className={styles.nav}>
-        <div className={styles.navLinks}>
-          {/* Navigation links */}
-          <Link to="/" className={styles.navLink}>
-            Home
-          </Link>
-          <Link to="/reviews" className={styles.navLink}>
-            Reviews
-          </Link>
-          <Link to="/blog" className={styles.navLink}>
-            Blog
-          </Link>
-          {/* Conditional rendering for admin link */}
-          {user && isAdmin && (
-            <Link to="/admin" className={styles.navLink}>
-              Admin
+      <div className={styles.headerContent}>
+        <nav className={styles.nav}>
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`${styles.navLink} ${
+                location.pathname === item.path ? styles.active : ""
+              }`}
+            >
+              {item.label}
             </Link>
-          )}
-        </div>
-      </nav>
+          ))}
+        </nav>
+      </div>
     </header>
   );
 }

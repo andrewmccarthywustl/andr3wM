@@ -10,7 +10,6 @@ function ReviewItem({ review, onClick, index, animate }) {
   useEffect(() => {
     const item = itemRef.current;
     if (item && animate) {
-      // Trigger the slide-in effect after a short delay
       setTimeout(() => {
         setIsVisible(true);
       }, index * 100);

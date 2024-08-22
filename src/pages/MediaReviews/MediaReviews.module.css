@@ -1,65 +1,61 @@
 /* src/pages/MediaReviews/MediaReviews.module.css */
 
 .mediaReviews {
-  padding: 20px;
-  background-color: #2b2a28;
-  min-height: calc(100vh - 120px);
-}
-
-.error {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 120px);
-  font-size: 1.5rem;
-  color: #ff6b6b;
-  text-align: center;
-  padding: 20px;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  font-family: "Roboto", sans-serif;
+  min-height: calc(100vh - 60px);
+  padding: 2rem 1rem;
 }
 
 .reviewSection {
-  margin-bottom: 40px;
+  margin-bottom: 3rem;
 }
 
 .sectionHeader {
-  margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-.titleContainer {
   display: flex;
   align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .sectionTitle {
-  color: #d97757;
+  color: var(--pale-green);
   font-size: 2rem;
-  margin-right: 15px;
+  margin: 0;
+  margin-right: 1rem;
+}
+
+.sortContainer {
+  display: flex;
+  align-items: center;
 }
 
 .reviewList {
   display: flex;
   overflow-x: auto;
-  padding: 20px 0;
-  gap: 20px;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
 }
+
+/* ... (other styles remain the same) */
 
 @media (max-width: 768px) {
   .mediaReviews {
-    padding: 10px;
+    padding: 1rem;
   }
 
-  .sectionTitle {
-    font-size: 1.5rem;
-  }
-
-  .titleContainer {
+  .sectionHeader {
     flex-direction: column;
     align-items: flex-start;
   }
 
   .sectionTitle {
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .sortContainer {
+    width: 100%;
   }
 }

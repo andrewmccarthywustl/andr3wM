@@ -1,80 +1,79 @@
 /* src/components/Footer/Footer.module.css */
 
 .footer {
-  width: 100%;
-  background-color: #31312e;
+  background-color: var(--dark-bg);
   padding: 1rem 0;
-  border-top: 5px solid #d7e8cd;
+  position: relative;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .footerContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .socialIcons {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .socialLink {
-  color: #d97757;
-  font-size: 30px;
+  color: var(--accent-orange);
+  font-size: 2rem;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  position: relative;
   transition: color 0.3s ease;
 }
 
 .socialLink:hover {
-  color: #b85f3d;
+  color: var(--hover-orange);
 }
 
 .adminLink {
-  display: flex;
-  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 
 .loginLink,
 .logoutButton {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 14px;
-  font-weight: normal;
-  color: #999999;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-color);
   text-decoration: none;
   background: none;
   border: none;
   cursor: pointer;
   transition: color 0.3s ease;
+  opacity: 0.2;
 }
 
 .loginLink:hover,
 .logoutButton:hover {
-  color: #b3b3b3;
+  color: var(--pale-green);
+  opacity: 1;
 }
 
 @media (max-width: 768px) {
   .footerContent {
-    flex-direction: column;
-    gap: 1rem;
+    padding: 0 1rem;
   }
 
   .socialIcons {
-    order: 1;
-  }
-
-  .adminLink {
-    order: 2;
-    margin-top: 0.5rem;
+    gap: 1.5rem;
   }
 
   .socialLink {
-    font-size: 24px;
+    font-size: 1.75rem;
   }
 
   .loginLink,
   .logoutButton {
-    font-size: 12px;
+    font-size: 0.7rem;
   }
 }

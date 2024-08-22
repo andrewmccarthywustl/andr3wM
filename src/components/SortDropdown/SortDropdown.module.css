@@ -1,14 +1,16 @@
 /* src/components/SortDropdown/SortDropdown.module.css */
 
 .sortDropdownContainer {
-  display: inline-flex;
+  display: flex;
   align-items: stretch;
   position: relative;
+  width: 100%;
+  max-width: 300px;
 }
 
 .sortButton,
 .orderButton {
-  background-color: #d97757;
+  background-color: var(--accent-orange);
   color: white;
   border: none;
   padding: 10px 15px;
@@ -16,18 +18,19 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   transition: background-color 0.3s ease;
 }
 
 .sortButton {
+  flex-grow: 1;
   border-radius: 4px 0 0 4px;
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .orderButton {
   border-radius: 0 4px 4px 0;
-  padding: 10px 10px;
+  padding: 10px;
 }
 
 .sortButton:hover,
@@ -87,22 +90,13 @@
 /* Responsive styles */
 @media (max-width: 768px) {
   .sortDropdownContainer {
-    flex-direction: column;
-    align-items: stretch;
+    max-width: none;
   }
 
   .sortButton,
   .orderButton {
-    border-radius: 4px;
-  }
-
-  .sortButton {
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .dropdownContent {
-    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
   }
 }
 

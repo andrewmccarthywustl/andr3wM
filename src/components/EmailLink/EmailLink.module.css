@@ -1,30 +1,25 @@
 /* src/components/EmailLink/EmailLink.module.css */
 
 .emailLink {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--accent-orange);
+  color: var(--text-color);
   text-decoration: none;
-  background-color: #31312e;
-  border-radius: 8px;
-  padding: 12px 20px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
   transition: background-color 0.3s ease;
 }
 
 .emailLink:hover {
-  background-color: #3e3e3a;
-}
-
-.emailContent {
-  display: flex;
-  align-items: center;
+  background-color: var(--hover-orange);
 }
 
 .emailIcon {
-  color: #d97757;
-  font-size: 24px;
-  margin-right: 12px;
+  margin-right: 0.5rem;
 }
 
 .emailAddress {
-  color: #ffffff;
-  font-size: 16px;
+  font-weight: 500;
 }

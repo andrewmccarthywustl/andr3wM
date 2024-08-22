@@ -86,7 +86,7 @@ function Blog() {
   return (
     <div className={styles.blogContainer}>
       <div className={styles.blogContent}>
-        <h2 className={styles.blogTitle}>The Blog</h2>
+        <h1 className={styles.blogTitle}>The Blog</h1>
         {user && <BlogPostForm onSubmit={handleBlogPostSubmit} />}
         <div className={styles.blogPosts}>
           {blogPosts.map((post, index) => (
