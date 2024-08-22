@@ -178,6 +178,10 @@
     font-size: 1.5rem;
   }
 
+  .reviewPopupText {
+    font-size: 0.8rem;
+  }
+
   .reviewPopupActions {
     flex-direction: column;
   }
