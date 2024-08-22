@@ -34,10 +34,12 @@ function Login() {
     <div className={styles.loginPage}>
       <div className={styles.loginContainer}>
         <form onSubmit={handleLogin} className={styles.loginForm}>
-          <h2 className={styles.loginTitle}>Log In</h2>
+          <h2 className={styles.loginTitle}>
+            Get these two right and I'll let you in:
+          </h2>
           <div className={styles.inputGroup}>
             <label htmlFor="email" className={styles.label}>
-              Email
+              What is the meaning of life?
             </label>
             <input
               id="email"
@@ -50,7 +52,7 @@ function Login() {
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="password" className={styles.label}>
-              Password
+              Prove the Riemann Hypothesis:
             </label>
             <input
               id="password"
@@ -62,7 +64,7 @@ function Login() {
             />
           </div>
           <button type="submit" className={styles.loginButton}>
-            Log In
+            Submit
           </button>
           {error && <p className={styles.error}>{error}</p>}
         </form>
