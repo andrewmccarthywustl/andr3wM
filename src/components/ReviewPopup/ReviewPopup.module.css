@@ -158,7 +158,7 @@
   background-color: #d00000;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .reviewPopupHeader {
     flex-direction: column;
   }
