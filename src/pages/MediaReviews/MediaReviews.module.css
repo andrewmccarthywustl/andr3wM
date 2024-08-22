@@ -34,11 +34,10 @@
 .reviewList {
   display: flex;
   overflow-x: auto;
+  overflow-y: hidden;
   gap: 1.5rem;
   padding: 0.5rem 0;
 }
-
-/* ... (other styles remain the same) */
 
 @media (max-width: 768px) {
   .mediaReviews {

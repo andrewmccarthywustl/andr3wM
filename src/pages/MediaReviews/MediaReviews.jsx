@@ -171,8 +171,8 @@ function MediaReviews() {
     return [...reviewsToSort].sort((a, b) => {
       if (sortOption.key === "title") {
         return sortOption.order === "asc"
-          ? a.title.localeCompare(b.title)
-          : b.title.localeCompare(a.title);
+          ? b.title.localeCompare(a.title)
+          : a.title.localeCompare(b.title);
       } else if (sortOption.key === "created_at") {
         return sortOption.order === "asc"
           ? new Date(a.created_at) - new Date(b.created_at)

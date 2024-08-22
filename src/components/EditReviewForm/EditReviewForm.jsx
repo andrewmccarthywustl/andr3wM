@@ -46,18 +46,20 @@ function EditReviewForm({ review, onSubmit, onCancel }) {
         <label htmlFor="media_type" className={styles.label}>
           Media Type
         </label>
-        <select
-          id="media_type"
-          name="media_type"
-          value={editedReview.media_type}
-          onChange={handleChange}
-          className={styles.select}
-          required
-        >
-          <option value={MediaType.MOVIE}>Movie</option>
-          <option value={MediaType.SHOW}>TV Show</option>
-          <option value={MediaType.BOOK}>Book</option>
-        </select>
+        <div className={styles.selectWrapper}>
+          <select
+            id="media_type"
+            name="media_type"
+            value={editedReview.media_type}
+            onChange={handleChange}
+            className={styles.select}
+            required
+          >
+            <option value={MediaType.MOVIE}>Movie</option>
+            <option value={MediaType.SHOW}>TV Show</option>
+            <option value={MediaType.BOOK}>Book</option>
+          </select>
+        </div>
       </div>
 
       {editedReview.media_type === MediaType.MOVIE && (

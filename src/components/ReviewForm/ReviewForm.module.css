@@ -43,6 +43,7 @@
   appearance: none; /* Removes default browser styling */
   -webkit-appearance: none;
   -moz-appearance: none;
+  font-family: inherit;
 }
 
 .select {
