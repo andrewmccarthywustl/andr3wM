@@ -100,9 +100,8 @@
 }
 
 .reviewPopupDetail,
-.reviewPopupRating,
-.reviewPopupDate {
-  font-size: 1rem;
+.reviewPopupRating {
+  font-size: 1.2rem;
   color: var(--text-color);
   margin-bottom: 5px;
 }
@@ -116,7 +115,8 @@
   margin-top: 20px;
 }
 
-.reviewPopupText {
+.reviewPopupText,
+.reviewPopupDate {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--text-color);
@@ -177,9 +177,13 @@
   .reviewPopupTitle {
     font-size: 1.5rem;
   }
-
-  .reviewPopupText {
-    font-size: 0.8rem;
+  .reviewPopupDetail,
+  .reviewPopupRating {
+    font-size: 1rem;
+  }
+  .reviewPopupText,
+  .reviewPopupDate {
+    font-size: 0.9rem;
   }
 
   .reviewPopupActions {
