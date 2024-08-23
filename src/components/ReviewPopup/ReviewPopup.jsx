@@ -1,8 +1,9 @@
 // src/components/ReviewPopup/ReviewPopup.jsx
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import EditReviewForm from "../EditReviewForm";
 import styles from "./ReviewPopup.module.css";
+import { IoChevronBack } from "react-icons/io5";
 
 function ReviewPopup({
   review,
@@ -12,21 +13,57 @@ function ReviewPopup({
   isEditing,
   setIsEditing,
   currentUser,
+  isOpen,
+  isMobile,
 }) {
+  const popupRef = useRef(null);
+  const startX = useRef(null);
+
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    if (isOpen && isMobile) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, []);
+  }, [isOpen, isMobile]);
+
+  const handleTouchStart = (e) => {
+    startX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!startX.current) return;
+
+    const currentX = e.touches[0].clientX;
+    const diff = startX.current - currentX;
+
+    if (diff > 50) {
+      // Swiped left
+      onClose();
+    }
+  };
+
+  const handleTouchEnd = () => {
+    startX.current = null;
+  };
 
   return (
-    <div className={styles.reviewPopup} onClick={onClose}>
-      <div
-        className={styles.reviewPopupContent}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button className={styles.closeButton} onClick={onClose}></button>
+    <div
+      className={`${styles.reviewPopup} ${isOpen ? styles.open : ""} ${
+        isMobile ? styles.mobile : ""
+      }`}
+      ref={popupRef}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      <div className={styles.reviewPopupContent}>
+        <button className={styles.backButton} onClick={onClose}>
+          <IoChevronBack />
+        </button>
         <div className={styles.scrollableContent}>
           {isEditing ? (
             <EditReviewForm

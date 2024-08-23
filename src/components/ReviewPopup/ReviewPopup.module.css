@@ -5,86 +5,72 @@
 .reviewPopup {
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  font-family: "Roboto", sans-serif;
   z-index: 1000;
-  padding: 20px;
+  transition: transform 0.3s ease-out;
+  transform: translateX(100%);
+  overflow-y: auto;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.reviewPopup.open {
+  transform: translateX(0);
+}
+
+.reviewPopup.mobile {
+  width: 100%;
+  max-width: 100%;
 }
 
 .reviewPopupContent {
-  background-color: var(--dark-bg);
-  border-radius: 8px;
-  width: 100%;
-  max-width: 800px;
-  max-height: 90vh;
+  padding: 20px;
   position: relative;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.backButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: var(--pale-green);
+  font-size: 24px;
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 
 .scrollableContent {
-  overflow-y: auto;
-  padding: 30px;
-  flex-grow: 1;
-}
-
-.closeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 24px;
-  line-height: 1;
-  color: var(--pale-green);
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  z-index: 1;
-  padding: 0;
-}
-
-.closeButton::after {
-  content: "\00D7";
-  display: block;
-  height: 24px;
-  width: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.closeButton:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  color: white;
+  padding-top: 40px;
 }
 
 .reviewPopupHeader {
   display: flex;
+  flex-direction: column;
   gap: 20px;
   margin-bottom: 20px;
 }
 
 .imageWrapper {
-  flex: 0 0 auto;
   width: 200px;
+  height: 300px; /* Fixed height for 2:3 aspect ratio */
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .reviewPopupImage {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
+  object-position: center;
   border-radius: 4px;
 }
 
@@ -94,16 +80,18 @@
 
 .reviewPopupTitle {
   font-family: "Playfair Display", serif;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--pale-green);
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .reviewPopupDetail,
 .reviewPopupRating {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: var(--text-color);
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  text-align: center;
 }
 
 .reviewPopupRating {
@@ -112,7 +100,7 @@
 }
 
 .reviewPopupBody {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .reviewPopupText,
@@ -125,18 +113,18 @@
 
 .reviewPopupActions {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-  gap: 10px;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 15px;
 }
 
 .editButton,
 .deleteButton {
-  padding: 8px 16px;
+  padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
@@ -158,29 +146,46 @@
   background-color: #d00000;
 }
 
-@media (max-width: 600px) {
-  .reviewPopupHeader {
-    flex-direction: column;
+@media (min-width: 769px) {
+  .reviewPopup {
+    max-width: 600px;
   }
 
   .imageWrapper {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-  }
-
-  .reviewPopupImage {
-    width: 100%;
-    height: auto;
+    width: 240px;
+    height: 360px; /* Maintain 2:3 aspect ratio */
   }
 
   .reviewPopupTitle {
-    font-size: 1.5rem;
+    font-size: 2.8rem;
   }
+
   .reviewPopupDetail,
   .reviewPopupRating {
-    font-size: 1rem;
+    font-size: 1.6rem;
   }
+
+  .reviewPopupText,
+  .reviewPopupDate {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviewPopup {
+    width: 100%;
+  }
+
+  .reviewPopupTitle {
+    font-size: 1.8rem;
+  }
+
+  .reviewPopupDetail,
+  .reviewPopupRating {
+    font-size: 1.2rem;
+  }
+
   .reviewPopupText,
   .reviewPopupDate {
     font-size: 0.9rem;

@@ -9,6 +9,7 @@ import ReviewPopup from "../../components/ReviewPopup/ReviewPopup";
 import DeleteConfirmation from "../../components/DeleteConfirmation";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import SortDropdown from "../../components/SortDropdown";
+import useIsMobile from "../../hooks/useIsMobile";
 import styles from "./MediaReviews.module.css";
 
 function MediaReviews() {
@@ -27,7 +28,9 @@ function MediaReviews() {
     [MediaType.SHOW]: false,
     [MediaType.BOOK]: false,
   });
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { user } = useAuth();
+  const isMobile = useIsMobile();
 
   const defaultSortOptions = {
     [MediaType.MOVIE]: { key: "created_at", order: "desc" },
@@ -171,8 +174,8 @@ function MediaReviews() {
     return [...reviewsToSort].sort((a, b) => {
       if (sortOption.key === "title") {
         return sortOption.order === "asc"
-          ? b.title.localeCompare(a.title)
-          : a.title.localeCompare(b.title);
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
       } else if (sortOption.key === "created_at") {
         return sortOption.order === "asc"
           ? new Date(a.created_at) - new Date(b.created_at)
@@ -184,6 +187,23 @@ function MediaReviews() {
       }
       return 0;
     });
+  };
+
+  const openReviewPopup = (review) => {
+    setSelectedReview(review);
+    setIsPopupOpen(true);
+    if (isMobile) {
+      document.body.classList.add("no-scroll");
+    }
+  };
+
+  const closeReviewPopup = () => {
+    setIsPopupOpen(false);
+    document.body.classList.remove("no-scroll");
+    setTimeout(() => {
+      setSelectedReview(null);
+      setIsEditing(false);
+    }, 300);
   };
 
   if (isLoading) return <LoadingSpinner />;
@@ -210,7 +230,7 @@ function MediaReviews() {
               <ReviewItem
                 key={review.id}
                 review={review}
-                onClick={() => setSelectedReview(review)}
+                onClick={() => openReviewPopup(review)}
                 index={index}
                 animate={animateItems[mediaType]}
               />
@@ -221,15 +241,14 @@ function MediaReviews() {
       {selectedReview && (
         <ReviewPopup
           review={selectedReview}
-          onClose={() => {
-            setSelectedReview(null);
-            setIsEditing(false);
-          }}
+          onClose={closeReviewPopup}
           onEdit={handleEditReview}
           onDelete={handleDeleteReview}
           isEditing={isEditing}
           setIsEditing={setIsEditing}
           currentUser={user}
+          isOpen={isPopupOpen}
+          isMobile={isMobile}
         />
       )}
       {deleteConfirmation && (
