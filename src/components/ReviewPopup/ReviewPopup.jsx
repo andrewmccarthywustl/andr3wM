@@ -34,13 +34,14 @@ function ReviewPopup({
     startX.current = e.touches[0].clientX;
   };
 
+  //TODO: FIX THIS SWIPE TO BE THER OTHER WAY
   const handleTouchMove = (e) => {
     if (!startX.current) return;
 
     const currentX = e.touches[0].clientX;
     const diff = startX.current - currentX;
 
-    if (diff > 50) {
+    if (diff < -50) {
       // Swiped left
       onClose();
     }
