@@ -1,13 +1,11 @@
-// src/pages/Photography/Photography.jsx
-
 import React, { useState, useEffect, useCallback } from "react";
 import Masonry from "react-masonry-css";
 import ImageCard from "../../components/ImageCard/ImageCard";
 import AdminPhotoForm from "../../components/AdminPhotoForm/AdminPhotoForm";
-import Lightbox from "react-image-lightbox";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css"; // Include the styles
 import { api } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
-import "react-image-lightbox/style.css";
 import styles from "./Photography.module.css";
 
 function Photography() {
@@ -183,17 +181,17 @@ function Photography() {
       {loading && <div className={styles.loader}>Loading...</div>}
       {lightboxIsOpen && (
         <Lightbox
-          mainSrc={photos[photoIndex].url}
-          nextSrc={photos[(photoIndex + 1) % photos.length].url}
-          prevSrc={photos[(photoIndex + photos.length - 1) % photos.length].url}
-          onCloseRequest={() => setLightboxIsOpen(false)}
-          onMovePrevRequest={() =>
+          open={lightboxIsOpen}
+          close={() => setLightboxIsOpen(false)}
+          slides={photos.map((photo) => ({
+            src: photo.url,
+            alt: photo.title,
+          }))}
+          currentIndex={photoIndex}
+          onPrev={() =>
             setPhotoIndex((photoIndex + photos.length - 1) % photos.length)
           }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % photos.length)
-          }
-          imageCaption={photos[photoIndex].title}
+          onNext={() => setPhotoIndex((photoIndex + 1) % photos.length)}
         />
       )}
       {editingPhoto && (
