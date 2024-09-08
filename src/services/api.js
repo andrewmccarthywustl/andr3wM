@@ -177,4 +177,47 @@ export const api = {
       .eq("id", reviewId);
     if (error) throw error;
   },
+  getPhotos: async ({ page = 1, pageSize = 20, filter = "all" }) => {
+    let query = supabase
+      .from("photos")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .range((page - 1) * pageSize, page * pageSize - 1);
+
+    if (filter !== "all") {
+      query = query.eq("category", filter);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+    return data;
+  },
+
+  addPhoto: async (photoData) => {
+    const { data, error } = await supabase
+      .from("photos")
+      .insert([photoData])
+      .select();
+
+    if (error) throw error;
+    return data[0];
+  },
+
+  updatePhoto: async (id, updatedPhotoData) => {
+    const { data, error } = await supabase
+      .from("photos")
+      .update(updatedPhotoData)
+      .eq("id", id)
+      .select();
+
+    if (error) throw error;
+    return data[0];
+  },
+
+  deletePhoto: async (id) => {
+    const { error } = await supabase.from("photos").delete().eq("id", id);
+
+    if (error) throw error;
+    return { message: "Photo deleted successfully" };
+  },
 };

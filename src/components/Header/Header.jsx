@@ -13,6 +13,7 @@ function Header() {
     { path: "/", label: "Home" },
     { path: "/reviews", label: "Reviews" },
     { path: "/blog", label: "Blog" },
+    { path: "/photography", label: "Photography" }, // Add this line
   ];
 
   if (user && isAdmin) {

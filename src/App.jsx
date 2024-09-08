@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import MediaReviews from "./pages/MediaReviews";
 import Blog from "./pages/Blog";
 import Login from "./pages/Login";
+import Photography from "./pages/Photography";
 import Footer from "./components/Footer";
 import LoadingSpinner from "./components/LoadingSpinner";
 import "./App.css";
@@ -26,6 +27,7 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/reviews" element={<MediaReviews />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/photography" element={<Photography />} />
         <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />

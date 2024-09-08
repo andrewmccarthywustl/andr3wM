@@ -1,0 +1,59 @@
+/* src/components/ImageCard/ImageCard.module.css */
+
+.imageCard {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--dark-bg);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.image {
+  width: 100%;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.imageCard:hover .image {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageCard:hover .overlay {
+  height: 100%;
+}
+
+.title {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.date {
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}

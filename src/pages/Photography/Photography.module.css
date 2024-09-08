@@ -1,0 +1,100 @@
+/* src/pages/Photography/Photography.module.css */
+
+.photographyContainer {
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  min-height: calc(100vh - 60px);
+  padding: 2rem 1rem;
+}
+
+.title {
+  color: var(--pale-green);
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.myMasonryGrid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: -16px; /* gutter size offset */
+  width: auto;
+}
+
+.myMasonryGridColumn {
+  padding-left: 16px; /* gutter size */
+  background-clip: padding-box;
+}
+
+.myMasonryGridColumn > div {
+  margin-bottom: 16px;
+}
+
+.filterContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.filterContainer button {
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  border: 1px solid var(--pale-green);
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filterContainer button:hover,
+.filterContainer button.active {
+  background-color: var(--pale-green);
+  color: var(--dark-bg);
+}
+
+.loader {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: var(--pale-green);
+}
+
+.addButton {
+  background-color: var(--accent-orange);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.addButton:hover {
+  background-color: var(--hover-orange);
+}
+
+.photoWrapper {
+  position: relative;
+}
+
+.adminControls {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.adminControls button {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.adminControls button:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
