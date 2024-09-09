@@ -1,11 +1,14 @@
+// src/pages/Photography/Photography.jsx
+
 import React, { useState, useEffect, useCallback } from "react";
 import Masonry from "react-masonry-css";
 import ImageCard from "../../components/ImageCard/ImageCard";
 import AdminPhotoForm from "../../components/AdminPhotoForm/AdminPhotoForm";
 import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css"; // Include the styles
+import "yet-another-react-lightbox/styles.css";
 import { api } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
+import Modal from "../../components/Modal/Modal";
 import styles from "./Photography.module.css";
 
 function Photography() {
@@ -18,6 +21,7 @@ function Photography() {
   const [filter, setFilter] = useState("all");
   const [isAdding, setIsAdding] = useState(false);
   const [editingPhoto, setEditingPhoto] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { user } = useAuth();
 
   const fetchPhotos = useCallback(
@@ -91,14 +95,25 @@ function Photography() {
     fetchPhotos(1, filter, true);
   };
 
+  const handleEditPhoto = (photo) => {
+    setEditingPhoto(photo);
+    setIsEditModalOpen(true);
+  };
+
   const handlePhotoEdited = async (updatedPhoto) => {
     try {
       const editedPhoto = await api.updatePhoto(updatedPhoto.id, updatedPhoto);
-      setEditingPhoto(null);
       setPhotos(photos.map((p) => (p.id === editedPhoto.id ? editedPhoto : p)));
+      setIsEditModalOpen(false);
+      setEditingPhoto(null);
     } catch (error) {
       console.error("Error updating photo:", error);
     }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditModalOpen(false);
+    setEditingPhoto(null);
   };
 
   const handleDeletePhoto = async (photoId) => {
@@ -194,13 +209,15 @@ function Photography() {
           onNext={() => setPhotoIndex((photoIndex + 1) % photos.length)}
         />
       )}
-      {editingPhoto && (
-        <AdminPhotoForm
-          photo={editingPhoto}
-          onPhotoAdded={handlePhotoEdited}
-          onCancel={() => setEditingPhoto(null)}
-        />
-      )}
+      <Modal isOpen={isEditModalOpen} onClose={handleCancelEdit}>
+        {editingPhoto && (
+          <AdminPhotoForm
+            photo={editingPhoto}
+            onPhotoAdded={handlePhotoEdited}
+            onCancel={handleCancelEdit}
+          />
+        )}
+      </Modal>
     </div>
   );
 }

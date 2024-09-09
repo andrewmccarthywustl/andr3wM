@@ -1,18 +1,22 @@
 // src/components/AdminPhotoForm/AdminPhotoForm.jsx
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { api } from "../../services/api";
 import styles from "./AdminPhotoForm.module.css";
 
 function AdminPhotoForm({ photo, onPhotoAdded, onCancel }) {
-  const [photoData, setPhotoData] = useState(
-    photo || {
-      title: "",
-      description: "",
-      url: "",
-      category: "other",
+  const [photoData, setPhotoData] = useState({
+    title: "",
+    description: "",
+    url: "",
+    category: "other",
+  });
+
+  useEffect(() => {
+    if (photo) {
+      setPhotoData(photo);
     }
-  );
+  }, [photo]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +31,7 @@ function AdminPhotoForm({ photo, onPhotoAdded, onCancel }) {
       } else {
         await api.addPhoto(photoData);
       }
-      onPhotoAdded();
+      onPhotoAdded(photoData);
     } catch (error) {
       console.error("Error saving photo:", error);
     }
