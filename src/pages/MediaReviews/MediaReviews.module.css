@@ -15,8 +15,8 @@
 .sectionHeader {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   margin-bottom: 1.5rem;
-  flex-wrap: wrap;
   animation: slideInAnimation 1s ease-out;
 }
 
@@ -30,6 +30,7 @@
 .sortContainer {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .reviewList {
@@ -76,17 +77,13 @@
   }
 
   .sectionHeader {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
   }
 
   .sectionTitle {
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .sortContainer {
-    width: 100%;
+    white-space: nowrap;
   }
 
   .addReviewButton {
