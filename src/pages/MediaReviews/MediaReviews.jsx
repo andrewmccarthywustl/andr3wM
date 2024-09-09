@@ -29,6 +29,7 @@ function MediaReviews() {
     [MediaType.BOOK]: false,
   });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isAddingReview, setIsAddingReview] = useState(false);
   const { user } = useAuth();
   const isMobile = useIsMobile();
 
@@ -94,6 +95,7 @@ function MediaReviews() {
           ...prevReviews[addedReview.media_type],
         ],
       }));
+      setIsAddingReview(false);
     } catch (error) {
       console.error("Error adding review:", error);
       setError("Failed to add review. Please try again.");
@@ -174,8 +176,8 @@ function MediaReviews() {
     return [...reviewsToSort].sort((a, b) => {
       if (sortOption.key === "title") {
         return sortOption.order === "desc"
-          ? a.title.localeCompare(b.title)
-          : b.title.localeCompare(a.title);
+          ? b.title.localeCompare(a.title)
+          : a.title.localeCompare(b.title);
       } else if (sortOption.key === "created_at") {
         return sortOption.order === "asc"
           ? new Date(a.created_at) - new Date(b.created_at)
@@ -211,7 +213,17 @@ function MediaReviews() {
 
   return (
     <div className={styles.mediaReviews}>
-      {user && <ReviewForm onSubmit={handleReviewSubmit} />}
+      {user && (
+        <div className={styles.addReviewSection}>
+          <button
+            onClick={() => setIsAddingReview(!isAddingReview)}
+            className={styles.addReviewButton}
+          >
+            {isAddingReview ? "Cancel" : "Add New Review"}
+          </button>
+          {isAddingReview && <ReviewForm onSubmit={handleReviewSubmit} />}
+        </div>
+      )}
       {[MediaType.MOVIE, MediaType.SHOW, MediaType.BOOK].map((mediaType) => (
         <section key={mediaType} className={styles.reviewSection}>
           <div className={styles.sectionHeader}>
