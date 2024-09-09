@@ -15,7 +15,6 @@ const SortDropdown = ({ onSort, currentSort }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const dropdownRef = useRef(null);
-  const buttonRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -29,13 +28,6 @@ const SortDropdown = ({ onSort, currentSort }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  useEffect(() => {
-    if (isOpen && dropdownRef.current) {
-      const rect = dropdownRef.current.getBoundingClientRect();
-      console.log("Dropdown position:", rect);
-    }
-  }, [isOpen]);
 
   const handleSort = (key) => {
     onSort(key, currentSort.order);
@@ -81,20 +73,16 @@ const SortDropdown = ({ onSort, currentSort }) => {
   const handleTouchEnd = (e) => {
     e.preventDefault();
     setIsActive(false);
-    toggleDropdown();
+    setIsOpen(!isOpen);
   };
 
   const toggleDropdown = () => {
-    setIsOpen((prevIsOpen) => {
-      console.log("Dropdown toggled. New state:", !prevIsOpen);
-      return !prevIsOpen;
-    });
+    setIsOpen(!isOpen);
   };
 
   return (
     <div className={styles.sortDropdownContainer} ref={dropdownRef}>
       <button
-        ref={buttonRef}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         onClick={toggleDropdown}
@@ -106,17 +94,19 @@ const SortDropdown = ({ onSort, currentSort }) => {
       <button onClick={toggleOrder} className={styles.orderButton}>
         {currentSort.order === "asc" ? <FaArrowUp /> : <FaArrowDown />}
       </button>
-      <div className={`${styles.dropdownContent} ${isOpen ? styles.open : ""}`}>
-        <button onClick={() => handleSort("created_at")}>
-          <FaCalendar /> <span>Date</span>
-        </button>
-        <button onClick={() => handleSort("rating")}>
-          <FaStar /> <span>Rating</span>
-        </button>
-        <button onClick={() => handleSort("title")}>
-          <BsAlphabet /> <span>Title</span>
-        </button>
-      </div>
+      {isOpen && (
+        <div className={styles.dropdownContent}>
+          <button onClick={() => handleSort("created_at")}>
+            <FaCalendar /> <span>Date</span>
+          </button>
+          <button onClick={() => handleSort("rating")}>
+            <FaStar /> <span>Rating</span>
+          </button>
+          <button onClick={() => handleSort("title")}>
+            <BsAlphabet /> <span>Title</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

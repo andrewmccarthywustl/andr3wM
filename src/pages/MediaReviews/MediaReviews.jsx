@@ -250,19 +250,6 @@ function MediaReviews() {
           </div>
         </section>
       ))}
-      {selectedReview && (
-        <ReviewPopup
-          review={selectedReview}
-          onClose={closeReviewPopup}
-          onEdit={handleEditReview}
-          onDelete={handleDeleteReview}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          currentUser={user}
-          isOpen={isPopupOpen}
-          isMobile={isMobile}
-        />
-      )}
       {deleteConfirmation && (
         <DeleteConfirmation
           onConfirm={confirmDeleteReview}
