@@ -242,7 +242,7 @@ function MediaReviews() {
               <ReviewItem
                 key={review.id}
                 review={review}
-                onClick={() => openReviewPopup(review)}
+                onClick={openReviewPopup}
                 index={index}
                 animate={animateItems[mediaType]}
               />
@@ -250,6 +250,19 @@ function MediaReviews() {
           </div>
         </section>
       ))}
+      {selectedReview && (
+        <ReviewPopup
+          review={selectedReview}
+          onClose={closeReviewPopup}
+          onEdit={handleEditReview}
+          onDelete={handleDeleteReview}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+          currentUser={user}
+          isOpen={isPopupOpen}
+          isMobile={isMobile}
+        />
+      )}
       {deleteConfirmation && (
         <DeleteConfirmation
           onConfirm={confirmDeleteReview}

@@ -18,11 +18,26 @@ function ReviewItem({ review, onClick, index, animate }) {
     }
   }, [index, animate]);
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClick(review);
+    }
+  };
+
+  const handleClick = () => {
+    onClick(review);
+  };
+
   return (
     <div
       ref={itemRef}
       className={`${styles.reviewItem} ${isVisible ? styles.visible : ""}`}
-      onClick={onClick}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+      aria-pressed="false"
     >
       <div className={styles.imageContainer}>
         <img

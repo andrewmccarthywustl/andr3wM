@@ -13,7 +13,6 @@ import styles from "./SortDropdown.module.css";
 
 const SortDropdown = ({ onSort, currentSort }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isActive, setIsActive] = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -34,7 +33,8 @@ const SortDropdown = ({ onSort, currentSort }) => {
     setIsOpen(false);
   };
 
-  const toggleOrder = () => {
+  const toggleOrder = (e) => {
+    e.stopPropagation();
     const newOrder = currentSort.order === "asc" ? "desc" : "asc";
     onSort(currentSort.key, newOrder);
   };
@@ -65,29 +65,9 @@ const SortDropdown = ({ onSort, currentSort }) => {
     }
   };
 
-  const handleTouchStart = (e) => {
-    e.preventDefault();
-    setIsActive(true);
-  };
-
-  const handleTouchEnd = (e) => {
-    e.preventDefault();
-    setIsActive(false);
-    setIsOpen(!isOpen);
-  };
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <div className={styles.sortDropdownContainer} ref={dropdownRef}>
-      <button
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        onClick={toggleDropdown}
-        className={`${styles.sortButton} ${isActive ? styles.active : ""}`}
-      >
+      <button onClick={() => setIsOpen(!isOpen)} className={styles.sortButton}>
         {getSortIcon(currentSort.key)}{" "}
         <span>{getSortLabel(currentSort.key)}</span>
       </button>

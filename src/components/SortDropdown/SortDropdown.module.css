@@ -20,20 +20,21 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: background-color 0.3s ease, transform 0.1s ease;
+  transition: background-color 0.3s ease;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
 
 .sortButton {
-  flex-grow: 0;
+  flex-grow: 1;
   border-radius: 4px 0 0 4px;
 }
 
 .orderButton {
   border-radius: 0 4px 4px 0;
   padding: 10px;
+  flex-shrink: 0;
 }
 
 .sortButton:hover,
@@ -47,17 +48,12 @@
   box-shadow: 0 0 0 2px rgba(217, 119, 87, 0.5);
 }
 
-.sortButton.active {
-  transform: scale(0.95);
-  background-color: #b85f3d;
-}
-
 .dropdownContent {
   position: absolute;
   top: 100%;
   left: 0;
+  right: 0;
   background-color: #31312e;
-  min-width: 160px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   overflow: hidden;
