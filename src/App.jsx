@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Photography from "./pages/Photography";
 import Footer from "./components/Footer";
 import LoadingSpinner from "./components/LoadingSpinner";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./App.css";
 
 function AppContent() {
@@ -31,6 +32,7 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />
+      <SpeedInsights />
     </div>
   );
 }
