@@ -10,16 +10,14 @@ function Home() {
       <section className={styles.heroSection}>
         <h1 className={styles.title}>Welcome To My Website</h1>
         <p className={styles.description}>
-          I am not too sure what I am going to put here yet. Right now I got
-          some movie reviews and a bare bones blog. I'll add a section on my
-          youtube channel and some photography stuff once I actually start doing
-          these things. I am really just using this website to have some
-          motivation to do things because when something is available to the
-          public it kind of keeps you and check and if you want to be cool as
-          shit you gotta put stuff on there that is dope ah hell.
+          Im just putting out stuff on here. Got this to keep myself in check
+          and add some stakes to the menial things I do like reading and
+          watching movies, thinking and taking photos.
         </p>
         <p className={styles.description}>
-          Email me if you have any recs, comments, questions or concerns.
+          Email me if you have something you feel is worth it to encapsulate in
+          a MIME-formatted message, route through SMTP relays, store on an IMAP
+          server, and retrieve via a POP3 client for asynchronous communication.
         </p>
         <EmailLink email="andr3wM.3mail@gmail.com" />
       </section>
