@@ -37,7 +37,7 @@ function Photography() {
         setPhotos((prevPhotos) =>
           reset ? newPhotos : [...prevPhotos, ...newPhotos]
         );
-        setHasMore(newPhotos.length === 20); // Assuming pageSize is 20
+        setHasMore(newPhotos.length === 20);
       } catch (error) {
         console.error("Error fetching photos:", error);
       } finally {
@@ -128,10 +128,9 @@ function Photography() {
   };
 
   const breakpointColumnsObj = {
-    default: 6,
-    1100: 5,
-    700: 4,
-    500: 3,
+    default: 4,
+    1100: 3,
+    700: 2,
   };
 
   return (
@@ -148,7 +147,7 @@ function Photography() {
           onCancel={() => setIsAdding(false)}
         />
       )}
-      <div className={styles.filterContainer}>
+      {/* <div className={styles.filterContainer}>
         <button
           onClick={() => handleFilterChange("all")}
           className={filter === "all" ? styles.active : ""}
@@ -173,7 +172,7 @@ function Photography() {
         >
           Portrait
         </button>
-      </div>
+      </div> */}
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className={styles.myMasonryGrid}
@@ -202,11 +201,16 @@ function Photography() {
             src: photo.url,
             alt: photo.title,
           }))}
-          currentIndex={photoIndex}
+          currentIndex={photoIndex} // Ensure this reflects the clicked photo
+          index={photoIndex} // This should control the currently displayed image
           onPrev={() =>
-            setPhotoIndex((photoIndex + photos.length - 1) % photos.length)
+            setPhotoIndex(
+              (prevIndex) => (prevIndex - 1 + photos.length) % photos.length
+            )
           }
-          onNext={() => setPhotoIndex((photoIndex + 1) % photos.length)}
+          onNext={() =>
+            setPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length)
+          }
         />
       )}
       <Modal isOpen={isEditModalOpen} onClose={handleCancelEdit}>
