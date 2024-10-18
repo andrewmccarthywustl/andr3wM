@@ -8,6 +8,11 @@ function Home() {
   return (
     <div className={styles.homeContainer}>
       <section className={styles.heroSection}>
+        <img
+          className={styles.heroImage}
+          src="website_image.png"
+          alt="Profile Image"
+        />
         <h1 className={styles.title}>Welcome To My Website</h1>
         <p className={styles.description}>
           Im just putting out stuff on here. Got this to keep myself in check

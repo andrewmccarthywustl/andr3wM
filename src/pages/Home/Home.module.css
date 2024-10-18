@@ -25,6 +25,12 @@
   animation: fadeInDown 0.8s ease-out;
 }
 
+.heroImage {
+  border-radius: 50%;
+  border: 5px solid var(--light-primary);
+  width: 300px;
+}
+
 .description {
   font-size: 1.1rem;
   line-height: 1.6;

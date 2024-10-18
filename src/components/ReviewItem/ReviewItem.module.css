@@ -13,10 +13,6 @@
   outline: none;
 }
 
-.reviewItem:focus {
-  box-shadow: 0 0 0 2px var(--accent-color);
-}
-
 .reviewItem.visible {
   opacity: 1;
   transform: translateY(0);
