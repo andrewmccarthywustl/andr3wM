@@ -1,8 +1,8 @@
 /* src/pages/MediaReviews/MediaReviews.module.css */
 
 .mediaReviews {
-  background-color: var(--dark-bg);
-  color: var(--text-color);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
   font-family: "Roboto", sans-serif;
   min-height: calc(100vh - 60px);
   padding: 2rem 1rem;
@@ -20,7 +20,7 @@
 }
 
 .sectionTitle {
-  color: var(--pale-green);
+  color: var(--light-primary);
   font-size: 2rem;
   margin: 0;
   margin-right: 1rem;
@@ -44,7 +44,7 @@
 }
 
 .addReviewButton {
-  background-color: var(--accent-orange);
+  background-color: var(--accent-color);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -55,7 +55,7 @@
 }
 
 .addReviewButton:hover {
-  background-color: var(--hover-orange);
+  background-color: var(--secondary-acent-color);
 }
 
 @keyframes slideInAnimation {

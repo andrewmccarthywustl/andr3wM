@@ -1,14 +1,14 @@
 /* src/pages/Photography/Photography.module.css */
 
 .photographyContainer {
-  background-color: var(--dark-bg);
-  color: var(--text-color);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
   min-height: calc(100vh - 60px);
   padding: 2rem 1rem;
 }
 
 .title {
-  color: var(--pale-green);
+  color: var(--light-primary);
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 2rem;
@@ -38,9 +38,9 @@
 }
 
 .filterContainer button {
-  background-color: var(--dark-bg);
-  color: var(--text-color);
-  border: 1px solid var(--pale-green);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+  border: 1px solid var(--light-primary);
   padding: 0.5rem 1rem;
   margin: 0 0.5rem;
   cursor: pointer;
@@ -49,29 +49,28 @@
 
 .filterContainer button:hover,
 .filterContainer button.active {
-  background-color: var(--pale-green);
-  color: var(--dark-bg);
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
 }
 
 .loader {
   text-align: center;
   padding: 2rem;
   font-size: 1.2rem;
-  color: var(--pale-green);
+  color: var(--light-primary);
 }
 
 .addButton {
-  background-color: var(--accent-orange);
+  background-color: var(--accent-color);
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 4px;
   cursor: pointer;
   margin-bottom: 20px;
 }
 
 .addButton:hover {
-  background-color: var(--hover-orange);
+  background-color: var(--secondary-acent-color);
 }
 
 .photoWrapper {
@@ -91,7 +90,6 @@
   color: white;
   border: none;
   padding: 5px 10px;
-  border-radius: 4px;
   cursor: pointer;
 }
 

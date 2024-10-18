@@ -3,17 +3,19 @@
 .emailLink {
   display: inline-flex;
   align-items: center;
-  background-color: var(--accent-orange);
-  color: var(--text-color);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
   text-decoration: none;
   padding: 0.75rem 1.5rem;
-  border-radius: 5px;
+  border: 2px solid var(--light-primary);
   font-size: 1rem;
   transition: background-color 0.3s ease;
 }
 
 .emailLink:hover {
-  background-color: var(--hover-orange);
+  background-color: var(--dark-hover);
+  transform: scale(1.01);
+  transition: transform 0.3s ease;
 }
 
 .emailIcon {

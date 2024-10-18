@@ -2,7 +2,7 @@
 
 .loginPage {
   min-height: calc(100vh - 120px);
-  background-color: #2b2a28;
+  background-color: var(--dark-primary);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,9 +13,8 @@
   width: 100%;
   max-width: 400px;
   padding: 30px;
-  background-color: #31312e;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: var(--dark-primary);
+  border: 2px solid var(--light-primary);
 }
 
 .loginForm {
@@ -23,7 +22,7 @@
 }
 
 .loginTitle {
-  color: #d97757;
+  color: var(--light-primary);
   font-size: 24px;
   margin-bottom: 20px;
   text-align: center;
@@ -35,7 +34,7 @@
 
 .label {
   display: block;
-  color: #d7e8cd;
+  color: var(--light-primary);
   margin-bottom: 5px;
   font-size: 14px;
 }
@@ -43,37 +42,37 @@
 .input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #4a4a4a;
-  border-radius: 4px;
-  background-color: #2b2a28;
-  color: #fff;
+  border: 1px solid var(--light-primary);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
   font-size: 16px;
   box-sizing: border-box;
 }
 
 .input:focus {
   outline: none;
-  border-color: #d97757;
+  border-color: var(--accent-color);
 }
 
 .loginButton {
   width: 100%;
   padding: 10px;
-  background-color: #d97757;
-  color: white;
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
   border: none;
-  border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  border: 3px, solid, var(--light-primary);
 }
 
 .loginButton:hover {
-  background-color: #b85f3d;
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
 }
 
 .error {
-  color: #ff6b6b;
+  color: var(--secondary-acent-color);
   text-align: center;
   margin-top: 15px;
   font-size: 14px;

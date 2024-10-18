@@ -9,14 +9,14 @@
   bottom: 0;
   width: 100%;
   max-width: 800px;
-  background-color: var(--dark-bg);
-  color: var(--text-color);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
   font-family: "Roboto", sans-serif;
   z-index: 1000;
   transition: transform 0.3s ease-out;
   transform: translateX(100%);
   overflow-y: auto;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+  border-left: 2px solid var(--light-primary);
 }
 
 .reviewPopup.open {
@@ -39,7 +39,7 @@
   left: 20px;
   background: none;
   border: none;
-  color: var(--pale-green);
+  color: var(--light-primary);
   font-size: 24px;
   cursor: pointer;
   display: flex;
@@ -79,9 +79,9 @@
 }
 
 .reviewPopupTitle {
-  font-family: "Playfair Display", serif;
+  font-family: "Roboto", serif;
   font-size: 2.5rem;
-  color: var(--pale-green);
+  color: var(--light-primary);
   margin-bottom: 15px;
   text-align: center;
 }
@@ -89,13 +89,13 @@
 .reviewPopupDetail,
 .reviewPopupRating {
   font-size: 1.4rem;
-  color: var(--text-color);
+  color: var(--light-primary);
   margin-bottom: 8px;
   text-align: center;
 }
 
 .reviewPopupRating {
-  color: var(--accent-orange);
+  color: var(--light-primary);
   font-weight: bold;
 }
 
@@ -107,7 +107,7 @@
 .reviewPopupDate {
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--text-color);
+  color: var(--light-primary);
   white-space: pre-wrap;
 }
 
@@ -129,12 +129,12 @@
 }
 
 .editButton {
-  background-color: var(--accent-orange);
+  background-color: var(--accent-color);
   color: white;
 }
 
 .editButton:hover {
-  background-color: var(--hover-orange);
+  background-color: var(--secondary-acent-color);
 }
 
 .deleteButton {

@@ -3,8 +3,8 @@
 .reviewItem {
   flex: 0 0 auto;
   width: 200px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
+  background-color: var(--dark-primary);
+  border: 2px solid var(--light-primary);
   overflow: hidden;
   cursor: pointer;
   opacity: 0;
@@ -14,7 +14,7 @@
 }
 
 .reviewItem:focus {
-  box-shadow: 0 0 0 2px var(--accent-orange);
+  box-shadow: 0 0 0 2px var(--accent-color);
 }
 
 .reviewItem.visible {
@@ -25,7 +25,6 @@
 .reviewItem:hover,
 .reviewItem:focus {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .imageContainer {
@@ -33,6 +32,7 @@
   width: 100%;
   height: 300px;
   overflow: hidden;
+  border-bottom: 2px solid var(--light-primary);
 }
 
 .reviewImage {
@@ -48,7 +48,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: var(--dark-shadow);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,26 +62,26 @@
 }
 
 .reviewOverlay p {
-  color: var(--text-color);
+  color: var(--light-primary);
   font-weight: bold;
 }
 
 .reviewTitle {
   font-size: 1rem;
   margin: 0.5rem;
-  color: var(--pale-green);
+  color: var(--light-primary);
 }
 
 .reviewRating {
   font-size: 0.9rem;
   margin: 0.5rem;
-  color: var(--accent-orange);
+  color: var(--light-primary);
 }
 
 .reviewDate {
   font-size: 0.8rem;
   margin: 0.5rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--light-primary);
 }
 
 .reviewItem:hover .reviewImage,

@@ -1,7 +1,7 @@
 /* src/components/RichBlogPostEditor/RichBlogPostEditor.module.css */
 
 .editorContainer {
-  background-color: var(--dark-bg);
+  background-color: var(--dark-primary);
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -51,12 +51,12 @@
 }
 
 .addImageButton {
-  background-color: var(--accent-orange);
+  background-color: var(--accent-color);
   color: white;
 }
 
 .addImageButton:hover {
-  background-color: var(--hover-orange);
+  background-color: var(--secondary-acent-color);
 }
 
 .imagePreview {

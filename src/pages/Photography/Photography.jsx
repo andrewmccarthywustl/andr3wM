@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Masonry from "react-masonry-css";
-import ImageCard from "../../components/ImageCard/ImageCard";
+import ImageCard from "../../components/ImageCard";
 import AdminPhotoForm from "../../components/AdminPhotoForm/AdminPhotoForm";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";

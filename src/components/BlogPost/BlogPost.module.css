@@ -1,25 +1,24 @@
 .blogPost {
-  background-color: #31312e;
-  border-radius: 8px;
+  background-color: var(--dark-primary);
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 3px solid var(--light-primary);
 }
 
 .postTitle {
   font-size: 1.8rem;
-  color: #d97757;
+  color: var(--light-primary);
   margin-bottom: 0.5rem;
 }
 
 .postMeta {
   font-size: 0.9rem;
-  color: #a0a0a0;
+  color: var(--light-primary);
   margin-bottom: 1rem;
 }
 
 .postContent {
-  color: #fff;
+  color: var(--light-primary);
   line-height: 1.6;
 }
 
@@ -35,7 +34,7 @@
   margin-right: 1rem;
   margin-bottom: 0.5rem;
   margin-left: 0.1rem;
-  border-radius: 4px;
+  border: 2px solid var(--light-primary);
 }
 
 .postContent p {
@@ -52,28 +51,27 @@
 .deleteButton {
   padding: 0.5rem 1rem;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.3s ease;
 }
 
 .editButton {
-  background-color: #4a90e2;
-  color: white;
+  background-color: var(--edit-button-color);
+  color: var(--light-primary);
 }
 
 .editButton:hover {
-  background-color: #3a7bc8;
+  background-color: var(--edit-button-hover);
 }
 
 .deleteButton {
-  background-color: #e74c3c;
-  color: white;
+  background-color: var(--delete-button-color);
+  color: var(--light-primary);
 }
 
 .deleteButton:hover {
-  background-color: #c0392b;
+  background-color: var(--delete-button-hover);
 }
 
 .slideIn {

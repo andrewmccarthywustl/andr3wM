@@ -1,11 +1,18 @@
 /* src/App.css */
 
 :root {
-  --dark-bg: #31312e;
-  --text-color: #ffffff;
-  --pale-green: #d7e8cd;
-  --accent-orange: #d97757;
-  --hover-orange: #b85f3d;
+  --dark-primary: #000000;
+  --dark-hover: #202020;
+  --dark-shadow: rgba(0, 0, 0, 0.3);
+  --light-primary: #ffffff;
+  --accent-color: #ff00ff;
+  --secondary-acent-color: #ffff00;
+  --edit-button-color: #0000ff;
+  --edit-button-hover: #000099;
+  --delete-button-color: #ff0000;
+  --delete-button-hover: #990000;
+  --save-button-color: #00ff00;
+  --save-button-hover: #009900;
 }
 
 .no-scroll {
@@ -19,8 +26,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
-  background-color: var(--dark-bg);
-  color: var(--text-color);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
   line-height: 1.6;
 }
 

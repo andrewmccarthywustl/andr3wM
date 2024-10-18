@@ -7,7 +7,7 @@
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-color: var(--dark-bg);
+  background-color: var(--dark-primary);
   border-radius: 8px;
 }
 
@@ -15,15 +15,15 @@
 .form textarea,
 .form select {
   padding: 10px;
-  border: 1px solid var(--pale-green);
+  border: 1px solid var(--light-primary);
   border-radius: 4px;
-  background-color: var(--dark-bg);
-  color: var(--text-color);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
 }
 
 .form button {
   padding: 10px;
-  background-color: var(--accent-orange);
+  background-color: var(--accent-color);
   color: white;
   border: none;
   border-radius: 4px;
@@ -31,5 +31,5 @@
 }
 
 .form button:hover {
-  background-color: var(--hover-orange);
+  background-color: var(--secondary-acent-color);
 }

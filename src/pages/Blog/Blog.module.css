@@ -2,8 +2,8 @@
 
 .blogContainer {
   min-height: calc(100vh - 60px);
-  background-color: var(--dark-bg);
-  color: var(--text-color);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
   font-family: "Roboto", sans-serif;
   padding: 2rem 1rem;
 }
@@ -15,7 +15,7 @@
 
 .blogTitle {
   font-size: 2.5rem;
-  color: var(--pale-green);
+  color: var(--light-primary);
   text-align: center;
   margin-bottom: 2rem;
   animation: fadeInDown 0.8s ease-out;
@@ -38,7 +38,7 @@
 }
 
 .addPostButton {
-  background-color: var(--accent-orange);
+  background-color: var(--accent-color);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -50,7 +50,7 @@
 }
 
 .addPostButton:hover {
-  background-color: var(--hover-orange);
+  background-color: var(--secondary-acent-color);
 }
 
 @keyframes fadeInDown {

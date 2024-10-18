@@ -1,10 +1,10 @@
 /* src/components/Footer/Footer.module.css */
 
 .footer {
-  background-color: var(--dark-bg);
+  background-color: var(--dark-primary);
   padding: 1rem 0;
   position: relative;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  border-top: 2px solid var(--light-primary);
 }
 
 .footerContent {
@@ -22,7 +22,7 @@
 }
 
 .socialLink {
-  color: var(--accent-orange);
+  color: var(--light-primary);
   font-size: 2rem;
   text-decoration: none;
   padding: 0.5rem 0;
@@ -31,7 +31,8 @@
 }
 
 .socialLink:hover {
-  color: var(--hover-orange);
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
 }
 
 .adminLink {
@@ -44,7 +45,7 @@
 .logoutButton {
   font-family: "Roboto", sans-serif;
   font-size: 0.8rem;
-  color: var(--text-color);
+  color: var(--light-primary);
   text-decoration: none;
   background: none;
   border: none;
@@ -55,7 +56,7 @@
 
 .loginLink:hover,
 .logoutButton:hover {
-  color: var(--pale-green);
+  color: var(--light-primary);
   opacity: 1;
 }
 
