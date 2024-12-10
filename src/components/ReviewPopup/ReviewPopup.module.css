@@ -1,7 +1,5 @@
 /* src/components/ReviewPopup/ReviewPopup.module.css */
 
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap");
-
 .reviewPopup {
   position: fixed;
   top: 0;
@@ -15,7 +13,8 @@
   z-index: 1000;
   transition: transform 0.3s ease-out;
   transform: translateX(100%);
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   border-left: 2px solid var(--light-primary);
 }
 
@@ -29,8 +28,11 @@
 }
 
 .reviewPopupContent {
-  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   position: relative;
+  overflow-y: auto;
 }
 
 .backButton {
@@ -49,6 +51,10 @@
 }
 
 .scrollableContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
   padding-top: 40px;
 }
 
@@ -61,7 +67,7 @@
 
 .imageWrapper {
   width: 200px;
-  height: 300px; /* Fixed height for 2:3 aspect ratio */
+  height: 300px;
   margin: 0 auto;
   overflow: hidden;
 }
@@ -153,7 +159,7 @@
 
   .imageWrapper {
     width: 240px;
-    height: 360px; /* Maintain 2:3 aspect ratio */
+    height: 360px;
   }
 
   .reviewPopupTitle {

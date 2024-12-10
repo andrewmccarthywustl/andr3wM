@@ -175,7 +175,7 @@ function MediaReviews() {
   const sortReviews = (reviewsToSort, sortOption) => {
     return [...reviewsToSort].sort((a, b) => {
       if (sortOption.key === "title") {
-        return sortOption.order === "desc"
+        return sortOption.order === "asc"
           ? b.title.localeCompare(a.title)
           : a.title.localeCompare(b.title);
       } else if (sortOption.key === "created_at") {

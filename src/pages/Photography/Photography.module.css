@@ -53,11 +53,12 @@
   color: var(--dark-primary);
 }
 
-.loader {
-  text-align: center;
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 2rem;
-  font-size: 1.2rem;
-  color: var(--light-primary);
+  width: 100%;
 }
 
 .addButton {

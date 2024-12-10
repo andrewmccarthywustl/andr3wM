@@ -1,21 +1,22 @@
 /* src/components/ReviewForm/ReviewForm.module.css */
 
 .reviewForm {
-  background-color: #31312e;
+  background-color: var(--dark-primary);
   padding: 30px;
   border-radius: 8px;
   margin: 0 auto 30px;
-  color: #fff;
+  color: var(--light-primary);
   max-width: 700px;
   width: 100%;
   box-sizing: border-box;
+  border: 2px solid var(--light-primary);
 }
 
 .formTitle {
-  color: #d97757;
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 25px;
   text-align: center;
+  color: var(--light-primary);
 }
 
 .formGroup {
@@ -25,7 +26,7 @@
 .label {
   display: block;
   margin-bottom: 8px;
-  color: #d7e8cd;
+  color: var(--light-primary);
   font-weight: bold;
 }
 
@@ -34,16 +35,24 @@
 .textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid #4a4a4a;
+  border: 2px solid var(--light-primary);
   border-radius: 4px;
-  background-color: #2b2a28;
-  color: #fff;
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
   font-size: 16px;
   box-sizing: border-box;
-  appearance: none; /* Removes default browser styling */
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
 }
 
 .select {
@@ -51,14 +60,7 @@
   background-repeat: no-repeat;
   background-position: right 12px top 50%;
   background-size: 12px auto;
-  padding-right: 30px; /* Make room for custom arrow */
-}
-
-.input:focus,
-.select:focus,
-.textarea:focus {
-  outline: none;
-  border-color: #d97757;
+  padding-right: 30px;
 }
 
 .textarea {
@@ -67,24 +69,30 @@
 }
 
 .submitButton {
-  background-color: #d97757;
-  color: white;
-  border: none;
+  width: 100%;
   padding: 12px 20px;
+  background-color: var(--accent-color);
+  color: var(--light-primary);
+  border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
-  display: block;
-  width: 100%;
+  transition: all 0.3s ease;
   margin-top: 25px;
 }
 
 .submitButton:hover {
-  background-color: #b85f3d;
+  background-color: var(--secondary-acent-color);
+  transform: translateY(-2px);
 }
 
-/* Add these styles to ensure consistency across browsers */
+.error {
+  color: var(--delete-button-color);
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Remove default number input spinners */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -92,5 +100,42 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 input[type="number"] {
+  /* Standard property first */
+  appearance: textfield;
+  /* Firefox-specific */
   -moz-appearance: textfield;
+}
+
+/* Animation for form entrance */
+@keyframes formSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reviewForm {
+  animation: formSlideIn 0.5s ease-out forwards;
+}
+
+@media (max-width: 768px) {
+  .reviewForm {
+    padding: 20px;
+  }
+
+  .formTitle {
+    font-size: 1.5rem;
+  }
+
+  .input,
+  .select,
+  .textarea,
+  .submitButton {
+    font-size: 14px;
+    padding: 10px;
+  }
 }

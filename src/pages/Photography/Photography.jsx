@@ -9,6 +9,7 @@ import "yet-another-react-lightbox/styles.css";
 import { api } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import Modal from "../../components/Modal/Modal";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import styles from "./Photography.module.css";
 
 function Photography() {
@@ -147,32 +148,6 @@ function Photography() {
           onCancel={() => setIsAdding(false)}
         />
       )}
-      {/* <div className={styles.filterContainer}>
-        <button
-          onClick={() => handleFilterChange("all")}
-          className={filter === "all" ? styles.active : ""}
-        >
-          All
-        </button>
-        <button
-          onClick={() => handleFilterChange("nature")}
-          className={filter === "nature" ? styles.active : ""}
-        >
-          Nature
-        </button>
-        <button
-          onClick={() => handleFilterChange("urban")}
-          className={filter === "urban" ? styles.active : ""}
-        >
-          Urban
-        </button>
-        <button
-          onClick={() => handleFilterChange("portrait")}
-          className={filter === "portrait" ? styles.active : ""}
-        >
-          Portrait
-        </button>
-      </div> */}
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className={styles.myMasonryGrid}
@@ -192,7 +167,11 @@ function Photography() {
           </div>
         ))}
       </Masonry>
-      {loading && <div className={styles.loader}>Loading...</div>}
+      {loading && (
+        <div className={styles.loaderContainer}>
+          <LoadingSpinner />
+        </div>
+      )}
       {lightboxIsOpen && (
         <Lightbox
           open={lightboxIsOpen}
@@ -201,8 +180,8 @@ function Photography() {
             src: photo.url,
             alt: photo.title,
           }))}
-          currentIndex={photoIndex} // Ensure this reflects the clicked photo
-          index={photoIndex} // This should control the currently displayed image
+          currentIndex={photoIndex}
+          index={photoIndex}
           onPrev={() =>
             setPhotoIndex(
               (prevIndex) => (prevIndex - 1 + photos.length) % photos.length
