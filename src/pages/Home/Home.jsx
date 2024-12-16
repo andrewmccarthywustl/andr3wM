@@ -19,11 +19,6 @@ function Home() {
           and add some stakes to the menial things I do like reading and
           watching movies, thinking and taking photos.
         </p>
-        <p className={styles.description}>
-          Email me if you have something you feel is worth it to encapsulate in
-          a MIME-formatted message, route through SMTP relays, store on an IMAP
-          server, and retrieve via a POP3 client for asynchronous communication.
-        </p>
         <EmailLink email="andr3wM.3mail@gmail.com" />
       </section>
     </div>
