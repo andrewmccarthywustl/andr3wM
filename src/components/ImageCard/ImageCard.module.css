@@ -4,7 +4,6 @@
   position: relative;
   overflow: hidden;
   background-color: var(--dark-primary);
-  border: 1px solid var(--light-primary);
   cursor: pointer;
 }
 

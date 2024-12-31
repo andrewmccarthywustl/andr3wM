@@ -31,14 +31,12 @@
   float: right;
   max-width: 40%;
   height: auto;
-  margin-right: 1rem;
-  margin-bottom: 0.5rem;
-  margin-left: 0.1rem;
-  border: 2px solid var(--light-primary);
+  margin-left: 1rem;
 }
 
 .postContent p {
   margin-bottom: 1rem;
+  text-align: justify;
 }
 
 .postActions {
