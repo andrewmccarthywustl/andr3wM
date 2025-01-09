@@ -3,7 +3,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { FaXTwitter, FaYoutube, FaTiktok, FaInstagram } from "react-icons/fa6";
+import {
+  FaXTwitter,
+  FaYoutube,
+  FaTiktok,
+  FaInstagram,
+  FaEnvelope,
+} from "react-icons/fa6";
 import styles from "./Footer.module.css";
 
 function Footer() {
@@ -22,12 +28,12 @@ function Footer() {
       <div className={styles.footerContent}>
         <div className={styles.socialIcons}>
           <a
-            href="https://x.com/andr_3wM"
+            href="mailto:andr3wM.3mail@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialLink}
           >
-            <FaXTwitter />
+            <FaEnvelope />
           </a>
           <a
             href="https://www.youtube.com/@ndr3wM"
@@ -36,6 +42,14 @@ function Footer() {
             className={styles.socialLink}
           >
             <FaYoutube />
+          </a>
+          <a
+            href="https://x.com/andr_3wM"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.socialLink}
+          >
+            <FaXTwitter />
           </a>
           <a
             href="https://www.tiktok.com/@andr.3wm"

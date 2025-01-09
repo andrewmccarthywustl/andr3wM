@@ -5,7 +5,7 @@
   --dark-hover: #202020;
   --dark-shadow: rgba(0, 0, 0, 0.3);
   --light-primary: #ffffff;
-  --accent-color: #ff00ff;
+  --accent-color: #3cb371;
   --secondary-accent-color: #ffff00;
   --edit-button-color: #0000ff;
   --edit-button-hover: #000099;
@@ -47,6 +47,7 @@
 
   /* Layout */
   --container-max-width: 1200px;
+  --container-med-width: 800px;
   --container-padding: var(--spacing-md);
   --border-radius-sm: 4px;
   --border-radius-md: 8px;

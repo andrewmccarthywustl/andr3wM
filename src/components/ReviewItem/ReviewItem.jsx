@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./ReviewItem.module.css";
+import typography from "../../styles/typography.module.css";
 
 function ReviewItem({ review, onClick, index, animate }) {
   const itemRef = useRef(null);
@@ -49,13 +50,45 @@ function ReviewItem({ review, onClick, index, animate }) {
           <p>View Full Review</p>
         </div>
       </div>
-      <h3 className={styles.reviewTitle}>{review.title}</h3>
+      <h3 className={`${styles.reviewTitle} ${typography.heading3}`}>
+        {review.title}
+      </h3>
       <p className={styles.reviewRating}>
         Rating: {review.rating.toFixed(1)}/10
       </p>
       <p className={styles.reviewDate}>
         {new Date(review.created_at).toLocaleDateString()}
       </p>
+      <div
+        className={styles.ratingBar}
+        style={{
+          backgroundColor: `rgb(${
+            review.rating >= 9
+              ? 0 // Pure green
+              : review.rating >= 8
+              ? Math.round(255 * (1 - (review.rating - 8))) // Green to yellow-green
+              : review.rating >= 7
+              ? Math.round(255 * 0.8) // Yellow
+              : review.rating >= 5
+              ? 255 // Orange to yellow
+              : review.rating >= 3
+              ? 255 // Deep red-orange
+              : 255 // Pure red
+          }, ${
+            review.rating >= 9
+              ? 255 // Pure green
+              : review.rating >= 8
+              ? 255 // Yellow-green
+              : review.rating >= 7
+              ? 255 // Yellow
+              : review.rating >= 5
+              ? Math.round(255 * ((review.rating - 5) / 2)) // Orange transition
+              : review.rating >= 3
+              ? Math.round(255 * (review.rating / 5) * 0.3) // Red-orange
+              : 0 // Pure red
+          }, 0)`,
+        }}
+      />
     </div>
   );
 }

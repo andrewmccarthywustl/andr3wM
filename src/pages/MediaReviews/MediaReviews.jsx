@@ -1,5 +1,4 @@
-// src/pages/MediaReviews/MediaReviews.jsx
-
+// MediaReviews.jsx
 import React, { useState, useEffect } from "react";
 import { api, MediaType } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
@@ -10,7 +9,9 @@ import DeleteConfirmation from "../../components/DeleteConfirmation";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import SortDropdown from "../../components/SortDropdown";
 import useIsMobile from "../../hooks/useIsMobile";
+import { IoChevronForward } from "react-icons/io5";
 import styles from "./MediaReviews.module.css";
+import typography from "../../styles/typography.module.css";
 
 function MediaReviews() {
   const [reviews, setReviews] = useState({
@@ -199,15 +200,6 @@ function MediaReviews() {
     }
   };
 
-  const closeReviewPopup = () => {
-    setIsPopupOpen(false);
-    document.body.classList.remove("no-scroll");
-    setTimeout(() => {
-      setSelectedReview(null);
-      setIsEditing(false);
-    }, 300);
-  };
-
   if (isLoading) return <LoadingSpinner />;
   if (error) return <div className={styles.error}>{error}</div>;
 
@@ -227,7 +219,7 @@ function MediaReviews() {
       {[MediaType.MOVIE, MediaType.SHOW, MediaType.BOOK].map((mediaType) => (
         <section key={mediaType} className={styles.reviewSection}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>
+            <h2 className={`${styles.sectionTitle} ${typography.heading2}`}>
               {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} Reviews
             </h2>
             <div className={styles.sortContainer}>
@@ -237,23 +229,29 @@ function MediaReviews() {
               />
             </div>
           </div>
-          <div className={styles.reviewList}>
-            {reviews[mediaType].map((review, index) => (
-              <ReviewItem
-                key={review.id}
-                review={review}
-                onClick={openReviewPopup}
-                index={index}
-                animate={animateItems[mediaType]}
-              />
-            ))}
+          <div className={styles.reviewListContainer}>
+            <IoChevronForward className={styles.scrollArrow} />
+            <div className={styles.reviewList}>
+              {reviews[mediaType].map((review, index) => (
+                <ReviewItem
+                  key={review.id}
+                  review={review}
+                  onClick={openReviewPopup}
+                  index={index}
+                  animate={animateItems[mediaType]}
+                />
+              ))}
+            </div>
           </div>
         </section>
       ))}
       {selectedReview && (
         <ReviewPopup
           review={selectedReview}
-          onClose={closeReviewPopup}
+          onClose={() => {
+            setIsPopupOpen(false);
+            setSelectedReview(null);
+          }}
           onEdit={handleEditReview}
           onDelete={handleDeleteReview}
           isEditing={isEditing}

@@ -1,9 +1,9 @@
-// src/components/ReviewPopup/ReviewPopup.jsx
-
+// ReviewPopup.jsx
 import React, { useEffect, useRef } from "react";
+import { IoChevronBack } from "react-icons/io5";
 import EditReviewForm from "../EditReviewForm";
 import styles from "./ReviewPopup.module.css";
-import { IoChevronBack } from "react-icons/io5";
+import typography from "../../styles/typography.module.css";
 
 function ReviewPopup({
   review,
@@ -34,15 +34,11 @@ function ReviewPopup({
     startX.current = e.touches[0].clientX;
   };
 
-  //TODO: FIX THIS SWIPE TO BE THER OTHER WAY
   const handleTouchMove = (e) => {
     if (!startX.current) return;
-
     const currentX = e.touches[0].clientX;
     const diff = startX.current - currentX;
-
     if (diff < -50) {
-      // Swiped left
       onClose();
     }
   };
@@ -83,27 +79,43 @@ function ReviewPopup({
                   />
                 </div>
                 <div className={styles.reviewPopupInfo}>
-                  <h2 className={styles.reviewPopupTitle}>{review.title}</h2>
+                  <h2
+                    className={`${styles.reviewPopupTitle} ${typography.heading2}`}
+                  >
+                    {review.title}
+                  </h2>
                   {review.media_type === "movie" && review.director && (
-                    <p className={styles.reviewPopupDetail}>
+                    <p
+                      className={`${styles.reviewPopupDetail} ${typography.bodyText}`}
+                    >
                       Director: {review.director}
                     </p>
                   )}
                   {review.media_type === "book" && review.author && (
-                    <p className={styles.reviewPopupDetail}>
+                    <p
+                      className={`${styles.reviewPopupDetail} ${typography.bodyText}`}
+                    >
                       Author: {review.author}
                     </p>
                   )}
-                  <p className={styles.reviewPopupRating}>
+                  <p
+                    className={`${styles.reviewPopupRating} ${typography.bodyText}`}
+                  >
                     Rating: {review.rating.toFixed(1)}/10
                   </p>
-                  <p className={styles.reviewPopupDate}>
+                  <p
+                    className={`${styles.reviewPopupDate} ${typography.bodyText}`}
+                  >
                     {new Date(review.created_at).toLocaleDateString()}
                   </p>
                 </div>
               </div>
               <div className={styles.reviewPopupBody}>
-                <p className={styles.reviewPopupText}>{review.review_text}</p>
+                <p
+                  className={`${styles.reviewPopupText} ${typography.bodyText}`}
+                >
+                  {review.review_text}
+                </p>
               </div>
               {currentUser && currentUser.id === review.reviewer && (
                 <div className={styles.reviewPopupActions}>

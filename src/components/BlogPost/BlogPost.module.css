@@ -1,57 +1,54 @@
 .blogPost {
   background-color: var(--dark-primary);
-  padding: 1.5rem;
-  margin-bottom: 2rem;
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
   border: 3px solid var(--light-primary);
 }
 
 .postTitle {
-  font-size: 1.8rem;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
   color: var(--light-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing-sm);
 }
 
 .postMeta {
-  font-size: 0.9rem;
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
   color: var(--light-primary);
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .postContent {
   color: var(--light-primary);
-  line-height: 1.6;
+  line-height: var(--line-height-relaxed);
 }
 
 .contentWrapper {
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .inlineImage {
   float: right;
   max-width: 40%;
   height: auto;
-  margin-left: 1rem;
-}
-
-.postContent p {
-  margin-bottom: 1rem;
-  text-align: justify;
+  margin-left: var(--spacing-md);
 }
 
 .postActions {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
 }
 
 .editButton,
 .deleteButton {
-  padding: 0.5rem 1rem;
+  padding: var(--spacing-sm) var(--spacing-md);
   border: none;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease;
+  font-size: var(--font-size-sm);
+  transition: background-color var(--transition-normal);
 }
 
 .editButton {
@@ -72,11 +69,16 @@
   background-color: var(--delete-button-hover);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .inlineImage {
     float: none;
     max-width: 100%;
-    margin-bottom: 1rem;
+    margin: var(--spacing-md) 0;
     margin-left: 0;
+  }
+
+  .contentWrapper {
+    display: flex;
+    flex-direction: column;
   }
 }

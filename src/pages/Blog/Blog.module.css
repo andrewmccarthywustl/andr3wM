@@ -1,64 +1,65 @@
-/* src/pages/Blog/Blog.module.css */
-
 .blogContainer {
   min-height: calc(100vh - 60px);
   background-color: var(--dark-primary);
-  color: var(--light-primary);
-  font-family: "Roboto", sans-serif;
-  padding: 2rem 1rem;
+  font-family: var(--font-body);
+  padding: var(--spacing-2xl) var(--spacing-md);
 }
-
 .blogContent {
-  max-width: 800px;
+  max-width: var(--container-med-width); /* Changed from container-max-width */
   margin: 0 auto;
 }
 
 .blogTitle {
-  font-size: 2.5rem;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
   color: var(--light-primary);
   text-align: center;
-  margin-bottom: 2rem;
-  animation: fadeInDown 0.8s ease-out;
+  margin-bottom: var(--spacing-2xl);
+  animation: fadeInDown var(--transition-slow) ease-out;
 }
 
 .blogPosts {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: var(--spacing-2xl);
 }
 
 .errorMessage {
   background-color: rgba(255, 0, 0, 0.1);
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  color: #ff6b6b;
-  padding: 1rem;
-  border-radius: 5px;
+  border: 1px solid var(--delete-button-color);
+  color: var(--delete-button-color);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
   text-align: center;
-  margin-top: 2rem;
+  margin-top: var(--spacing-2xl);
 }
 
 .addPostButton {
   background-color: var(--accent-color);
-  color: white;
+  color: var(--light-primary);
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: var(--spacing-sm) var(--spacing-xl);
+  border-radius: var(--border-radius-sm);
   cursor: pointer;
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  transition: background-color 0.3s ease;
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-2xl);
+  transition: background-color var(--transition-normal);
 }
 
 .addPostButton:hover {
-  background-color: var(--secondary-acent-color);
+  background-color: var(--secondary-accent-color);
 }
 
 @media (max-width: 768px) {
-  .blogContainer {
-    padding: 1rem;
+  .inlineImage {
+    float: none;
+    max-width: 100%;
+    margin: var(--spacing-md) 0;
+    margin-left: 0;
   }
 
-  .blogTitle {
-    font-size: 2rem;
+  .contentWrapper {
+    display: flex;
+    flex-direction: column;
   }
 }

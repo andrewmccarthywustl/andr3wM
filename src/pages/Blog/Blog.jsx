@@ -8,6 +8,7 @@ import BlogPost from "../../components/BlogPost/BlogPost";
 import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import styles from "./Blog.module.css";
+import typography from "../../styles/typography.module.css";
 
 function Blog() {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -91,7 +92,9 @@ function Blog() {
   return (
     <div className={styles.blogContainer}>
       <div className={styles.blogContent}>
-        <h1 className={styles.blogTitle}>The Blog</h1>
+        <h1 className={`${styles.blogTitle} ${typography.heading1}`}>
+          The Blog
+        </h1>
         {user && !isAddingPost && (
           <button
             onClick={() => setIsAddingPost(true)}

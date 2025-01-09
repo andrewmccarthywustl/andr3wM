@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./BlogPost.module.css";
 import RichBlogPostEditor from "../RichBlogPostEditor/RichBlogPostEditor";
+import typography from "../../styles/typography.module.css";
 
 function BlogPost({ post, onEdit, onDelete, currentUser, index }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -82,11 +83,15 @@ function BlogPost({ post, onEdit, onDelete, currentUser, index }) {
         />
       ) : (
         <>
-          <h2 className={styles.postTitle}>{post.title}</h2>
-          <p className={styles.postMeta}>
+          <h2 className={`${styles.postTitle} ${typography.heading2}`}>
+            {post.title}
+          </h2>
+          <p className={`${styles.postMeta} ${typography.bodyText}`}>
             {new Date(post.created_at).toLocaleDateString()}
           </p>
-          <div className={styles.postContent}>{renderContent()}</div>
+          <div className={`${styles.postContent} ${typography.bodyText}`}>
+            {renderContent()}
+          </div>
           {currentUser &&
             (currentUser.id === post.author || currentUser.isAdmin) && (
               <div className={styles.postActions}>
