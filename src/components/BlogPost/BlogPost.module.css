@@ -72,21 +72,6 @@
   background-color: var(--delete-button-hover);
 }
 
-.slideIn {
-  animation: slideInAnimation 0.5s ease-out;
-}
-
-@keyframes slideInAnimation {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (max-width: 600px) {
   .inlineImage {
     float: none;

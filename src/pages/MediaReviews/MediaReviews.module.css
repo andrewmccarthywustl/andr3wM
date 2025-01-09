@@ -12,13 +12,6 @@
   margin-bottom: 3rem;
 }
 
-.sectionHeader {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  animation: slideInAnimation 1s ease-out;
-}
-
 .sectionTitle {
   color: var(--light-primary);
   font-size: 2rem;
@@ -56,17 +49,6 @@
 
 .addReviewButton:hover {
   background-color: var(--secondary-acent-color);
-}
-
-@keyframes slideInAnimation {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @media (max-width: 768px) {

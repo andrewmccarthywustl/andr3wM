@@ -1,36 +1,34 @@
-/* src/components/Header/Header.module.css */
-
 .header {
   background-color: var(--dark-primary);
-  padding: 1rem 0;
+  padding: var(--spacing-md) 0;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: var(--z-index-sticky);
   border-bottom: 3px solid var(--light-primary);
 }
 
 .headerContent {
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 var(--container-padding);
 }
 
 .nav {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: var(--spacing-xl);
 }
 
 .navLink {
-  font-family: "Roboto", sans-serif;
-  font-size: 1rem;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-base);
   color: var(--light-primary);
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 0.5rem 0;
+  letter-spacing: var(--letter-spacing-wide);
+  padding: var(--spacing-sm) 0;
   position: relative;
-  transition: color 0.3s ease;
+  transition: color var(--transition-normal);
 }
 
 .navLink::after {
@@ -42,24 +40,20 @@
   left: 0;
   background-color: var(--light-primary);
   transform: scaleX(0);
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal);
 }
 
 .navLink:hover::after,
-.navLink.active::after {
+.active::after {
   transform: scaleX(1);
 }
 
 @media (max-width: 768px) {
-  .headerContent {
-    padding: 0 1rem;
-  }
-
   .nav {
-    justify-content: center;
+    gap: var(--spacing-md);
   }
 
   .navLink {
-    font-size: 0.9rem;
+    font-size: var(--font-size-sm);
   }
 }
