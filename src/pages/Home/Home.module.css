@@ -102,12 +102,14 @@
 
   .blockOne,
   .blockTwo,
-  .blockThree,
   .blockFour,
   .blockFive,
-  .blockSix,
   .blockSeven {
     grid-column: span 2;
     grid-row: auto;
+  }
+  .blockThree,
+  .blockSix {
+    display: none;
   }
 }
