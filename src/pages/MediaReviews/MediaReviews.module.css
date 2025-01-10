@@ -28,9 +28,16 @@
   position: relative;
 }
 
+.scrollArrowLeft {
+  left: 20px;
+}
+
+.scrollArrowRight {
+  right: 20px;
+}
+
 .scrollArrow {
   position: absolute;
-  right: 20px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 2rem;

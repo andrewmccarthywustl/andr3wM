@@ -9,7 +9,7 @@ import DeleteConfirmation from "../../components/DeleteConfirmation";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import SortDropdown from "../../components/SortDropdown";
 import useIsMobile from "../../hooks/useIsMobile";
-import { IoChevronForward } from "react-icons/io5";
+import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import styles from "./MediaReviews.module.css";
 import typography from "../../styles/typography.module.css";
 
@@ -31,6 +31,11 @@ function MediaReviews() {
   });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAddingReview, setIsAddingReview] = useState(false);
+  const [scrollStates, setScrollStates] = useState({
+    [MediaType.MOVIE]: { canScrollLeft: false, canScrollRight: false },
+    [MediaType.SHOW]: { canScrollLeft: false, canScrollRight: false },
+    [MediaType.BOOK]: { canScrollLeft: false, canScrollRight: false },
+  });
   const { user } = useAuth();
   const isMobile = useIsMobile();
 
@@ -41,6 +46,30 @@ function MediaReviews() {
   };
 
   const [sortOptions, setSortOptions] = useState(defaultSortOptions);
+
+  const checkScroll = (mediaType, container) => {
+    if (!container) return;
+
+    const canScrollLeft = container.scrollLeft > 0;
+    const canScrollRight =
+      container.scrollLeft < container.scrollWidth - container.clientWidth;
+
+    setScrollStates((prev) => ({
+      ...prev,
+      [mediaType]: { canScrollLeft, canScrollRight },
+    }));
+  };
+
+  const handleScroll = (mediaType, e) => {
+    checkScroll(mediaType, e.target);
+  };
+
+  useEffect(() => {
+    Object.keys(reviews).forEach((mediaType) => {
+      const container = document.querySelector(`#scroll-${mediaType}`);
+      checkScroll(mediaType, container);
+    });
+  }, [reviews]);
 
   useEffect(() => {
     fetchReviews();
@@ -230,8 +259,35 @@ function MediaReviews() {
             </div>
           </div>
           <div className={styles.reviewListContainer}>
-            <IoChevronForward className={styles.scrollArrow} />
-            <div className={styles.reviewList}>
+            {scrollStates[mediaType].canScrollLeft && (
+              <IoChevronBack
+                className={`${styles.scrollArrow} ${styles.scrollArrowLeft}`}
+              />
+            )}
+            {scrollStates[mediaType].canScrollRight && (
+              <IoChevronForward
+                className={`${styles.scrollArrow} ${styles.scrollArrowRight}`}
+              />
+            )}
+            <div
+              id={`scroll-${mediaType}`}
+              className={styles.reviewList}
+              onScroll={(e) => handleScroll(mediaType, e)}
+              style={{
+                maskImage: `linear-gradient(90deg, 
+                 ${
+                   scrollStates[mediaType].canScrollLeft
+                     ? "transparent 0%, #000 5%"
+                     : "#000 0%"
+                 }, 
+                 ${
+                   scrollStates[mediaType].canScrollRight
+                     ? "#000 95%, transparent 100%"
+                     : "#000 100%"
+                 }
+               )`,
+              }}
+            >
               {reviews[mediaType].map((review, index) => (
                 <ReviewItem
                   key={review.id}
