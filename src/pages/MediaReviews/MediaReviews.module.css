@@ -45,7 +45,6 @@
   color: var(--light-primary);
   opacity: 0.7;
   z-index: 2;
-  animation: bounce 1s infinite;
 }
 
 .scrollArrowLeft {
@@ -59,7 +58,7 @@
 .reviewList {
   display: flex;
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden; /* Change from visible to hidden */
   gap: var(--spacing-lg);
   padding: var(--spacing-sm) 0;
   padding-bottom: var(--spacing-xl);
@@ -67,6 +66,14 @@
   scroll-behavior: smooth;
   margin: 0 -var(--spacing-md);
   padding: 0 var(--spacing-md);
+  /* Add these properties to prevent vertical scrolling affecting the container */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer/Edge */
+}
+
+/* Add this to hide the scrollbar in WebKit browsers */
+.reviewList::-webkit-scrollbar {
+  display: none;
 }
 
 .addReviewSection {
