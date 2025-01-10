@@ -9,7 +9,7 @@
   background-color: var(--dark-primary);
   color: var(--light-primary);
   font-family: var(--font-body);
-  z-index: var(--z-index-modal);
+  z-index: var(--z-index-popover);
   transition: transform var(--transition-normal);
   transform: translateX(100%);
   display: flex;
