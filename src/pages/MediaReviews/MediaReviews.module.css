@@ -11,6 +11,13 @@
   margin-bottom: var(--spacing-3xl);
 }
 
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
 .sectionTitle {
   font-family: var(--font-heading);
   font-size: var(--font-size-3xl);
@@ -28,33 +35,35 @@
   position: relative;
 }
 
-.scrollArrowLeft {
-  left: 20px;
-}
-
-.scrollArrowRight {
-  right: 20px;
-}
-
 .scrollArrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 2rem;
+  font-size: var(--font-size-2xl);
   color: var(--light-primary);
   opacity: 0.7;
   z-index: 2;
+  animation: bounce 1s infinite;
+}
+
+.scrollArrowLeft {
+  left: var(--spacing-xl);
+}
+
+.scrollArrowRight {
+  right: var(--spacing-xl);
 }
 
 .reviewList {
   display: flex;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   gap: var(--spacing-lg);
   padding: var(--spacing-sm) 0;
-  mask-image: linear-gradient(90deg, #000 0%, #000 95%, transparent 100%);
-  touch-action: pan-x;
-  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  margin: 0 -var(--spacing-md);
+  padding: 0 var(--spacing-md);
 }
 
 .addReviewSection {
@@ -76,12 +85,32 @@
   background-color: var(--secondary-accent-color);
 }
 
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-50%) translateX(0);
+  }
+  50% {
+    transform: translateY(-50%) translateX(5px);
+  }
+}
+
 @media (max-width: 768px) {
   .mediaReviews {
     padding: var(--spacing-md);
   }
 
+  .reviewList {
+    scroll-snap-type: x mandatory;
+    touch-action: pan-x;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   .sectionTitle {
     font-size: var(--font-size-2xl);
+  }
+
+  .scrollArrow {
+    display: none;
   }
 }

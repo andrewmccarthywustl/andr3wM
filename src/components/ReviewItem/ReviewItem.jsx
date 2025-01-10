@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+// ReviewItem.jsx
+import React, { useRef, useState, useEffect } from "react";
 import styles from "./ReviewItem.module.css";
 import typography from "../../styles/typography.module.css";
 import useIsMobile from "../../hooks/useIsMobile";
@@ -7,30 +8,6 @@ function ReviewItem({ review, onClick, index, animate }) {
   const itemRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const isMobile = useIsMobile();
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
-
-  const minSwipeDistance = 50;
-
-  const onTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientY);
-  };
-
-  const onTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientY);
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-
-    const distance = touchStart - touchEnd;
-    const isSwipe = Math.abs(distance) > minSwipeDistance;
-
-    if (!isSwipe) {
-      onClick(review);
-    }
-  };
 
   useEffect(() => {
     const item = itemRef.current;
@@ -43,80 +20,29 @@ function ReviewItem({ review, onClick, index, animate }) {
     }
   }, [index, animate]);
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onClick(review);
+  const handleInteraction = (e) => {
+    const target = e.target;
+    const isScrolling = target.closest(".reviewList");
+
+    if (isScrolling && e.type === "touchend") {
+      const scrollContainer = target.closest(".reviewList");
+      if (
+        Math.abs(scrollContainer.scrollLeft % scrollContainer.clientWidth) > 10
+      ) {
+        return;
+      }
     }
+    onClick(review);
   };
 
-  return isMobile ? (
+  return (
     <div
       ref={itemRef}
       className={`${styles.reviewItem} ${isVisible ? styles.visible : ""}`}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-    >
-      <div className={styles.imageContainer}>
-        <img
-          src={review.image_url}
-          alt={review.title}
-          className={styles.reviewImage}
-        />
-        <div className={styles.reviewOverlay}>
-          <p>View Full Review</p>
-        </div>
-      </div>
-      <h3 className={`${styles.reviewTitle} ${typography.heading3}`}>
-        {review.title}
-      </h3>
-      <p className={styles.reviewRating}>
-        Rating: {review.rating.toFixed(1)}/10
-      </p>
-      <p className={styles.reviewDate}>
-        {new Date(review.created_at).toLocaleDateString()}
-      </p>
-      <div
-        className={styles.ratingBar}
-        style={{
-          backgroundColor: `rgb(${
-            review.rating >= 9
-              ? 0
-              : review.rating >= 8
-              ? Math.round(255 * (1 - (review.rating - 8)))
-              : review.rating >= 7
-              ? Math.round(255 * 0.8)
-              : review.rating >= 5
-              ? 255
-              : review.rating >= 3
-              ? 255
-              : 255
-          }, ${
-            review.rating >= 9
-              ? 255
-              : review.rating >= 8
-              ? 255
-              : review.rating >= 7
-              ? 255
-              : review.rating >= 5
-              ? Math.round(255 * ((review.rating - 5) / 2))
-              : review.rating >= 3
-              ? Math.round(255 * (review.rating / 5) * 0.3)
-              : 0
-          }, 0)`,
-        }}
-      />
-    </div>
-  ) : (
-    <div
-      ref={itemRef}
-      className={`${styles.reviewItem} ${isVisible ? styles.visible : ""}`}
-      onClick={() => onClick(review)}
-      onKeyDown={handleKeyDown}
-      tabIndex={0}
+      onTouchEnd={isMobile ? handleInteraction : undefined}
+      onClick={!isMobile ? () => onClick(review) : undefined}
       role="button"
-      aria-pressed="false"
+      tabIndex={0}
     >
       <div className={styles.imageContainer}>
         <img

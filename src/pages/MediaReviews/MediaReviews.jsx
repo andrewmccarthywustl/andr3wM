@@ -49,11 +49,9 @@ function MediaReviews() {
 
   const checkScroll = (mediaType, container) => {
     if (!container) return;
-
     const canScrollLeft = container.scrollLeft > 0;
     const canScrollRight =
       container.scrollLeft < container.scrollWidth - container.clientWidth;
-
     setScrollStates((prev) => ({
       ...prev,
       [mediaType]: { canScrollLeft, canScrollRight },
@@ -161,7 +159,6 @@ function MediaReviews() {
 
   const confirmDeleteReview = async () => {
     if (!deleteConfirmation) return;
-
     try {
       await api.deleteReview(deleteConfirmation);
       setReviews((prevReviews) => {
@@ -273,20 +270,6 @@ function MediaReviews() {
               id={`scroll-${mediaType}`}
               className={styles.reviewList}
               onScroll={(e) => handleScroll(mediaType, e)}
-              style={{
-                maskImage: `linear-gradient(90deg, 
-                 ${
-                   scrollStates[mediaType].canScrollLeft
-                     ? "transparent 0%, #000 5%"
-                     : "#000 0%"
-                 }, 
-                 ${
-                   scrollStates[mediaType].canScrollRight
-                     ? "#000 95%, transparent 100%"
-                     : "#000 100%"
-                 }
-               )`,
-              }}
             >
               {reviews[mediaType].map((review, index) => (
                 <ReviewItem
