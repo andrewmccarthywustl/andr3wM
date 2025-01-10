@@ -61,6 +61,7 @@
   width: 200px;
   height: 300px;
   overflow: hidden;
+  border: 2px solid var(--light-primary);
 }
 
 .reviewPopupImage {
@@ -68,7 +69,6 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: var(--border-radius-sm);
 }
 
 .reviewPopupInfo {
