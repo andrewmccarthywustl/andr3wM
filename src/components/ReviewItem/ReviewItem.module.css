@@ -1,4 +1,3 @@
-/* ReviewItem.module.css */
 .reviewItem {
   flex: 0 0 auto;
   width: 200px;
@@ -13,7 +12,7 @@
   display: flex;
   flex-direction: column;
   min-height: 400px;
-  scroll-snap-align: start;
+  position: relative;
 }
 
 .reviewItem.visible {
@@ -56,6 +55,29 @@
   opacity: 1;
 }
 
+.viewButton {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: var(--light-primary);
+  border: 2px solid var(--light-primary);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  z-index: 3;
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.viewButton:hover {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
 .reviewTitle {
   font-family: var(--font-heading);
   font-size: var(--font-size-base);
@@ -86,5 +108,18 @@
     touch-action: manipulation;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+  }
+
+  .reviewItem.touched .viewButton {
+    display: block;
+  }
+
+  .reviewOverlay {
+    display: none;
+  }
+
+  .reviewItem:hover,
+  .reviewItem:focus {
+    transform: none;
   }
 }

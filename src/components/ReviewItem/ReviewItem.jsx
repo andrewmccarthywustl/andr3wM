@@ -7,6 +7,7 @@ import useIsMobile from "../../hooks/useIsMobile";
 function ReviewItem({ review, onClick, index, animate }) {
   const itemRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [touched, setTouched] = useState(false);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -20,36 +21,37 @@ function ReviewItem({ review, onClick, index, animate }) {
     }
   }, [index, animate]);
 
-  const handleInteraction = (e) => {
-    const target = e.target;
-    const isScrolling = target.closest(".reviewList");
-
-    if (isScrolling && e.type === "touchend") {
-      const scrollContainer = target.closest(".reviewList");
-      if (
-        Math.abs(scrollContainer.scrollLeft % scrollContainer.clientWidth) > 10
-      ) {
-        return;
-      }
-    }
-    onClick(review);
+  const handleTouch = (e) => {
+    e.preventDefault();
+    setTouched(true);
+    setTimeout(() => setTouched(false), 3000);
   };
 
   return (
     <div
       ref={itemRef}
-      className={`${styles.reviewItem} ${isVisible ? styles.visible : ""}`}
-      onTouchEnd={isMobile ? handleInteraction : undefined}
-      onClick={!isMobile ? () => onClick(review) : undefined}
-      role="button"
-      tabIndex={0}
+      className={`${styles.reviewItem} ${isVisible ? styles.visible : ""} ${
+        touched ? styles.touched : ""
+      }`}
     >
-      <div className={styles.imageContainer}>
+      <div
+        className={styles.imageContainer}
+        onTouchStart={isMobile ? handleTouch : undefined}
+      >
         <img
           src={review.image_url}
           alt={review.title}
           className={styles.reviewImage}
         />
+        <button
+          className={styles.viewButton}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick(review);
+          }}
+        >
+          View Review
+        </button>
         <div className={styles.reviewOverlay}>
           <p>View Full Review</p>
         </div>
