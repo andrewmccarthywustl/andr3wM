@@ -87,6 +87,7 @@
   z-index: 3;
   padding: 2rem;
   pointer-events: auto;
+  padding: 10px;
 }
 
 .scrollArrowLeft {
