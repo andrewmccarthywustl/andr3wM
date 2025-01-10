@@ -9,12 +9,14 @@
   background-color: var(--dark-primary);
   color: var(--light-primary);
   font-family: var(--font-body);
-  z-index: var(--z-index-popover);
+  z-index: 1001; /* Higher than header's z-index */
   transition: transform var(--transition-normal);
   transform: translateX(100%);
   display: flex;
   flex-direction: column;
   border-left: 2px solid var(--light-primary);
+  height: 100%; /* Ensure full height */
+  overflow-y: auto; /* Allow scrolling within popup */
 }
 
 .reviewPopup.open {

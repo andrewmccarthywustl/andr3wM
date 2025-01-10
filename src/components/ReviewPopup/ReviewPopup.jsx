@@ -19,16 +19,10 @@ function ReviewPopup({
   const popupRef = useRef(null);
   const startX = useRef(null);
 
-  useEffect(() => {
-    if (isOpen && isMobile) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen, isMobile]);
+  const preventScroll = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   const handleTouchStart = (e) => {
     startX.current = e.touches[0].clientX;
@@ -46,6 +40,30 @@ function ReviewPopup({
   const handleTouchEnd = () => {
     startX.current = null;
   };
+
+  // Mobile scroll prevention
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.addEventListener("touchmove", preventScroll, { passive: false });
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+      document.removeEventListener("touchmove", preventScroll);
+    };
+  }, [isOpen]);
+
+  // Body overflow control
+  useEffect(() => {
+    if (isOpen && isMobile) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen, isMobile]);
 
   return (
     <div

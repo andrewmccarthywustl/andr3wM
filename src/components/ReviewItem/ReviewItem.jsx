@@ -21,8 +21,7 @@ function ReviewItem({ review, onClick, index, animate }) {
     }
   }, [index, animate]);
 
-  const handleTouch = (e) => {
-    e.preventDefault();
+  const handleTouch = () => {
     setTouched(true);
     setTimeout(() => setTouched(false), 3000);
   };
