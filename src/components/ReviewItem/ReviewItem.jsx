@@ -1,4 +1,3 @@
-// ReviewItem.jsx
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./ReviewItem.module.css";
 import typography from "../../styles/typography.module.css";
@@ -8,6 +7,30 @@ function ReviewItem({ review, onClick, index, animate }) {
   const itemRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const isMobile = useIsMobile();
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientY);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientY);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isSwipe = Math.abs(distance) > minSwipeDistance;
+
+    if (!isSwipe) {
+      onClick(review);
+    }
+  };
 
   useEffect(() => {
     const item = itemRef.current;
@@ -31,7 +54,9 @@ function ReviewItem({ review, onClick, index, animate }) {
     <div
       ref={itemRef}
       className={`${styles.reviewItem} ${isVisible ? styles.visible : ""}`}
-      onTouchEnd={() => onClick(review)}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
     >
       <div className={styles.imageContainer}>
         <img
