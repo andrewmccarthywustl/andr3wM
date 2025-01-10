@@ -5,6 +5,8 @@
   font-family: var(--font-body);
   min-height: calc(100vh - 60px);
   padding: var(--spacing-2xl) var(--spacing-md);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .reviewSection {
@@ -60,6 +62,7 @@
   overflow-y: visible;
   gap: var(--spacing-lg);
   padding: var(--spacing-sm) 0;
+  padding-bottom: var(--spacing-xl);
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   margin: 0 -var(--spacing-md);
@@ -85,6 +88,14 @@
   background-color: var(--secondary-accent-color);
 }
 
+.error {
+  padding: var(--spacing-md);
+  background-color: var(--delete-button-color);
+  color: var(--light-primary);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--spacing-xl);
+}
+
 @keyframes bounce {
   0%,
   100% {
@@ -98,11 +109,12 @@
 @media (max-width: 768px) {
   .mediaReviews {
     padding: var(--spacing-md);
+    height: 100vh;
   }
 
   .reviewList {
     scroll-snap-type: x mandatory;
-    touch-action: pan-x;
+    touch-action: pan-x pan-y;
     -webkit-tap-highlight-color: transparent;
   }
 

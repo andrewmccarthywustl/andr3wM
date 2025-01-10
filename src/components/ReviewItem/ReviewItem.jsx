@@ -33,6 +33,7 @@ function ReviewItem({ review, onClick, index, animate }) {
       className={`${styles.reviewItem} ${isVisible ? styles.visible : ""} ${
         touched ? styles.touched : ""
       }`}
+      onClick={!isMobile ? () => onClick(review) : undefined}
     >
       <div
         className={styles.imageContainer}
