@@ -17,7 +17,6 @@ function ReviewPopup({
   isMobile,
 }) {
   const popupRef = useRef(null);
-  const startX = useRef(null);
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
@@ -39,34 +38,12 @@ function ReviewPopup({
     }, 300);
   };
 
-  const handleTouchStart = (e) => {
-    startX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchMove = (e) => {
-    if (!startX.current) return;
-
-    const currentX = e.touches[0].clientX;
-    const diff = startX.current - currentX;
-
-    if (diff < -50) {
-      handleClose();
-    }
-  };
-
-  const handleTouchEnd = () => {
-    startX.current = null;
-  };
-
   return (
     <div
       className={`${styles.reviewPopup} ${isOpen ? styles.open : ""} ${
         isClosing ? styles.swipeAnimation : ""
-      } ${isMobile ? styles.mobile : ""}`}
+      }`}
       ref={popupRef}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
     >
       <div className={styles.reviewPopupContent}>
         <button className={styles.backButton} onClick={handleClose}>

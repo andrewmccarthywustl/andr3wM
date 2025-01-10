@@ -7,23 +7,21 @@
   max-width: 600px;
   background-color: var(--dark-primary);
   color: var(--light-primary);
-  font-family: var(--font-body);
-  z-index: 2000;
-  transition: transform var(--transition-normal);
+  z-index: 1000;
   transform: translateX(100%);
   display: flex;
   flex-direction: column;
   border-left: 2px solid var(--light-primary);
-  -webkit-transform: translateX(100%); /* Add webkit prefix */
 }
 
 .reviewPopup.open {
   transform: translateX(0);
-  -webkit-transform: translateX(0);
+  transition: transform 0.3s ease-out;
 }
 
 .reviewPopup.swipeAnimation {
-  animation: swipeOut 0.3s ease-out;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out;
 }
 
 .reviewPopup.mobile {
