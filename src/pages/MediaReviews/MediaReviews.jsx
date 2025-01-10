@@ -1,4 +1,3 @@
-// MediaReviews.jsx
 import React, { useState, useEffect } from "react";
 import { api, MediaType } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
@@ -12,7 +11,6 @@ import useIsMobile from "../../hooks/useIsMobile";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import styles from "./MediaReviews.module.css";
 import typography from "../../styles/typography.module.css";
-import { createPortal } from "react-dom";
 
 function MediaReviews() {
   const [reviews, setReviews] = useState({
@@ -37,8 +35,6 @@ function MediaReviews() {
     [MediaType.SHOW]: { canScrollLeft: false, canScrollRight: false },
     [MediaType.BOOK]: { canScrollLeft: false, canScrollRight: false },
   });
-  const { user } = useAuth();
-  const isMobile = useIsMobile();
 
   const defaultSortOptions = {
     [MediaType.MOVIE]: { key: "created_at", order: "desc" },
@@ -47,21 +43,38 @@ function MediaReviews() {
   };
 
   const [sortOptions, setSortOptions] = useState(defaultSortOptions);
+  const { user } = useAuth();
+  const isMobile = useIsMobile();
 
-  const checkScroll = (mediaType, container) => {
+  const scrollReviews = (mediaType, direction) => {
+    const container = document.querySelector(`#scroll-${mediaType}`);
     if (!container) return;
-    const canScrollLeft = container.scrollLeft > 0;
+
+    const itemWidth = container.children[0]?.offsetWidth || 0;
+    const gap = parseInt(getComputedStyle(container).gap) || 0;
+    const scrollAmount = (itemWidth + gap) * 3;
+
+    container.scrollBy({
+      left: direction === "right" ? scrollAmount : -scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
+  const handleScroll = (mediaType, e) => {
+    const container = e.target;
+    const canScrollLeft = container.scrollLeft > 20;
     const canScrollRight =
-      container.scrollLeft < container.scrollWidth - container.clientWidth;
+      container.scrollLeft < container.scrollWidth - container.clientWidth - 20;
+
     setScrollStates((prev) => ({
       ...prev,
       [mediaType]: { canScrollLeft, canScrollRight },
     }));
   };
 
-  const handleScroll = (mediaType, e) => {
-    checkScroll(mediaType, e.target);
-  };
+  useEffect(() => {
+    fetchReviews();
+  }, []);
 
   useEffect(() => {
     Object.keys(reviews).forEach((mediaType) => {
@@ -69,10 +82,6 @@ function MediaReviews() {
       checkScroll(mediaType, container);
     });
   }, [reviews]);
-
-  useEffect(() => {
-    fetchReviews();
-  }, []);
 
   useEffect(() => {
     const sortedReviews = {};
@@ -84,6 +93,17 @@ function MediaReviews() {
     });
     setReviews(sortedReviews);
   }, [sortOptions]);
+
+  const checkScroll = (mediaType, container) => {
+    if (!container) return;
+    const canScrollLeft = container.scrollLeft > 0;
+    const canScrollRight =
+      container.scrollLeft < container.scrollWidth - container.clientWidth;
+    setScrollStates((prev) => ({
+      ...prev,
+      [mediaType]: { canScrollLeft, canScrollRight },
+    }));
+  };
 
   const fetchReviews = async () => {
     try {
@@ -257,14 +277,26 @@ function MediaReviews() {
             </div>
           </div>
           <div className={styles.reviewListContainer}>
+            <div
+              className={`${styles.gradientLeft}`}
+              style={{ opacity: scrollStates[mediaType].canScrollLeft ? 1 : 0 }}
+            />
             {scrollStates[mediaType].canScrollLeft && (
               <IoChevronBack
                 className={`${styles.scrollArrow} ${styles.scrollArrowLeft}`}
+                onClick={() => scrollReviews(mediaType, "left")}
               />
             )}
+            <div
+              className={`${styles.gradientRight}`}
+              style={{
+                opacity: scrollStates[mediaType].canScrollRight ? 1 : 0,
+              }}
+            />
             {scrollStates[mediaType].canScrollRight && (
               <IoChevronForward
                 className={`${styles.scrollArrow} ${styles.scrollArrowRight}`}
+                onClick={() => scrollReviews(mediaType, "right")}
               />
             )}
             <div
@@ -285,24 +317,22 @@ function MediaReviews() {
           </div>
         </section>
       ))}
-      {selectedReview &&
-        createPortal(
-          <ReviewPopup
-            review={selectedReview}
-            onClose={() => {
-              setIsPopupOpen(false);
-              setSelectedReview(null);
-            }}
-            onEdit={handleEditReview}
-            onDelete={handleDeleteReview}
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-            currentUser={user}
-            isOpen={isPopupOpen}
-            isMobile={isMobile}
-          />,
-          document.body
-        )}
+      {selectedReview && (
+        <ReviewPopup
+          review={selectedReview}
+          onClose={() => {
+            setIsPopupOpen(false);
+            setSelectedReview(null);
+          }}
+          onEdit={handleEditReview}
+          onDelete={handleDeleteReview}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+          currentUser={user}
+          isOpen={isPopupOpen}
+          isMobile={isMobile}
+        />
+      )}
       {deleteConfirmation && (
         <DeleteConfirmation
           onConfirm={confirmDeleteReview}
