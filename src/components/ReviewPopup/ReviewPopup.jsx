@@ -1,5 +1,5 @@
 // ReviewPopup.jsx
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoChevronBack } from "react-icons/io5";
 import EditReviewForm from "../EditReviewForm";
 import styles from "./ReviewPopup.module.css";
@@ -18,6 +18,7 @@ function ReviewPopup({
 }) {
   const popupRef = useRef(null);
   const startX = useRef(null);
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     if (isOpen && isMobile) {
@@ -30,16 +31,26 @@ function ReviewPopup({
     };
   }, [isOpen, isMobile]);
 
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      onClose();
+    }, 300);
+  };
+
   const handleTouchStart = (e) => {
     startX.current = e.touches[0].clientX;
   };
 
   const handleTouchMove = (e) => {
     if (!startX.current) return;
+
     const currentX = e.touches[0].clientX;
     const diff = startX.current - currentX;
+
     if (diff < -50) {
-      onClose();
+      handleClose();
     }
   };
 
@@ -50,15 +61,15 @@ function ReviewPopup({
   return (
     <div
       className={`${styles.reviewPopup} ${isOpen ? styles.open : ""} ${
-        isMobile ? styles.mobile : ""
-      }`}
+        isClosing ? styles.swipeAnimation : ""
+      } ${isMobile ? styles.mobile : ""}`}
       ref={popupRef}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       <div className={styles.reviewPopupContent}>
-        <button className={styles.backButton} onClick={onClose}>
+        <button className={styles.backButton} onClick={handleClose}>
           <IoChevronBack />
         </button>
         <div className={styles.scrollableContent}>
@@ -85,37 +96,25 @@ function ReviewPopup({
                     {review.title}
                   </h2>
                   {review.media_type === "movie" && review.director && (
-                    <p
-                      className={`${styles.reviewPopupDetail} ${typography.bodyText}`}
-                    >
+                    <p className={styles.reviewPopupDetail}>
                       Director: {review.director}
                     </p>
                   )}
                   {review.media_type === "book" && review.author && (
-                    <p
-                      className={`${styles.reviewPopupDetail} ${typography.bodyText}`}
-                    >
+                    <p className={styles.reviewPopupDetail}>
                       Author: {review.author}
                     </p>
                   )}
-                  <p
-                    className={`${styles.reviewPopupRating} ${typography.bodyText}`}
-                  >
+                  <p className={styles.reviewPopupRating}>
                     Rating: {review.rating.toFixed(1)}/10
                   </p>
-                  <p
-                    className={`${styles.reviewPopupDate} ${typography.bodyText}`}
-                  >
+                  <p className={styles.reviewPopupDate}>
                     {new Date(review.created_at).toLocaleDateString()}
                   </p>
                 </div>
               </div>
               <div className={styles.reviewPopupBody}>
-                <p
-                  className={`${styles.reviewPopupText} ${typography.bodyText}`}
-                >
-                  {review.review_text}
-                </p>
+                <p className={styles.reviewPopupText}>{review.review_text}</p>
               </div>
               {currentUser && currentUser.id === review.reviewer && (
                 <div className={styles.reviewPopupActions}>

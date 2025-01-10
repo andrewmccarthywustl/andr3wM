@@ -1,4 +1,3 @@
-/* ReviewPopup.module.css */
 .reviewPopup {
   position: fixed;
   top: 0;
@@ -19,6 +18,10 @@
 
 .reviewPopup.open {
   transform: translateX(0);
+}
+
+.reviewPopup.swipeAnimation {
+  animation: swipeOut 0.3s ease-out;
 }
 
 .reviewPopup.mobile {
@@ -68,7 +71,6 @@
 .imageWrapper {
   width: 200px;
   height: 300px;
-  border: 2px solid var(--light-primary);
   overflow: hidden;
 }
 
@@ -77,6 +79,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
+  border-radius: var(--border-radius-sm);
 }
 
 .reviewPopupInfo {
@@ -160,6 +163,15 @@
 
 .deleteButton:hover {
   background-color: var(--delete-button-hover);
+}
+
+@keyframes swipeOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
 
 @media (max-width: 768px) {
