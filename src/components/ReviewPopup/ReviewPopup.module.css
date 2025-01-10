@@ -8,16 +8,18 @@
   background-color: var(--dark-primary);
   color: var(--light-primary);
   font-family: var(--font-body);
-  z-index: var(--z-index-popover);
+  z-index: 1000; /* Hardcode high z-index instead of using variable */
   transition: transform var(--transition-normal);
   transform: translateX(100%);
   display: flex;
   flex-direction: column;
   border-left: 2px solid var(--light-primary);
+  -webkit-transform: translateX(100%); /* Add webkit prefix */
 }
 
 .reviewPopup.open {
   transform: translateX(0);
+  -webkit-transform: translateX(0);
 }
 
 .reviewPopup.swipeAnimation {
