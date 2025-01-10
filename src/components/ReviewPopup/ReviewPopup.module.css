@@ -1,22 +1,18 @@
-/* ReviewPopup.module.css */
 .reviewPopup {
   position: fixed;
-  top: 0;
+  top: 60px;
   right: 0;
   bottom: 0;
   width: 100%;
-  max-width: 600px;
-  background-color: var(--dark-primary);
+  height: calc(100% - 60px);
+  background: var(--dark-primary);
   color: var(--light-primary);
   font-family: var(--font-body);
-  z-index: 1001; /* Higher than header's z-index */
+  z-index: var(--z-index-modal);
   transition: transform var(--transition-normal);
   transform: translateX(100%);
-  display: flex;
-  flex-direction: column;
   border-left: 2px solid var(--light-primary);
-  height: 100%; /* Ensure full height */
-  overflow-y: auto; /* Allow scrolling within popup */
+  max-width: 600px;
 }
 
 .reviewPopup.open {
@@ -29,11 +25,12 @@
 }
 
 .reviewPopupContent {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  position: relative;
+  padding: var(--spacing-xl);
+  padding-top: calc(var(--spacing-3xl) + 20px);
   overflow-y: auto;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
 }
 
 .backButton {
@@ -48,14 +45,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.scrollableContent {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacing-xl);
-  padding-top: var(--spacing-3xl);
+  z-index: var(--z-index-modal);
+  padding: var(--spacing-sm);
 }
 
 .reviewPopupHeader {
@@ -118,7 +109,6 @@
 }
 
 .reviewPopupBody {
-  grid-column: 1 / -1;
   margin-top: var(--spacing-xl);
 }
 

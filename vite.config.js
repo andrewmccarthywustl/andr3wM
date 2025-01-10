@@ -6,4 +6,7 @@ export default defineConfig({
   define: {
     "process.env": {},
   },
+  server: {
+    host: "0.0.0.0", // This allows external access
+  },
 });

@@ -59,12 +59,12 @@
   --transition-slow: 0.5s ease;
 
   /* Z-index layers */
-  --z-index-header: 100;
+  --z-index-header: 500;
   --z-index-sticky: 100;
   --z-index-dropdown: 200;
   --z-index-modal: 300;
   --z-index-popover: 400;
-  --z-index-toast: 500;
+  --z-index-toast: 600;
 }
 
 /* Global styles */

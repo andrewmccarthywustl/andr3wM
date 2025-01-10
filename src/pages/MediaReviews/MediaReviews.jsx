@@ -12,6 +12,7 @@ import useIsMobile from "../../hooks/useIsMobile";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import styles from "./MediaReviews.module.css";
 import typography from "../../styles/typography.module.css";
+import { createPortal } from "react-dom";
 
 function MediaReviews() {
   const [reviews, setReviews] = useState({
@@ -284,22 +285,24 @@ function MediaReviews() {
           </div>
         </section>
       ))}
-      {selectedReview && (
-        <ReviewPopup
-          review={selectedReview}
-          onClose={() => {
-            setIsPopupOpen(false);
-            setSelectedReview(null);
-          }}
-          onEdit={handleEditReview}
-          onDelete={handleDeleteReview}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          currentUser={user}
-          isOpen={isPopupOpen}
-          isMobile={isMobile}
-        />
-      )}
+      {selectedReview &&
+        createPortal(
+          <ReviewPopup
+            review={selectedReview}
+            onClose={() => {
+              setIsPopupOpen(false);
+              setSelectedReview(null);
+            }}
+            onEdit={handleEditReview}
+            onDelete={handleDeleteReview}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            currentUser={user}
+            isOpen={isPopupOpen}
+            isMobile={isMobile}
+          />,
+          document.body
+        )}
       {deleteConfirmation && (
         <DeleteConfirmation
           onConfirm={confirmDeleteReview}
