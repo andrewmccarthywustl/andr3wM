@@ -5,19 +5,11 @@
   border: 2px solid var(--light-primary);
   overflow: hidden;
   cursor: pointer;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all var(--transition-normal);
   outline: none;
   display: flex;
   flex-direction: column;
   min-height: 400px;
   position: relative;
-}
-
-.reviewItem.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .reviewItem:hover,

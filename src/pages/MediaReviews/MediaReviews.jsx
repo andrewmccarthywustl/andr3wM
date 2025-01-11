@@ -23,17 +23,12 @@ function MediaReviews() {
   const [selectedReview, setSelectedReview] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(null);
-  const [animateItems, setAnimateItems] = useState({
-    [MediaType.MOVIE]: false,
-    [MediaType.SHOW]: false,
-    [MediaType.BOOK]: false,
-  });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAddingReview, setIsAddingReview] = useState(false);
   const [scrollStates, setScrollStates] = useState({
-    [MediaType.MOVIE]: { canScrollLeft: false, canScrollRight: false },
-    [MediaType.SHOW]: { canScrollLeft: false, canScrollRight: false },
-    [MediaType.BOOK]: { canScrollLeft: false, canScrollRight: false },
+    [MediaType.MOVIE]: { canScrollLeft: false, canScrollRight: true },
+    [MediaType.SHOW]: { canScrollLeft: false, canScrollRight: true },
+    [MediaType.BOOK]: { canScrollLeft: false, canScrollRight: true },
   });
 
   const defaultSortOptions = {
@@ -97,8 +92,12 @@ function MediaReviews() {
   const checkScroll = (mediaType, container) => {
     if (!container) return;
     const canScrollLeft = container.scrollLeft > 0;
+    // Only update canScrollRight if we've actually scrolled
     const canScrollRight =
-      container.scrollLeft < container.scrollWidth - container.clientWidth;
+      container.scrollLeft === 0
+        ? true
+        : container.scrollLeft < container.scrollWidth - container.clientWidth;
+
     setScrollStates((prev) => ({
       ...prev,
       [mediaType]: { canScrollLeft, canScrollRight },
@@ -121,11 +120,6 @@ function MediaReviews() {
         ),
       };
       setReviews(categorizedReviews);
-      setAnimateItems({
-        [MediaType.MOVIE]: true,
-        [MediaType.SHOW]: true,
-        [MediaType.BOOK]: true,
-      });
     } catch (error) {
       console.error("Error fetching reviews:", error);
       setError("Failed to load reviews. Please try again later.");
@@ -208,16 +202,6 @@ function MediaReviews() {
       ...prevOptions,
       [mediaType]: { key, order },
     }));
-    setAnimateItems((prevState) => ({
-      ...prevState,
-      [mediaType]: false,
-    }));
-    setTimeout(() => {
-      setAnimateItems((prevState) => ({
-        ...prevState,
-        [mediaType]: true,
-      }));
-    }, 50);
   };
 
   const sortReviews = (reviewsToSort, sortOption) => {
@@ -310,7 +294,6 @@ function MediaReviews() {
                   review={review}
                   onClick={openReviewPopup}
                   index={index}
-                  animate={animateItems[mediaType]}
                 />
               ))}
             </div>

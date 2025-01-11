@@ -1,25 +1,12 @@
-// ReviewItem.jsx
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./ReviewItem.module.css";
 import typography from "../../styles/typography.module.css";
 import useIsMobile from "../../hooks/useIsMobile";
 
-function ReviewItem({ review, onClick, index, animate }) {
+function ReviewItem({ review, onClick, index }) {
   const itemRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
   const [touched, setTouched] = useState(false);
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    const item = itemRef.current;
-    if (item && animate) {
-      setTimeout(() => {
-        setIsVisible(true);
-      }, index * 100);
-    } else {
-      setIsVisible(false);
-    }
-  }, [index, animate]);
 
   const handleTouch = () => {
     setTouched(true);
@@ -29,9 +16,7 @@ function ReviewItem({ review, onClick, index, animate }) {
   return (
     <div
       ref={itemRef}
-      className={`${styles.reviewItem} ${isVisible ? styles.visible : ""} ${
-        touched ? styles.touched : ""
-      }`}
+      className={`${styles.reviewItem} ${touched ? styles.touched : ""}`}
       onClick={!isMobile ? () => onClick(review) : undefined}
     >
       <div
