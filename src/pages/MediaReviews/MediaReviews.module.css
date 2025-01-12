@@ -107,6 +107,7 @@
   margin: 0 -var(--spacing-md);
   padding: 0 var(--spacing-md);
   scrollbar-width: none;
+  overflow: visible;
 }
 
 .reviewList::-webkit-scrollbar {
