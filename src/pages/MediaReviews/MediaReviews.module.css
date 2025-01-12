@@ -112,6 +112,7 @@
   /* Add these properties to prevent vertical scrolling affecting the container */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer/Edge */
+  padding: 5px 0;
 }
 
 /* Add this to hide the scrollbar in WebKit browsers */

@@ -3,7 +3,6 @@
   width: 200px;
   background-color: var(--dark-primary);
   border: 2px solid var(--light-primary);
-  overflow: hidden;
   cursor: pointer;
   outline: none;
   display: flex;
