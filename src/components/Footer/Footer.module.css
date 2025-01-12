@@ -4,7 +4,6 @@
   padding: var(--spacing-md) 0;
   border-top: 2px solid var(--light-primary);
   width: 100%;
-  margin-top: auto;
   position: relative;
 }
 

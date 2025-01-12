@@ -1,10 +1,13 @@
 .header {
   background-color: var(--dark-primary);
   padding: var(--spacing-md) 0;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: var(--z-index-header);
   border-bottom: 3px solid var(--light-primary);
+  height: 60px;
 }
 
 .headerContent {

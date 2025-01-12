@@ -9,15 +9,15 @@
 .appContainer {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   overflow-x: hidden;
   background-color: var(--dark-primary);
 }
 
 .mainContent {
   flex: 1;
-  overflow-y: auto;
   width: 100%;
+  margin-top: 60px; /* Height of header */
   position: relative;
 }
 

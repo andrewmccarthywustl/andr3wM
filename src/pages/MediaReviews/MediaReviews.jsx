@@ -235,94 +235,98 @@ function MediaReviews() {
   if (error) return <div className={styles.error}>{error}</div>;
 
   return (
-    <div className={styles.mediaReviews}>
-      {user && (
-        <div className={styles.addReviewSection}>
-          <button
-            onClick={() => setIsAddingReview(!isAddingReview)}
-            className={styles.addReviewButton}
-          >
-            {isAddingReview ? "Cancel" : "Add New Review"}
-          </button>
-          {isAddingReview && <ReviewForm onSubmit={handleReviewSubmit} />}
-        </div>
-      )}
-      {[MediaType.MOVIE, MediaType.SHOW, MediaType.BOOK].map((mediaType) => (
-        <section key={mediaType} className={styles.reviewSection}>
-          <div className={styles.sectionHeader}>
-            <h2 className={`${styles.sectionTitle} ${typography.heading2}`}>
-              {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} Reviews
-            </h2>
-            <div className={styles.sortContainer}>
-              <SortDropdown
-                onSort={(key, order) => handleSort(mediaType, key, order)}
-                currentSort={sortOptions[mediaType]}
-              />
-            </div>
-          </div>
-          <div className={styles.reviewListContainer}>
-            <div
-              className={`${styles.gradientLeft}`}
-              style={{ opacity: scrollStates[mediaType].canScrollLeft ? 1 : 0 }}
-            />
-            {scrollStates[mediaType].canScrollLeft && (
-              <IoChevronBack
-                className={`${styles.scrollArrow} ${styles.scrollArrowLeft}`}
-                onClick={() => scrollReviews(mediaType, "left")}
-              />
-            )}
-            <div
-              className={`${styles.gradientRight}`}
-              style={{
-                opacity: scrollStates[mediaType].canScrollRight ? 1 : 0,
-              }}
-            />
-            {scrollStates[mediaType].canScrollRight && (
-              <IoChevronForward
-                className={`${styles.scrollArrow} ${styles.scrollArrowRight}`}
-                onClick={() => scrollReviews(mediaType, "right")}
-              />
-            )}
-            <div
-              id={`scroll-${mediaType}`}
-              className={styles.reviewList}
-              onScroll={(e) => handleScroll(mediaType, e)}
+    <div className={styles.pageWrapper}>
+      <div className={styles.mediaReviews}>
+        {user && (
+          <div className={styles.addReviewSection}>
+            <button
+              onClick={() => setIsAddingReview(!isAddingReview)}
+              className={styles.addReviewButton}
             >
-              {reviews[mediaType].map((review, index) => (
-                <ReviewItem
-                  key={review.id}
-                  review={review}
-                  onClick={openReviewPopup}
-                  index={index}
-                />
-              ))}
-            </div>
+              {isAddingReview ? "Cancel" : "Add New Review"}
+            </button>
+            {isAddingReview && <ReviewForm onSubmit={handleReviewSubmit} />}
           </div>
-        </section>
-      ))}
-      {selectedReview && (
-        <ReviewPopup
-          review={selectedReview}
-          onClose={() => {
-            setIsPopupOpen(false);
-            setSelectedReview(null);
-          }}
-          onEdit={handleEditReview}
-          onDelete={handleDeleteReview}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          currentUser={user}
-          isOpen={isPopupOpen}
-          isMobile={isMobile}
-        />
-      )}
-      {deleteConfirmation && (
-        <DeleteConfirmation
-          onConfirm={confirmDeleteReview}
-          onCancel={cancelDeleteReview}
-          itemName="review"
-        />
-      )}
+        )}
+        {[MediaType.MOVIE, MediaType.SHOW, MediaType.BOOK].map((mediaType) => (
+          <section key={mediaType} className={styles.reviewSection}>
+            <div className={styles.sectionHeader}>
+              <h2 className={`${styles.sectionTitle} ${typography.heading2}`}>
+                {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} Reviews
+              </h2>
+              <div className={styles.sortContainer}>
+                <SortDropdown
+                  onSort={(key, order) => handleSort(mediaType, key, order)}
+                  currentSort={sortOptions[mediaType]}
+                />
+              </div>
+            </div>
+            <div className={styles.reviewListContainer}>
+              <div
+                className={`${styles.gradientLeft}`}
+                style={{
+                  opacity: scrollStates[mediaType].canScrollLeft ? 1 : 0,
+                }}
+              />
+              {scrollStates[mediaType].canScrollLeft && (
+                <IoChevronBack
+                  className={`${styles.scrollArrow} ${styles.scrollArrowLeft}`}
+                  onClick={() => scrollReviews(mediaType, "left")}
+                />
+              )}
+              <div
+                className={`${styles.gradientRight}`}
+                style={{
+                  opacity: scrollStates[mediaType].canScrollRight ? 1 : 0,
+                }}
+              />
+              {scrollStates[mediaType].canScrollRight && (
+                <IoChevronForward
+                  className={`${styles.scrollArrow} ${styles.scrollArrowRight}`}
+                  onClick={() => scrollReviews(mediaType, "right")}
+                />
+              )}
+              <div
+                id={`scroll-${mediaType}`}
+                className={styles.reviewList}
+                onScroll={(e) => handleScroll(mediaType, e)}
+              >
+                {reviews[mediaType].map((review, index) => (
+                  <ReviewItem
+                    key={review.id}
+                    review={review}
+                    onClick={openReviewPopup}
+                    index={index}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        ))}
+        {selectedReview && (
+          <ReviewPopup
+            review={selectedReview}
+            onClose={() => {
+              setIsPopupOpen(false);
+              setSelectedReview(null);
+            }}
+            onEdit={handleEditReview}
+            onDelete={handleDeleteReview}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            currentUser={user}
+            isOpen={isPopupOpen}
+            isMobile={isMobile}
+          />
+        )}
+        {deleteConfirmation && (
+          <DeleteConfirmation
+            onConfirm={confirmDeleteReview}
+            onCancel={cancelDeleteReview}
+            itemName="review"
+          />
+        )}
+      </div>
     </div>
   );
 }
