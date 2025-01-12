@@ -9,11 +9,16 @@
 .appContainer {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--dark-primary);
 }
 
 .mainContent {
   flex: 1;
+  overflow-y: auto;
+  width: 100%;
+  position: relative;
 }
 
 @media (max-width: 768px) {

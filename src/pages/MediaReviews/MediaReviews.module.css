@@ -3,10 +3,10 @@
   background-color: var(--dark-primary);
   color: var(--light-primary);
   font-family: var(--font-body);
-  min-height: calc(100vh - 60px);
   padding: var(--spacing-2xl) var(--spacing-md);
-  overflow-y: auto;
+  padding-bottom: var(--spacing-3xl);
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
 }
 
 .reviewSection {
@@ -101,21 +101,15 @@
 .reviewList {
   display: flex;
   overflow-x: auto;
-  overflow-y: hidden; /* Change from visible to hidden */
   gap: var(--spacing-lg);
   padding: var(--spacing-sm) 0;
-  padding-bottom: var(--spacing-xl);
   -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
   margin: 0 -var(--spacing-md);
   padding: 0 var(--spacing-md);
-  /* Add these properties to prevent vertical scrolling affecting the container */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer/Edge */
-  padding: 5px 0;
+  scrollbar-width: none;
 }
 
-/* Add this to hide the scrollbar in WebKit browsers */
 .reviewList::-webkit-scrollbar {
   display: none;
 }

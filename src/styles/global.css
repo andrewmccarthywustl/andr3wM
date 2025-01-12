@@ -78,3 +78,10 @@ body {
   background-color: var(--dark-primary);
   color: var(--light-primary);
 }
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+  position: relative;
+}

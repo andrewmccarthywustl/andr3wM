@@ -2,8 +2,10 @@
 .footer {
   background-color: var(--dark-primary);
   padding: var(--spacing-md) 0;
-  position: relative;
   border-top: 2px solid var(--light-primary);
+  width: 100%;
+  margin-top: auto;
+  position: relative;
 }
 
 .footerContent {
@@ -34,6 +36,7 @@
 
 .adminLink {
   position: absolute;
+  color: var(--dark-primary);
   bottom: var(--spacing-sm);
   right: var(--spacing-sm);
 }
@@ -42,13 +45,12 @@
 .logoutButton {
   font-family: var(--font-body);
   font-size: var(--font-size-xs);
-  color: var(--light-primary);
+  color: var(--dark-primary);
   text-decoration: none;
   background: none;
   border: none;
   cursor: pointer;
   transition: opacity var(--transition-normal);
-  opacity: 0.2;
 }
 
 .loginLink:hover,
