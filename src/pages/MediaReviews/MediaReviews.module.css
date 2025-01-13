@@ -104,10 +104,11 @@
   gap: var(--spacing-lg);
   padding: var(--spacing-sm) 0;
   scroll-snap-type: x proximity;
-  margin: 0 -var(--spacing-md);
+  margin: 0 var(--spacing-md);
   padding: 0 var(--spacing-md);
   scrollbar-width: none;
-  overflow: visible;
+  /*top padding is for the review item hover animation*/
+  padding-top: 5px;
 }
 
 .reviewList::-webkit-scrollbar {

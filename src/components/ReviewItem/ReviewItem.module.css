@@ -9,6 +9,7 @@
   flex-direction: column;
   min-height: 400px;
   position: relative;
+  overflow: visible;
 }
 
 .reviewItem:hover,
