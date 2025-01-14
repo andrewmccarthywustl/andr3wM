@@ -154,12 +154,15 @@
 @media (max-width: 768px) {
   .mediaReviews {
     padding: var(--spacing-md);
+    padding-right: 0;
   }
 
   .reviewList {
     scroll-snap-type: x mandatory;
     touch-action: pan-x pan-y;
     -webkit-tap-highlight-color: transparent;
+    margin: 0 0;
+    padding: 0;
   }
 
   .sectionTitle {
