@@ -13,13 +13,14 @@ function Home() {
 
         <div className={`${styles.textBlock} ${styles.blockOne}`}>
           <p className={typography.bodyText}>
-            This website functions as my panopticon for myself. In the future I
-            would like to be able to look back and be proud of how I spent my
-            finite time on this earth. I'll keep adding pages to the site and
-            iterating as time passes. I want to do some cool meaningful things
-            with my time and this goofy personal website has made me do better
-            with the time I have. I grew up on the internet and this is my
-            attempt to contribute something meaningful to it.
+            This website functions as a panopticon for myself; it keeps me
+            accountable and motivates me to do things I have wanted to do with
+            my time rather than just drift along in the passage of time. In the
+            future, I would like to be able to look back and be proud of how I
+            spent my finite time on this earth. I'll keep adding pages to the
+            site and iterating as time passes. I grew up on the internet, and I
+            care about it. This is my attempt to contribute something meaningful
+            to it.
           </p>
         </div>
 
