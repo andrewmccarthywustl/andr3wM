@@ -1,10 +1,9 @@
 .reviewPopup {
   position: fixed;
-  top: 90px;
-  right: 0;
-  bottom: 0;
+  inset: calc(100vw - 600px);
+  top: 80px;
   width: 100%;
-  height: calc(100% - 60px);
+  height: calc(100vh - 60px);
   background: var(--dark-primary);
   color: var(--light-primary);
   font-family: var(--font-body);
@@ -13,15 +12,11 @@
   transform: translateX(100%);
   border-left: 2px solid var(--light-primary);
   max-width: 600px;
+  right: 0;
 }
 
 .reviewPopup.open {
   transform: translateX(0);
-}
-
-.reviewPopup.mobile {
-  width: 100%;
-  max-width: 100%;
 }
 
 .reviewPopupContent {
@@ -156,6 +151,10 @@
 @media (max-width: 768px) {
   .reviewPopup {
     width: 100%;
+    max-width: 100%;
+    border: 0px;
+    inset: 0px;
+    top: 80px;
   }
 
   .reviewPopupHeader {

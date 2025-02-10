@@ -1,0 +1,6 @@
+.favoritesContainer {
+  min-height: calc(100vh - 60px);
+  background-color: var(--dark-primary);
+  font-family: var(--font-body);
+  padding: var(--spacing-2xl) var(--spacing-md);
+}

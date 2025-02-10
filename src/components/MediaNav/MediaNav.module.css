@@ -1,0 +1,60 @@
+/* src/components/MediaNav/MediaNav.module.css */
+.mediaNav {
+  position: sticky;
+  top: 60px; /* Height of main navbar */
+  background-color: var(--dark-primary);
+  z-index: var(--z-index-sticky);
+  border-top: 2px solid var(--light-primary);
+  border-bottom: 2px solid var(--light-primary);
+}
+
+.mediaNavContent {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--container-padding);
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  align-items: center;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  color: var(--light-primary);
+  font-family: var(--font-heading);
+  cursor: pointer;
+  padding: var(--spacing-sm) var(--spacing-md);
+  position: relative;
+  transition: color var(--transition-normal);
+}
+
+.navButton::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--light-primary);
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
+}
+
+.navButton:hover::after,
+.navButton.active::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 768px) {
+  .mediaNavContent {
+    gap: var(--spacing-md);
+    padding: 0 var(--spacing-sm);
+  }
+
+  .navButton {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+}

@@ -1,5 +1,5 @@
 // ReviewPopup.jsx
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { IoChevronBack } from "react-icons/io5";
 import EditReviewForm from "../EditReviewForm";
 import styles from "./ReviewPopup.module.css";
@@ -16,24 +16,8 @@ function ReviewPopup({
   isOpen,
   isMobile,
 }) {
-  const popupRef = useRef(null);
-
-  useEffect(() => {
-    if (isOpen && isMobile) {
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen, isMobile]);
-
   return (
-    <div
-      className={`${styles.reviewPopup} ${isOpen ? styles.open : ""} ${
-        isMobile ? styles.mobile : ""
-      }`}
-      ref={popupRef}
-    >
+    <div className={`${styles.reviewPopup} ${isOpen ? styles.open : ""}`}>
       <div className={styles.reviewPopupContent}>
         <button className={styles.backButton} onClick={onClose}>
           <IoChevronBack />

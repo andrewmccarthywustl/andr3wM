@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import MediaReviews from "./pages/MediaReviews";
+import Media from "./pages/Media";
 import Blog from "./pages/Blog";
 import Login from "./pages/Login";
 import Photography from "./pages/Photography";
+import Favorites from "./pages/Favorites";
 import Footer from "./components/Footer";
 import LoadingSpinner from "./components/LoadingSpinner";
 
@@ -32,7 +33,8 @@ function AppContent() {
         <div className={layoutStyles.container}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/reviews" element={<MediaReviews />} />
+            <Route path="/media" element={<Media />} />
+            <Route path="/favorites" element={<Favorites />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/photography" element={<Photography />} />
             <Route path="/login" element={<Login />} />

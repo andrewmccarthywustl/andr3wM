@@ -9,7 +9,8 @@ function Header() {
 
   const navItems = [
     { path: "/", label: "Home" },
-    { path: "/reviews", label: "Reviews" },
+    { path: "/media", label: "Media" },
+    { path: "/favorites", label: "Favorites" },
     { path: "/blog", label: "Blog" },
     { path: "/photography", label: "Photography" },
   ];
