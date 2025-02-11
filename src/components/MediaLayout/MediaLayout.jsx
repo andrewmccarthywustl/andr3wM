@@ -13,74 +13,39 @@ function MediaLayout() {
 
         <div className={`${styles.textBlock} ${styles.blockOne}`}>
           <p className={typography.bodyText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla et
-            nostrum aperiam totam aspernatur perspiciatis explicabo molestias,
-            minima iste, voluptatibus modi veritatis repellat accusamus optio
-            corporis fugit illum dolore libero? Lorem ipsum dolor sit amet,
-            consectetur adipisicing elit. Assumenda iste, alias voluptate et ad
-            voluptatem? Sapiente, odit corporis quisquam dolorum dicta
-            distinctio id quasi fugiat! Nihil consequuntur tenetur hic
-            molestias. Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptas vitae dolorum neque, labore ipsam reprehenderit rem
-            suscipit, omnis facere dicta inventore, consequatur blanditiis
-            deserunt nulla aliquam minus excepturi deleniti totam. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit. Vel eos reiciendis,
-            tempora quasi, ea quas voluptates ipsam praesentium aliquam sequi
-            tenetur minima autem harum distinctio. Quos delectus distinctio
-            molestias dolores.
+            I enjoy reading and listening to what other people have to say. I
+            value a good story and like learning from my media. Keeping track of
+            what I consume has allowed me to do that better and holds me
+            accountable for my time. I don't think everything should be
+            documented; trying to turn the present into content detracts from
+            the experience. However, reflection is good. I try to keep track of
+            the movies, books, and TV shows I've seen so I can recommend them,
+            connect with others, and talk about them. Memory is fleeting, and if
+            the security on my database is up to date, these reviews are like a
+            lossy copy of my memories. I like YouTube a lot; it's the only
+            social media platform that has improved my life, so I'm also
+            including videos, channels, and playlists that I really like here.
+            Podcasts I enjoy listening to will also find their way here. I think
+            I'll also add my favorite albums and such, really just to test the
+            capabilities of AI for music recommendations. Music is too
+            subjective to rate, and my opinion on music changes too quickly for
+            current thoughts after listening to an album to be useful. So, I'm
+            just going to list my favorites. <hr />
+            <p className={typography.bodyText}>
+              This page is still quite incomplete; I'll refine it over time, and
+              that text block above is some temporary absolute yappage.
+            </p>
           </p>
         </div>
 
         <div className={styles.blockTwo}>
           <div className={styles.imageContainer}>
             <img
-              src="https://lh3.googleusercontent.com/pw/AP1GczO4xckATWOBv3Hhmr3iDiRVAUVza-el4IBR94GEgG2THt-b7txiAyI0RbWDx8JktYWCgdA9YkgeX8jb4WW2MoYCRaZD8ZeXBHdHO828NvAOVl3U8bhSnhubPRKv281R9mMMY7_Sox9KRcSFoQuLfnNS=w416-h625-s-no-gm?authuser=0"
-              alt="Movie Theater"
+              src="https://lh3.googleusercontent.com/pw/AP1GczPjj1-NHtW01u8KoM2TZ4veq8wAogK1RoDN3gEJvPU2NvRALdmwh46Ym6sGW3CGM6MKd7zurkUCYWGTuksD8dvvMnfZTyg933gFwdmDx6UDHEOIeTWQKRn6_JXrlwrtaw6x5hncr6xzorJfuL5ObIJt=w420-h325-s-no-gm?authuser=0"
+              alt="Not A pipe"
               className={styles.image}
             />
           </div>
-        </div>
-
-        <div className={styles.blockThree}>
-          <div className={styles.imageContainer}>
-            <img
-              src="https://lh3.googleusercontent.com/pw/AP1GczO4xckATWOBv3Hhmr3iDiRVAUVza-el4IBR94GEgG2THt-b7txiAyI0RbWDx8JktYWCgdA9YkgeX8jb4WW2MoYCRaZD8ZeXBHdHO828NvAOVl3U8bhSnhubPRKv281R9mMMY7_Sox9KRcSFoQuLfnNS=w416-h625-s-no-gm?authuser=0"
-              alt="Library"
-              className={styles.image}
-            />
-          </div>
-        </div>
-
-        <div className={`${styles.textBlock} ${styles.blockFour}`}>
-          <p className={typography.heading2}>My Collection</p>
-        </div>
-
-        <div className={styles.blockFive}>
-          <div className={styles.imageContainer}>
-            <img
-              src="https://lh3.googleusercontent.com/pw/AP1GczO4xckATWOBv3Hhmr3iDiRVAUVza-el4IBR94GEgG2THt-b7txiAyI0RbWDx8JktYWCgdA9YkgeX8jb4WW2MoYCRaZD8ZeXBHdHO828NvAOVl3U8bhSnhubPRKv281R9mMMY7_Sox9KRcSFoQuLfnNS=w416-h625-s-no-gm?authuser=0"
-              alt="TV Show"
-              className={styles.image}
-            />
-          </div>
-        </div>
-
-        <div className={styles.blockSix}>
-          <div className={styles.imageContainer}>
-            <img
-              src="https://lh3.googleusercontent.com/pw/AP1GczO4xckATWOBv3Hhmr3iDiRVAUVza-el4IBR94GEgG2THt-b7txiAyI0RbWDx8JktYWCgdA9YkgeX8jb4WW2MoYCRaZD8ZeXBHdHO828NvAOVl3U8bhSnhubPRKv281R9mMMY7_Sox9KRcSFoQuLfnNS=w416-h625-s-no-gm?authuser=0"
-              alt="Book Collection"
-              className={styles.image}
-            />
-          </div>
-        </div>
-
-        <div className={`${styles.textBlock} ${styles.blockSeven}`}>
-          <p className={typography.bodyText}>
-            Below you'll find my collection of reviews for movies, TV shows, and
-            books. Each review includes a rating, detailed thoughts, and key
-            information about the work.
-          </p>
         </div>
       </div>
     </div>

@@ -162,12 +162,15 @@
     scroll-snap-type: x mandatory;
     touch-action: pan-x pan-y;
     -webkit-tap-highlight-color: transparent;
-    margin: 0 0;
+    margin: 0;
     padding: 0;
   }
 
   .sectionTitle {
     font-size: var(--font-size-2xl);
+  }
+  .reviewSection {
+    padding: var(--spacing-md) 0 var(--spacing-md) var(--spacing-md);
   }
 
   .scrollArrow,
