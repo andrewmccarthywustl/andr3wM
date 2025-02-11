@@ -31,10 +31,6 @@ function MediaLayout() {
             subjective to rate, and my opinion on music changes too quickly for
             current thoughts after listening to an album to be useful. So, I'm
             just going to list my favorites. <hr />
-            <p className={typography.bodyText}>
-              This page is still quite incomplete; I'll refine it over time, and
-              that text block above is some temporary absolute yappage.
-            </p>
           </p>
         </div>
 
@@ -46,6 +42,12 @@ function MediaLayout() {
               className={styles.image}
             />
           </div>
+        </div>
+        <div classname={`${styles.textBlock} ${styles.blockThree}`}>
+          <p className={typography.bodyText}>
+            This page is still quite incomplete; I'll refine it over time, and
+            that text block above is some temporary absolute yappage.
+          </p>
         </div>
       </div>
     </div>
