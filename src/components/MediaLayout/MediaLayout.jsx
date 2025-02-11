@@ -42,7 +42,7 @@ function MediaLayout() {
         <div className={styles.blockTwo}>
           <div className={styles.imageContainer}>
             <img
-              src="https://lh3.googleusercontent.com/pw/AP1GczNWdgP03tzhvCFiXo_l4mffVYN_3QwzgT41wKri9qWF6hWJtdIT7CbXMvMKtuDLI4NfhOJj413mk6VPzLXDuq8SzAw7hMYBR8OpivPJ3KBRf0gGNjdx501nksQJd8MVxN95iiENKxzmH34jvoh-dKnU=w643-h657-s-no-gm?authuser=0"
+              src="https://lh3.googleusercontent.com/pw/AP1GczNR_0ev-KzUR90AKfIQB4SrFP6VQ4SaBAOCOIXWyGJsOgKrl_JeJKOl5iXmfJagXVzIdd5wGqczx0qmSOGe_Z1YIwh3T19C51q9Nv31Rk5Z57dk2dRtnK8KnAUJScbSmod1Qr8hvmbEc8dMraeMQUJO=w643-h657-s-no-gm?authuser=0"
               alt="Not A pipe"
               className={styles.image}
             />
