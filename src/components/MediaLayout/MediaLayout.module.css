@@ -45,11 +45,7 @@
 
 .blockTwo {
   grid-column: 3 / 6;
-  grid-row: 2 / 2;
-}
-.blockThree {
-  grid-column: 3 / 6;
-  grid-row: 3 / 3;
+  grid-row: 2 / 3;
 }
 
 @media (max-width: 1024px) {
