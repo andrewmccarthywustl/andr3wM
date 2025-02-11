@@ -29,6 +29,7 @@
   min-height: 300px;
   overflow: auto;
   background-color: var(--dark-primary);
+  border: solid 2px var(--light-primary);
 }
 
 .image {
