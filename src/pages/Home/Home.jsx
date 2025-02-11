@@ -45,7 +45,14 @@ function Home() {
         </div>
 
         <div className={`${styles.textBlock} ${styles.blockFour}`}>
-          <p className={typography.heading1}>Illegitimi Non Carborundum</p>
+          <p className={typography.heading1}>
+            <a
+              href="https://www.youtube.com/watch?v=PaVNww17wJs"
+              target="_blank"
+            >
+              Illegitimi Non Carborundum
+            </a>
+          </p>
         </div>
 
         <div className={styles.blockFive}>

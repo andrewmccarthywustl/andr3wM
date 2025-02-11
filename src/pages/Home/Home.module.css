@@ -15,6 +15,10 @@
   margin: 0 auto;
   padding: 0 24px;
 }
+a {
+  text-decoration: none;
+  color: var(--light-primary);
+}
 
 .titleArea {
   grid-column: 1 / 4;
