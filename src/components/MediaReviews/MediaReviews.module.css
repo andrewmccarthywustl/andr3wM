@@ -107,7 +107,6 @@
   margin: 0;
   padding: 0;
   scrollbar-width: none;
-  scroll-snap-type: x mandatory;
   /*top padding is for the review item hover animation*/
   padding-top: 5px;
 }
@@ -159,7 +158,6 @@
   }
 
   .reviewList {
-    scroll-snap-type: x mandatory;
     touch-action: pan-x pan-y;
     -webkit-tap-highlight-color: transparent;
     margin: 0;

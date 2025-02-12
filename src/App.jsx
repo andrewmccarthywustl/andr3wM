@@ -10,6 +10,7 @@ import Photography from "./pages/Photography";
 import Favorites from "./pages/Favorites";
 import Footer from "./components/Footer";
 import LoadingSpinner from "./components/LoadingSpinner";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Import CSS modules
 import layoutStyles from "./styles/layout.module.css";
@@ -50,6 +51,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <AppContent />
       </Router>
     </AuthProvider>

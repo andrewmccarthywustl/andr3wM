@@ -32,6 +32,9 @@
   padding: var(--spacing-sm) 0;
   position: relative;
   transition: color var(--transition-normal);
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .navLink::after {

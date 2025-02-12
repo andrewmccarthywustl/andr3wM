@@ -10,7 +10,6 @@
   min-height: 400px;
   position: relative;
   overflow: visible;
-  scroll-snap-align: start;
 }
 
 .reviewItem:hover,

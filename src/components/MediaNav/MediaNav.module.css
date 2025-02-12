@@ -1,6 +1,5 @@
 /* src/components/MediaNav/MediaNav.module.css */
 .mediaNav {
-  position: sticky;
   top: 60px; /* Height of main navbar */
   background-color: var(--dark-primary);
   z-index: var(--z-index-sticky);
