@@ -1,0 +1,127 @@
+/* src/components/CircularScrollList/CircularScrollList.module.css */
+
+.listContainer {
+  margin-bottom: var(--spacing-2xl);
+  /* GPU acceleration optimization */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: var(--light-primary);
+  margin: 0;
+}
+
+.scrollContainer {
+  position: relative;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.gradientLeft,
+.gradientRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 150px;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.gradientLeft {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.gradientRight {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.gradientShow {
+  opacity: 1;
+}
+
+.scrollArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--font-size-2xl);
+  color: var(--light-primary);
+  z-index: 3;
+  padding: var(--spacing-sm);
+  cursor: pointer;
+  transition: transform var(--transition-normal);
+}
+
+.scrollArrow:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+.scrollArrowLeft {
+  left: var(--spacing-md);
+}
+
+.scrollArrowRight {
+  right: var(--spacing-md);
+}
+
+.itemList {
+  display: flex;
+  overflow-x: auto;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-sm) 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  /* Optimize for animations */
+  will-change: transform, scroll-position;
+}
+
+.itemList::-webkit-scrollbar {
+  display: none;
+}
+
+/* Performance optimization for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scrollArrow {
+    transition: none;
+  }
+
+  .itemList {
+    scroll-behavior: auto;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .scrollArrow,
+  .gradientLeft,
+  .gradientRight {
+    display: none;
+  }
+
+  .itemList {
+    padding: 0 var(--spacing-md);
+    touch-action: pan-x pan-y;
+    -webkit-tap-highlight-color: transparent;
+  }
+}

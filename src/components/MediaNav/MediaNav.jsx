@@ -32,22 +32,6 @@ function MediaNav() {
         >
           Favorites
         </button>
-        <button
-          onClick={() => scrollToSection("youtube")}
-          className={`${styles.navButton} ${
-            activeSection === "youtube" ? styles.active : ""
-          } ${typography.heading3}`}
-        >
-          YouTube
-        </button>
-        <button
-          onClick={() => scrollToSection("music")}
-          className={`${styles.navButton} ${
-            activeSection === "music" ? styles.active : ""
-          } ${typography.heading3}`}
-        >
-          Music
-        </button>
       </div>
     </nav>
   );

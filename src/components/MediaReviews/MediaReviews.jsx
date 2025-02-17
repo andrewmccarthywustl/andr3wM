@@ -8,10 +8,10 @@ import ReviewPopup from "../ReviewPopup/ReviewPopup";
 import DeleteConfirmation from "../DeleteConfirmation";
 import LoadingSpinner from "../LoadingSpinner";
 import SortDropdown from "../SortDropdown";
-import useIsMobile from "../../hooks/useIsMobile";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import styles from "./MediaReviews.module.css";
 import typography from "../../styles/typography.module.css";
+import useIsMobile from "../../hooks/useIsMobile";
 
 function MediaReviews() {
   const [reviews, setReviews] = useState({
@@ -259,6 +259,7 @@ function MediaReviews() {
           {isAddingReview && <ReviewForm onSubmit={handleReviewSubmit} />}
         </div>
       )}
+      <h1 className={typography.heading1}>Reviews</h1>
       {[MediaType.MOVIE, MediaType.SHOW, MediaType.BOOK].map((mediaType) => (
         <section key={mediaType} className={styles.reviewSection}>
           <div className={styles.sectionHeader}>

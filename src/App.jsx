@@ -7,7 +7,7 @@ import Media from "./pages/Media";
 import Blog from "./pages/Blog";
 import Login from "./pages/Login";
 import Photography from "./pages/Photography";
-import Favorites from "./pages/Favorites";
+
 import Footer from "./components/Footer";
 import LoadingSpinner from "./components/LoadingSpinner";
 import ScrollToTop from "./components/ScrollToTop";
@@ -35,7 +35,6 @@ function AppContent() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/media" element={<Media />} />
-            <Route path="/favorites" element={<Favorites />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/photography" element={<Photography />} />
             <Route path="/login" element={<Login />} />
