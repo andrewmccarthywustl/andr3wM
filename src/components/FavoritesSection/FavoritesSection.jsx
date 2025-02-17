@@ -69,14 +69,14 @@ const FavoritesSection = () => {
         id: 1,
         name: "Ordinary Things",
         imageUrl:
-          "https://yt3.googleusercontent.com/5OEYRQnxBTZujl9qKsImFtFmZXDKgPa3bfxdglxNxT4bY0ZgFN5CoXb5_HNdvl4qE0GXw2be=s176-c-k-c0x00ffffff-no-rj",
+          "https://lh3.googleusercontent.com/pw/AP1GczOSOxKgyKAJ2OmBryBuFoCBrbwcHv_dNdTHW9cWyIE-Nkw_0L7QI8PtaRwgJRUI5CInQaqjjZ6ZNwXEbAVjMcdM7woji2VBw6sMRc9pgpZZ2r47ocjuM1OncM-RsRk-LdhcwFH8lFkidVooz-Fwm3uo=w900-h900-s-no-gm?authuser=0",
         url: "https://youtube.com/@OrdinaryThings",
       },
       {
         id: 2,
         name: "3Blue1Brown",
         imageUrl:
-          "https://yt3.googleusercontent.com/ytc/AIf8zZRWLS5S_bKwGG6-vJHhHdKVR8D8Cr9J1M9kxHVO=s176-c-k-c0x00ffffff-no-rj",
+          "https://lh3.googleusercontent.com/pw/AP1GczOGQnERbzgwUqQnJzVAZTEm_C7pd5HFFtgQwRCp8wMqx-kzqXDA9AAtCeZLc3_EvKPJOtcWANTjhExRjAxrpxjvHKW7U5hRb9PYPRMXjFmEpxtA2fpu173shLNoQ7kW6-a7tVDpQc6P86JgBwhgqsgA=w900-h900-s-no-gm?authuser=0",
         url: "https://www.youtube.com/@3blue1brown",
       },
     ],
