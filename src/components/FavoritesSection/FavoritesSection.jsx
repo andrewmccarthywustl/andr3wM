@@ -50,7 +50,7 @@ const FavoritesSection = () => {
       name: f.name,
       artist: f.secondary_name,
       imageUrl: f.image_url,
-      spotifyUrl: f.external_url,
+      externalUrl: f.external_url,
     }));
 
   const formatCircularData = (favorites) =>
