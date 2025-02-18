@@ -42,6 +42,31 @@
   gap: var(--spacing-3xl);
 }
 
+.addButton {
+  display: block;
+  margin: 0 auto var(--spacing-2xl);
+  background-color: var(--accent-color);
+  color: var(--light-primary);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-xl);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: transform var(--transition-normal),
+    background-color var(--transition-normal);
+}
+
+.addButton:hover {
+  background-color: var(--secondary-accent-color);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .addButton {
+    transition: none;
+  }
+}
+
 @media (max-width: 768px) {
   .sectionTitle::before,
   .sectionTitle::after {

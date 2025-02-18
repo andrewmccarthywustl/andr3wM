@@ -11,14 +11,9 @@ const AlbumItem = memo(({ album }) => {
   const handleClick = useCallback(
     (e) => {
       e.preventDefault();
-
-      if (isMobile) {
-        window.location.href = album.spotifyUrl;
-      } else {
-        window.open(album.spotifyUrl, "_blank", "noopener,noreferrer");
-      }
+      window.open(album.externalUrl, "_blank", "noopener,noreferrer");
     },
-    [album.spotifyUrl, isMobile]
+    [album.externalUrl]
   );
 
   return (
@@ -47,9 +42,7 @@ const AlbumItem = memo(({ album }) => {
       </div>
 
       <div className={styles.albumOverlay}>
-        <span className={styles.playButton}>
-          {isMobile ? "Open in Spotify" : "Play on Spotify"}
-        </span>
+        <span className={styles.playButton}>Open in YouTube Music</span>
       </div>
     </div>
   );

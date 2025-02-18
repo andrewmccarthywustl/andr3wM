@@ -1,0 +1,192 @@
+/* src/components/FavoritesForm/FavoritesForm.module.css */
+.formContainer {
+  background-color: var(--dark-primary);
+  border: 2px solid var(--light-primary);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-xl);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.formToggle {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+}
+
+.toggleButton {
+  flex: 1;
+  padding: var(--spacing-sm);
+  background: var(--dark-primary);
+  border: 1px solid var(--light-primary);
+  color: var(--light-primary);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.toggleButton.active {
+  background: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+.existingSection {
+  margin-top: var(--spacing-lg);
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--spacing-sm);
+  background-color: var(--dark-primary);
+  border: 1px solid var(--light-primary);
+  color: var(--light-primary);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.existingItems {
+  margin-top: var(--spacing-md);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.existingItem {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--light-primary);
+  margin-bottom: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--dark-primary);
+}
+
+.itemImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: var(--border-radius-sm);
+  margin-right: var(--spacing-sm);
+}
+
+.itemInfo {
+  flex: 1;
+}
+
+.itemInfo h3 {
+  margin: 0;
+  font-size: var(--font-size-base);
+  color: var(--light-primary);
+}
+
+.itemInfo p {
+  margin: var(--spacing-xs) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--light-primary);
+  opacity: 0.8;
+}
+
+.itemType {
+  font-size: var(--font-size-xs) !important;
+  text-transform: uppercase;
+  opacity: 0.6 !important;
+}
+
+.itemActions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.editButton,
+.deleteButton {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+}
+
+.editButton {
+  background-color: var(--accent-color);
+  color: var(--light-primary);
+}
+
+.deleteButton {
+  background-color: var(--delete-button-color);
+  color: var(--light-primary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.field label {
+  color: var(--light-primary);
+  font-size: var(--font-size-sm);
+}
+
+.field input,
+.field select {
+  padding: var(--spacing-sm);
+  background-color: var(--dark-primary);
+  border: 1px solid var(--light-primary);
+  color: var(--light-primary);
+  border-radius: var(--border-radius-sm);
+}
+
+.preview {
+  margin-top: var(--spacing-sm);
+  max-width: 200px;
+}
+
+.preview img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-sm);
+}
+
+.error {
+  color: var(--delete-button-color);
+  font-size: var(--font-size-sm);
+}
+
+.buttons {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.submitButton,
+.cancelButton {
+  flex: 1;
+  padding: var(--spacing-sm);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  transition: all var(--transition-normal);
+}
+
+.submitButton {
+  background-color: var(--accent-color);
+  color: var(--light-primary);
+}
+
+.submitButton:hover {
+  background-color: var(--secondary-accent-color);
+}
+
+.cancelButton {
+  background-color: var(--delete-button-color);
+  color: var(--light-primary);
+}
+
+.cancelButton:hover {
+  background-color: var(--delete-button-hover);
+}

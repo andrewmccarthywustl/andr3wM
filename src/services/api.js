@@ -13,6 +13,12 @@ export const MediaType = {
   SHOW: "show",
 };
 
+export const FavoriteType = {
+  ALBUM: "album",
+  ARTIST: "artist",
+  CHANNEL: "channel",
+};
+
 export const api = {
   // Blog Posts
   getBlogPosts: async () => {
@@ -177,6 +183,78 @@ export const api = {
       .eq("id", reviewId);
     if (error) throw error;
   },
+
+  //favorites
+  getFavorites: async (type = null) => {
+    let query = supabase
+      .from("favorites")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (type && Object.values(FavoriteType).includes(type)) {
+      query = query.eq("type", type);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+    return data;
+  },
+
+  addFavorite: async (favorite) => {
+    if (!Object.values(FavoriteType).includes(favorite.type)) {
+      throw new Error("Invalid favorite type");
+    }
+
+    const { data, error } = await supabase
+      .from("favorites")
+      .insert([
+        {
+          type: favorite.type,
+          name: favorite.name,
+          secondary_name: favorite.secondary_name,
+          image_url: favorite.image_url,
+          external_url: favorite.external_url,
+        },
+      ])
+      .select();
+
+    if (error) throw error;
+    return data[0];
+  },
+
+  updateFavorite: async (id, favorite) => {
+    const { data, error } = await supabase
+      .from("favorites")
+      .update({
+        type: favorite.type,
+        name: favorite.name,
+        secondary_name: favorite.secondary_name,
+        image_url: favorite.image_url,
+        external_url: favorite.external_url,
+      })
+      .eq("id", id)
+      .select();
+
+    if (error) throw error;
+    return data[0];
+  },
+
+  deleteFavorite: async (id) => {
+    const { error } = await supabase.from("favorites").delete().eq("id", id);
+    if (error) throw error;
+  },
+  searchFavorites: async (term) => {
+    const { data, error } = await supabase
+      .from("favorites")
+      .select("*")
+      .or(`name.ilike.%${term}%,secondary_name.ilike.%${term}%`)
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data;
+  },
+
+  //photos
   getPhotos: async ({ page = 1, pageSize = 20, filter = "all" }) => {
     let query = supabase
       .from("photos")

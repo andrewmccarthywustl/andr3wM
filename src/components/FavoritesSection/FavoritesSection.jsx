@@ -1,106 +1,70 @@
 // src/components/FavoritesSection/FavoritesSection.jsx
-import React, { useMemo, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ScrollableAlbumList from "../ScrollableAlbumList/ScrollableAlbumList";
 import CircularScrollList from "../CircularScrollList/CircularScrollList";
+import FavoritesForm from "../FavoritesForm/FavoritesForm";
+import { api, FavoriteType } from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 import styles from "./FavoritesSection.module.css";
 import typography from "../../styles/typography.module.css";
 
-// Constants extracted outside component to prevent recreation
-const EXTERNAL_LINK_PROPS = {
-  target: "_blank",
-  rel: "noopener noreferrer",
-};
-
 const FavoritesSection = () => {
-  // Memoized data arrays to prevent unnecessary recreations
-  const favoriteAlbums = useMemo(
-    () => [
-      {
-        id: 1,
-        name: "Kid A",
-        artist: "Radiohead",
-        imageUrl:
-          "https://upload.wikimedia.org/wikipedia/en/0/02/Kid_A_cover.png",
-        spotifyUrl: "https://open.spotify.com/album/6GjwtEZcfenmOf6l18N7T7",
-      },
-      {
-        id: 2,
-        name: "Vespertine",
-        artist: "Björk",
-        imageUrl:
-          "https://upload.wikimedia.org/wikipedia/en/3/39/Bjork_Vespertine_cover.png",
-        spotifyUrl: "https://open.spotify.com/album/5vBpIxm8ws6pWyVmTWiGE1",
-      },
-      {
-        id: 3,
-        name: "In Rainbows",
-        artist: "Radiohead",
-        imageUrl:
-          "https://upload.wikimedia.org/wikipedia/en/1/14/Inrainbowscover.png",
-        spotifyUrl: "https://open.spotify.com/album/5vBpIxm8ws6pWyVmTWiGE1",
-      },
-    ],
-    []
-  );
+  const [favorites, setFavorites] = useState({
+    [FavoriteType.ALBUM]: [],
+    [FavoriteType.ARTIST]: [],
+    [FavoriteType.CHANNEL]: [],
+  });
+  const [isAddingFavorite, setIsAddingFavorite] = useState(false);
+  const { user } = useAuth();
 
-  const favoriteArtists = useMemo(
-    () => [
-      {
-        id: 1,
-        name: "Radiohead",
-        imageUrl:
-          "https://i.scdn.co/image/ab6761610000e5ebc8dd398813a31c3c7d8484c9",
-        url: "https://open.spotify.com/artist/4Z8W4fKeB5YxbusRsdQVPb",
-      },
-      {
-        id: 2,
-        name: "Björk",
-        imageUrl:
-          "https://i.scdn.co/image/ab6761610000e5eba0787934705a5c1a7c7d1d2c",
-        url: "https://open.spotify.com/artist/7w29UYBi0qsHi5RTcv3lmA",
-      },
-    ],
-    []
-  );
-
-  const favoriteChannels = useMemo(
-    () => [
-      {
-        id: 1,
-        name: "Ordinary Things",
-        imageUrl:
-          "https://lh3.googleusercontent.com/pw/AP1GczOSOxKgyKAJ2OmBryBuFoCBrbwcHv_dNdTHW9cWyIE-Nkw_0L7QI8PtaRwgJRUI5CInQaqjjZ6ZNwXEbAVjMcdM7woji2VBw6sMRc9pgpZZ2r47ocjuM1OncM-RsRk-LdhcwFH8lFkidVooz-Fwm3uo=w900-h900-s-no-gm?authuser=0",
-        url: "https://youtube.com/@OrdinaryThings",
-      },
-      {
-        id: 2,
-        name: "3Blue1Brown",
-        imageUrl:
-          "https://lh3.googleusercontent.com/pw/AP1GczOGQnERbzgwUqQnJzVAZTEm_C7pd5HFFtgQwRCp8wMqx-kzqXDA9AAtCeZLc3_EvKPJOtcWANTjhExRjAxrpxjvHKW7U5hRb9PYPRMXjFmEpxtA2fpu173shLNoQ7kW6-a7tVDpQc6P86JgBwhgqsgA=w900-h900-s-no-gm?authuser=0",
-        url: "https://www.youtube.com/@3blue1brown",
-      },
-    ],
-    []
-  );
-
-  // Memoized click handlers to maintain referential stability
-  const handleAlbumClick = useCallback((album) => {
-    if (album?.spotifyUrl) {
-      window.open(album.spotifyUrl, "_blank", "noopener,noreferrer");
+  const fetchFavorites = useCallback(async () => {
+    try {
+      const data = await api.getFavorites();
+      const categorized = {
+        [FavoriteType.ALBUM]: data.filter((f) => f.type === FavoriteType.ALBUM),
+        [FavoriteType.ARTIST]: data.filter(
+          (f) => f.type === FavoriteType.ARTIST
+        ),
+        [FavoriteType.CHANNEL]: data.filter(
+          (f) => f.type === FavoriteType.CHANNEL
+        ),
+      };
+      setFavorites(categorized);
+    } catch (error) {
+      console.error("Error fetching favorites:", error);
     }
   }, []);
 
-  const handleArtistClick = useCallback((artist) => {
-    if (artist?.url) {
-      window.open(artist.url, "_blank", "noopener,noreferrer");
-    }
-  }, []);
+  useEffect(() => {
+    fetchFavorites();
+  }, [fetchFavorites]);
 
-  const handleChannelClick = useCallback((channel) => {
-    if (channel?.url) {
-      window.open(channel.url, "_blank", "noopener,noreferrer");
+  const handleFavoriteSubmit = async (formData) => {
+    try {
+      await api.addFavorite(formData);
+      setIsAddingFavorite(false);
+      fetchFavorites();
+    } catch (error) {
+      console.error("Error adding favorite:", error);
     }
-  }, []);
+  };
+
+  const formatAlbumData = (albumFavorites) =>
+    albumFavorites.map((f) => ({
+      id: f.id,
+      name: f.name,
+      artist: f.secondary_name,
+      imageUrl: f.image_url,
+      externalUrl: f.external_url,
+    }));
+
+  const formatCircularData = (favorites) =>
+    favorites.map((f) => ({
+      id: f.id,
+      name: f.name,
+      imageUrl: f.image_url,
+      url: f.external_url,
+    }));
 
   return (
     <div className={styles.favoritesSection}>
@@ -108,28 +72,40 @@ const FavoritesSection = () => {
         Favorites
       </h1>
 
+      {user && (
+        <button
+          onClick={() => setIsAddingFavorite(true)}
+          className={styles.addButton}
+        >
+          Add Favorite
+        </button>
+      )}
+
+      {isAddingFavorite && (
+        <FavoritesForm
+          onSubmit={handleFavoriteSubmit}
+          onCancel={() => setIsAddingFavorite(false)}
+        />
+      )}
+
       <div className={styles.listContainer}>
         <ScrollableAlbumList
           title="Albums"
-          albums={favoriteAlbums}
-          onAlbumClick={handleAlbumClick}
+          albums={formatAlbumData(favorites[FavoriteType.ALBUM])}
         />
 
         <CircularScrollList
           title="Musicians"
-          items={favoriteArtists}
-          onItemClick={handleArtistClick}
+          items={formatCircularData(favorites[FavoriteType.ARTIST])}
         />
 
         <CircularScrollList
           title="YouTube Channels"
-          items={favoriteChannels}
-          onItemClick={handleChannelClick}
+          items={formatCircularData(favorites[FavoriteType.CHANNEL])}
         />
       </div>
     </div>
   );
 };
 
-// Memoize the entire component to prevent unnecessary rerenders
-export default React.memo(FavoritesSection);
+export default FavoritesSection;
