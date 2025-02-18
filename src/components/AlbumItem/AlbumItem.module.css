@@ -1,5 +1,4 @@
-/* src/components/AlbumItem/AlbumItem.module.css */
-
+/* AlbumItem.module.css */
 .albumItem {
   flex: 0 0 auto;
   width: 200px;
@@ -7,11 +6,6 @@
   border: 2px solid var(--light-primary);
   cursor: pointer;
   position: relative;
-  transition: transform var(--transition-normal);
-}
-
-.albumItem:hover {
-  transform: translateY(-5px);
 }
 
 .imageContainer {
@@ -19,17 +13,15 @@
   height: 200px;
   overflow: hidden;
   border-bottom: 2px solid var(--light-primary);
+  position: relative;
 }
 
 .albumImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-normal);
-}
-
-.albumItem:hover .albumImage {
-  transform: scale(1.05);
+  transition: transform var(--transition-normal),
+    filter var(--transition-normal);
 }
 
 .albumInfo {
@@ -45,6 +37,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: transform var(--transition-normal);
+}
+
+.albumItem:hover {
+  transform: translateY(-5px);
 }
 
 .artistName {
@@ -59,51 +56,42 @@
 .albumOverlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transition: opacity var(--transition-normal);
+  background: var(--dark-shadow);
+}
+
+.playButton {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--light-primary);
+  background: none;
+  border: none;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .albumItem:hover .albumOverlay {
   opacity: 1;
 }
 
-.playButton {
-  color: var(--light-primary);
-  border: 2px solid var(--light-primary);
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--border-radius-sm);
-  transition: all var(--transition-normal);
-}
-
-.albumItem:hover .playButton {
-  background-color: var(--light-primary);
-  color: var(--dark-primary);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .albumItem,
   .albumImage,
   .albumOverlay,
-  .playButton {
+  .playButton,
+  .albumTitle {
     transition: none;
   }
 }
 
 @media (max-width: 768px) {
-  .albumItem:hover {
+  .albumItem:hover .albumImage {
     transform: none;
   }
 
   .albumImage {
     transform: none;
-  }
-
-  .albumOverlay {
-    opacity: 0;
-    display: none;
   }
 }

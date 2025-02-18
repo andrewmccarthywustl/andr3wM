@@ -1,32 +1,23 @@
-// src/components/CircularScrollList/CircularScrollList.jsx
+// CircularScrollList.jsx
 import React, { useState, useCallback, memo } from "react";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
+import { FavoriteType } from "../../services/api";
 import CircularItem from "../CircularItem";
 import styles from "./CircularScrollList.module.css";
 import typography from "../../styles/typography.module.css";
 
-// Constants to prevent recreation
-const SCROLL_THRESHOLD = 20;
-const SCROLL_ITEMS = 3;
-const ITEM_WIDTH = 200;
-const ITEM_GAP = 16; // Equivalent to var(--spacing-lg)
-
-const CircularScrollList = memo(({ title, items }) => {
-  // Scroll state management
+const CircularScrollList = memo(({ title, items, itemType }) => {
   const [scrollStates, setScrollStates] = useState({
     canScrollLeft: false,
     canScrollRight: true,
   });
 
-  // Memoized scroll handler with performance optimization
   const handleScroll = useCallback((e) => {
     const container = e.target;
-    const canScrollLeft = container.scrollLeft > SCROLL_THRESHOLD;
+    const canScrollLeft = container.scrollLeft > 20;
     const canScrollRight =
-      container.scrollLeft <
-      container.scrollWidth - container.clientWidth - SCROLL_THRESHOLD;
+      container.scrollLeft < container.scrollWidth - container.clientWidth - 20;
 
-    // Prevent unnecessary state updates
     setScrollStates((prev) => {
       if (
         prev.canScrollLeft === canScrollLeft &&
@@ -38,12 +29,11 @@ const CircularScrollList = memo(({ title, items }) => {
     });
   }, []);
 
-  // Memoized scroll function with performance optimization
   const scrollItems = useCallback((direction) => {
     const container = document.querySelector("#circular-scroll-container");
     if (!container) return;
 
-    const scrollAmount = (ITEM_WIDTH + ITEM_GAP) * SCROLL_ITEMS;
+    const scrollAmount = 200 * 3;
 
     requestAnimationFrame(() => {
       container.scrollBy({
@@ -52,6 +42,17 @@ const CircularScrollList = memo(({ title, items }) => {
       });
     });
   }, []);
+
+  const getButtonText = (type) => {
+    switch (type) {
+      case FavoriteType.ARTIST:
+        return "View on YouTube Music";
+      case FavoriteType.CHANNEL:
+        return "View Channel";
+      default:
+        return "View Profile";
+    }
+  };
 
   return (
     <div className={styles.listContainer}>
@@ -62,20 +63,17 @@ const CircularScrollList = memo(({ title, items }) => {
       </div>
 
       <div className={styles.scrollContainer}>
-        {/* Gradient overlays */}
         <div
           className={`${styles.gradientLeft} ${
             scrollStates.canScrollLeft ? styles.gradientShow : ""
           }`}
         />
-
         <div
           className={`${styles.gradientRight} ${
             scrollStates.canScrollRight ? styles.gradientShow : ""
           }`}
         />
 
-        {/* Navigation arrows */}
         {scrollStates.canScrollLeft && (
           <IoChevronBack
             className={`${styles.scrollArrow} ${styles.scrollArrowLeft}`}
@@ -92,7 +90,6 @@ const CircularScrollList = memo(({ title, items }) => {
           />
         )}
 
-        {/* Items list */}
         <div
           id="circular-scroll-container"
           className={styles.itemList}
@@ -100,7 +97,11 @@ const CircularScrollList = memo(({ title, items }) => {
           role="list"
         >
           {items.map((item) => (
-            <CircularItem key={item.id} item={item} />
+            <CircularItem
+              key={item.id}
+              item={item}
+              buttonText={getButtonText(itemType)}
+            />
           ))}
         </div>
       </div>

@@ -30,6 +30,9 @@ const AlbumItem = memo(({ album }) => {
           className={styles.albumImage}
           loading="lazy"
         />
+        <div className={styles.albumOverlay}>
+          <span className={styles.playButton}>Open in YouTube Music</span>
+        </div>
       </div>
 
       <div className={styles.albumInfo}>
@@ -39,10 +42,6 @@ const AlbumItem = memo(({ album }) => {
         <p className={`${styles.artistName} ${typography.bodyText}`}>
           {album.artist}
         </p>
-      </div>
-
-      <div className={styles.albumOverlay}>
-        <span className={styles.playButton}>Open in YouTube Music</span>
       </div>
     </div>
   );

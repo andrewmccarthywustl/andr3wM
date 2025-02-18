@@ -53,7 +53,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.8);
   color: var(--light-primary);
   border: 2px solid var(--light-primary);
   padding: var(--spacing-sm) var(--spacing-md);
@@ -63,6 +62,7 @@
   font-size: var(--font-size-base);
   cursor: pointer;
   transition: all var(--transition-normal);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .viewButton:hover {

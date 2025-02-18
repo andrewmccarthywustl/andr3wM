@@ -28,15 +28,6 @@ function ReviewItem({ review, onClick, index }) {
           alt={review.title}
           className={styles.reviewImage}
         />
-        <button
-          className={styles.viewButton}
-          onClick={(e) => {
-            e.stopPropagation();
-            onClick(review);
-          }}
-        >
-          View Review
-        </button>
         <div className={styles.reviewOverlay}>
           <p>View Full Review</p>
         </div>

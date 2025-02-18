@@ -1,4 +1,4 @@
-// src/components/FavoritesSection/FavoritesSection.jsx
+// FavoritesSection.jsx
 import React, { useState, useEffect, useCallback } from "react";
 import ScrollableAlbumList from "../ScrollableAlbumList/ScrollableAlbumList";
 import CircularScrollList from "../CircularScrollList/CircularScrollList";
@@ -39,14 +39,9 @@ const FavoritesSection = () => {
     fetchFavorites();
   }, [fetchFavorites]);
 
-  const handleFavoriteSubmit = async (formData) => {
-    try {
-      await api.addFavorite(formData);
-      setIsAddingFavorite(false);
-      fetchFavorites();
-    } catch (error) {
-      console.error("Error adding favorite:", error);
-    }
+  const handleFavoriteSubmit = async () => {
+    await fetchFavorites();
+    setIsAddingFavorite(false);
   };
 
   const formatAlbumData = (albumFavorites) =>
@@ -55,7 +50,7 @@ const FavoritesSection = () => {
       name: f.name,
       artist: f.secondary_name,
       imageUrl: f.image_url,
-      externalUrl: f.external_url,
+      spotifyUrl: f.external_url,
     }));
 
   const formatCircularData = (favorites) =>
@@ -97,11 +92,13 @@ const FavoritesSection = () => {
         <CircularScrollList
           title="Musicians"
           items={formatCircularData(favorites[FavoriteType.ARTIST])}
+          itemType={FavoriteType.ARTIST}
         />
 
         <CircularScrollList
           title="YouTube Channels"
           items={formatCircularData(favorites[FavoriteType.CHANNEL])}
+          itemType={FavoriteType.CHANNEL}
         />
       </div>
     </div>
