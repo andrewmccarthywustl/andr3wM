@@ -5,13 +5,43 @@ import useIsMobile from "../../hooks/useIsMobile";
 
 function ReviewItem({ review, onClick, index }) {
   const itemRef = useRef(null);
+  const touchStartRef = useRef({ x: 0, y: 0, time: 0 });
   const isMobile = useIsMobile();
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      time: Date.now(),
+    };
+  };
+
+  const handleTouchEnd = (e) => {
+    const touchEnd = {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY,
+      time: Date.now(),
+    };
+
+    const deltaX = Math.abs(touchEnd.x - touchStartRef.current.x);
+    const deltaY = Math.abs(touchEnd.y - touchStartRef.current.y);
+    const deltaTime = touchEnd.time - touchStartRef.current.time;
+
+    // Only trigger click if:
+    // 1. Touch duration is less than 200ms (quick tap)
+    // 2. Movement is less than 10px in any direction (not scrolling)
+    if (deltaTime < 200 && deltaX < 10 && deltaY < 10) {
+      onClick(review);
+    }
+  };
 
   return (
     <div
       ref={itemRef}
       className={styles.reviewItem}
-      onClick={() => onClick(review)} // Simplified to work on both mobile and desktop
+      onClick={!isMobile ? () => onClick(review) : undefined}
+      onTouchStart={isMobile ? handleTouchStart : undefined}
+      onTouchEnd={isMobile ? handleTouchEnd : undefined}
     >
       <div className={styles.imageContainer}>
         <img
