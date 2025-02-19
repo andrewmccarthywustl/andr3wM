@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import SquareScrollList from "../SquareScrollList";
 import CircularScrollList from "../CircularScrollList";
+import VideoList from "../VideoList";
 import FavoritesForm from "../FavoritesForm";
 import { api, FavoriteType } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
@@ -14,6 +15,7 @@ const FavoritesSection = () => {
     [FavoriteType.PODCAST]: [],
     [FavoriteType.ARTIST]: [],
     [FavoriteType.CHANNEL]: [],
+    [FavoriteType.VIDEO]: [], // Added videos to state
   });
   const [isAddingFavorite, setIsAddingFavorite] = useState(false);
   const { user } = useAuth();
@@ -32,6 +34,7 @@ const FavoritesSection = () => {
         [FavoriteType.CHANNEL]: data.filter(
           (f) => f.type === FavoriteType.CHANNEL
         ),
+        [FavoriteType.VIDEO]: data.filter((f) => f.type === FavoriteType.VIDEO),
       };
       setFavorites(categorized);
     } catch (error) {
@@ -63,6 +66,14 @@ const FavoritesSection = () => {
       name: f.name,
       imageUrl: f.image_url,
       url: f.external_url,
+    }));
+
+  const formatVideoData = (videos) =>
+    videos.map((v) => ({
+      id: v.id,
+      title: v.name,
+      channel: v.secondary_name,
+      url: v.external_url,
     }));
 
   return (
@@ -110,6 +121,11 @@ const FavoritesSection = () => {
           title="YouTube Channels"
           items={formatCircularData(favorites[FavoriteType.CHANNEL])}
           itemType={FavoriteType.CHANNEL}
+        />
+
+        <VideoList
+          title="Favorite Videos"
+          videos={formatVideoData(favorites[FavoriteType.VIDEO])}
         />
       </div>
     </div>

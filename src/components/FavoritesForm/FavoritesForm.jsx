@@ -31,7 +31,9 @@ function FavoritesForm({ onSubmit, onCancel }) {
 
   const validateUrls = () => {
     try {
-      new URL(formData.image_url);
+      if (formData.type !== FavoriteType.VIDEO) {
+        new URL(formData.image_url);
+      }
       new URL(formData.external_url);
       return true;
     } catch {
@@ -118,6 +120,8 @@ function FavoritesForm({ onSubmit, onCancel }) {
         return "Artist Name";
       case FavoriteType.PODCAST:
         return "Host/Network (Optional)";
+      case FavoriteType.VIDEO:
+        return "Channel Name";
       default:
         return "Secondary Name";
     }
@@ -133,6 +137,8 @@ function FavoritesForm({ onSubmit, onCancel }) {
         return "Artist Profile URL";
       case FavoriteType.CHANNEL:
         return "YouTube Channel URL";
+      case FavoriteType.VIDEO:
+        return "YouTube Video URL";
       default:
         return "External URL";
     }
@@ -173,11 +179,13 @@ function FavoritesForm({ onSubmit, onCancel }) {
           <div className={styles.existingItems}>
             {searchResults.map((item) => (
               <div key={item.id} className={styles.existingItem}>
-                <img
-                  src={item.image_url}
-                  alt={item.name}
-                  className={styles.itemImage}
-                />
+                {item.image_url && (
+                  <img
+                    src={item.image_url}
+                    alt={item.name}
+                    className={styles.itemImage}
+                  />
+                )}
                 <div className={styles.itemInfo}>
                   <h3>{item.name}</h3>
                   {item.secondary_name && <p>{item.secondary_name}</p>}
@@ -210,6 +218,7 @@ function FavoritesForm({ onSubmit, onCancel }) {
               <option value={FavoriteType.PODCAST}>Podcast</option>
               <option value={FavoriteType.ARTIST}>Artist</option>
               <option value={FavoriteType.CHANNEL}>Channel</option>
+              <option value={FavoriteType.VIDEO}>Video</option>
             </select>
           </div>
 
@@ -221,8 +230,8 @@ function FavoritesForm({ onSubmit, onCancel }) {
               value={formData.name}
               onChange={handleChange}
               placeholder={
-                formData.type === FavoriteType.PODCAST
-                  ? "Podcast Name"
+                formData.type === FavoriteType.VIDEO
+                  ? "Video Title"
                   : "Enter name..."
               }
               required
@@ -230,7 +239,8 @@ function FavoritesForm({ onSubmit, onCancel }) {
           </div>
 
           {(formData.type === FavoriteType.ALBUM ||
-            formData.type === FavoriteType.PODCAST) && (
+            formData.type === FavoriteType.PODCAST ||
+            formData.type === FavoriteType.VIDEO) && (
             <div className={styles.field}>
               <label>{getSecondaryNameLabel(formData.type)}</label>
               <input
@@ -239,31 +249,32 @@ function FavoritesForm({ onSubmit, onCancel }) {
                 value={formData.secondary_name}
                 onChange={handleChange}
                 placeholder={getSecondaryNameLabel(formData.type)}
-                required={formData.type === FavoriteType.ALBUM}
+                required={
+                  formData.type === FavoriteType.ALBUM ||
+                  formData.type === FavoriteType.VIDEO
+                }
               />
             </div>
           )}
 
-          <div className={styles.field}>
-            <label>Image URL</label>
-            <input
-              type="url"
-              name="image_url"
-              value={formData.image_url}
-              onChange={handleImageUrlChange}
-              placeholder={
-                formData.type === FavoriteType.PODCAST
-                  ? "Podcast Cover Art URL"
-                  : "https://..."
-              }
-              required
-            />
-            {imagePreview && (
-              <div className={styles.preview}>
-                <img src={imagePreview} alt="Preview" />
-              </div>
-            )}
-          </div>
+          {formData.type !== FavoriteType.VIDEO && (
+            <div className={styles.field}>
+              <label>Image URL</label>
+              <input
+                type="url"
+                name="image_url"
+                value={formData.image_url}
+                onChange={handleImageUrlChange}
+                placeholder="https://..."
+                required
+              />
+              {imagePreview && (
+                <div className={styles.preview}>
+                  <img src={imagePreview} alt="Preview" />
+                </div>
+              )}
+            </div>
+          )}
 
           <div className={styles.field}>
             <label>External URL</label>

@@ -18,6 +18,7 @@ export const FavoriteType = {
   PODCAST: "podcast",
   ARTIST: "artist",
   CHANNEL: "channel",
+  VIDEO: "video",
 };
 
 export const api = {
@@ -211,6 +212,10 @@ export const api = {
       throw new Error("Artist name (secondary_name) is required for albums");
     }
 
+    if (favorite.type === FavoriteType.VIDEO && !favorite.secondary_name) {
+      throw new Error("Channel name (secondary_name) is required for videos");
+    }
+
     const { data, error } = await supabase
       .from("favorites")
       .insert([
@@ -232,6 +237,10 @@ export const api = {
     // Validate required fields based on type
     if (favorite.type === FavoriteType.ALBUM && !favorite.secondary_name) {
       throw new Error("Artist name (secondary_name) is required for albums");
+    }
+
+    if (favorite.type === FavoriteType.VIDEO && !favorite.secondary_name) {
+      throw new Error("Channel name (secondary_name) is required for videos");
     }
 
     const { data, error } = await supabase

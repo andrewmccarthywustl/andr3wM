@@ -1,0 +1,126 @@
+/* src/components/VideoList/VideoList.module.css */
+
+.videoListContainer {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 var(--spacing-xl);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: var(--light-primary);
+  margin: 0;
+}
+
+.randomButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+  border: 2px solid var(--light-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-normal);
+}
+
+.randomButton:hover {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+.randomIcon {
+  font-size: var(--font-size-sm);
+}
+
+.videoList {
+  display: flex;
+  flex-direction: column;
+}
+
+.videoItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--light-primary);
+}
+
+.videoItem:first-child {
+  border-top: 1px solid var(--light-primary);
+}
+
+.videoInfo {
+  flex: 1;
+  min-width: 0;
+  margin-right: var(--spacing-sm);
+}
+
+.videoTitle {
+  color: var(--light-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.channelName {
+  color: var(--light-primary);
+  opacity: 0.7;
+  font-size: var(--font-size-sm);
+  margin: var(--spacing-xs) 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.watchButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+  border: 2px solid var(--light-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-normal);
+  min-width: 100px;
+  justify-content: center;
+}
+
+.watchButton:hover {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+.playIcon {
+  font-size: var(--font-size-sm);
+}
+
+@media (max-width: 768px) {
+  .videoItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) 0;
+  }
+
+  .videoInfo {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .watchButton {
+    width: 100%;
+  }
+}
