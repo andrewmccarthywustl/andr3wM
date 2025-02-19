@@ -81,6 +81,7 @@
 
 .scrollArrow {
   position: absolute;
+  cursor: pointer;
   top: 50%;
   transform: translateY(-50%);
   font-size: var(--font-size-2xl);
