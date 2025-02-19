@@ -1,11 +1,11 @@
-// src/components/ScrollableAlbumList/ScrollableAlbumList.jsx
+// src/components/SquareScrollList/SquareScrollList.jsx
 import React, { useState, useCallback, memo } from "react";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
-import AlbumItem from "../AlbumItem/AlbumItem";
-import styles from "./ScrollableAlbumList.module.css";
+import SquareItem from "../SquareItem";
+import styles from "./SquareScrollList.module.css";
 import typography from "../../styles/typography.module.css";
 
-const ScrollableAlbumList = memo(({ title, albums }) => {
+const SquareScrollList = memo(({ title, items, buttonText }) => {
   // Scroll state management
   const [scrollStates, setScrollStates] = useState({
     canScrollLeft: false,
@@ -32,11 +32,11 @@ const ScrollableAlbumList = memo(({ title, albums }) => {
   }, []);
 
   // Performance optimization: Memoize scroll function
-  const scrollAlbums = useCallback((direction) => {
-    const container = document.querySelector("#album-scroll-container");
+  const scrollItems = useCallback((direction) => {
+    const container = document.querySelector("#square-scroll-container");
     if (!container) return;
 
-    const scrollAmount = 200 * 3; // Width of album item * number of items to scroll
+    const scrollAmount = 200 * 3; // Width of item * number of items to scroll
 
     // Use requestAnimationFrame for smooth scrolling
     requestAnimationFrame(() => {
@@ -73,7 +73,7 @@ const ScrollableAlbumList = memo(({ title, albums }) => {
         {scrollStates.canScrollLeft && (
           <IoChevronBack
             className={`${styles.scrollArrow} ${styles.scrollArrowLeft}`}
-            onClick={() => scrollAlbums("left")}
+            onClick={() => scrollItems("left")}
             aria-label="Scroll left"
           />
         )}
@@ -81,20 +81,29 @@ const ScrollableAlbumList = memo(({ title, albums }) => {
         {scrollStates.canScrollRight && (
           <IoChevronForward
             className={`${styles.scrollArrow} ${styles.scrollArrowRight}`}
-            onClick={() => scrollAlbums("right")}
+            onClick={() => scrollItems("right")}
             aria-label="Scroll right"
           />
         )}
 
-        {/* Album list */}
+        {/* Item list */}
         <div
-          id="album-scroll-container"
-          className={styles.albumList}
+          id="square-scroll-container"
+          className={styles.itemList}
           onScroll={handleScroll}
           role="list"
         >
-          {albums.map((album) => (
-            <AlbumItem key={album.id} album={album} />
+          {items.map((item) => (
+            <SquareItem
+              key={item.id}
+              item={{
+                name: item.name,
+                secondaryName: item.secondaryName,
+                imageUrl: item.imageUrl,
+                externalUrl: item.externalUrl,
+              }}
+              buttonText={buttonText}
+            />
           ))}
         </div>
       </div>
@@ -103,6 +112,6 @@ const ScrollableAlbumList = memo(({ title, albums }) => {
 });
 
 // Add display name for React DevTools
-ScrollableAlbumList.displayName = "ScrollableAlbumList";
+SquareScrollList.displayName = "SquareScrollList";
 
-export default ScrollableAlbumList;
+export default SquareScrollList;

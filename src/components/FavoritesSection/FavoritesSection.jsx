@@ -1,8 +1,8 @@
 // FavoritesSection.jsx
 import React, { useState, useEffect, useCallback } from "react";
-import ScrollableAlbumList from "../ScrollableAlbumList/ScrollableAlbumList";
-import CircularScrollList from "../CircularScrollList/CircularScrollList";
-import FavoritesForm from "../FavoritesForm/FavoritesForm";
+import SquareScrollList from "../SquareScrollList";
+import CircularScrollList from "../CircularScrollList";
+import FavoritesForm from "../FavoritesForm";
 import { api, FavoriteType } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./FavoritesSection.module.css";
@@ -11,6 +11,7 @@ import typography from "../../styles/typography.module.css";
 const FavoritesSection = () => {
   const [favorites, setFavorites] = useState({
     [FavoriteType.ALBUM]: [],
+    [FavoriteType.PODCAST]: [],
     [FavoriteType.ARTIST]: [],
     [FavoriteType.CHANNEL]: [],
   });
@@ -22,6 +23,9 @@ const FavoritesSection = () => {
       const data = await api.getFavorites();
       const categorized = {
         [FavoriteType.ALBUM]: data.filter((f) => f.type === FavoriteType.ALBUM),
+        [FavoriteType.PODCAST]: data.filter(
+          (f) => f.type === FavoriteType.PODCAST
+        ),
         [FavoriteType.ARTIST]: data.filter(
           (f) => f.type === FavoriteType.ARTIST
         ),
@@ -44,11 +48,11 @@ const FavoritesSection = () => {
     setIsAddingFavorite(false);
   };
 
-  const formatAlbumData = (albumFavorites) =>
-    albumFavorites.map((f) => ({
+  const formatSquareData = (squareFavorites) =>
+    squareFavorites.map((f) => ({
       id: f.id,
       name: f.name,
-      artist: f.secondary_name,
+      secondaryName: f.secondary_name,
       imageUrl: f.image_url,
       externalUrl: f.external_url,
     }));
@@ -84,15 +88,22 @@ const FavoritesSection = () => {
       )}
 
       <div className={styles.listContainer}>
-        <ScrollableAlbumList
+        <SquareScrollList
           title="Albums"
-          albums={formatAlbumData(favorites[FavoriteType.ALBUM])}
+          items={formatSquareData(favorites[FavoriteType.ALBUM])}
+          buttonText="Open in YouTube Music"
         />
 
         <CircularScrollList
           title="Musicians"
           items={formatCircularData(favorites[FavoriteType.ARTIST])}
           itemType={FavoriteType.ARTIST}
+        />
+
+        <SquareScrollList
+          title="Podcasts"
+          items={formatSquareData(favorites[FavoriteType.PODCAST])}
+          buttonText="Listen Now"
         />
 
         <CircularScrollList

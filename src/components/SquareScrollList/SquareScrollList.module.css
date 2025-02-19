@@ -1,4 +1,4 @@
-/* src/components/ScrollableAlbumList/ScrollableAlbumList.module.css */
+/* src/components/SquareScrollList/SquareScrollList.module.css */
 
 .listContainer {
   margin-bottom: var(--spacing-2xl);
@@ -84,7 +84,7 @@
   right: var(--spacing-md);
 }
 
-.albumList {
+.itemList {
   display: flex;
   overflow-x: auto;
   gap: var(--spacing-lg);
@@ -96,7 +96,7 @@
   will-change: transform, scroll-position;
 }
 
-.albumList::-webkit-scrollbar {
+.itemList::-webkit-scrollbar {
   display: none;
 }
 
@@ -108,7 +108,7 @@
     transition: none;
   }
 
-  .albumList {
+  .itemList {
     scroll-behavior: auto;
   }
 }
@@ -121,7 +121,7 @@
     display: none;
   }
 
-  .albumList {
+  .itemList {
     padding: 0 var(--spacing-md);
     touch-action: pan-x pan-y;
     -webkit-tap-highlight-color: transparent;

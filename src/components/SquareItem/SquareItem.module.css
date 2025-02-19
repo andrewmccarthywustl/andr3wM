@@ -1,5 +1,5 @@
-/* AlbumItem.module.css */
-.albumItem {
+/* SquareItem.module.css */
+.squareItem {
   flex: 0 0 auto;
   width: 200px;
   background-color: var(--dark-primary);
@@ -16,7 +16,7 @@
   position: relative;
 }
 
-.albumImage {
+.squareImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -24,7 +24,7 @@
     filter var(--transition-normal);
 }
 
-.albumInfo {
+.itemInfo {
   padding: var(--spacing-sm);
   height: 96px;
   display: flex;
@@ -32,7 +32,7 @@
   justify-content: center;
 }
 
-.albumTitle {
+.itemTitle {
   font-family: var(--font-heading);
   font-size: var(--font-size-base);
   display: -webkit-box;
@@ -43,7 +43,7 @@
   margin: 0;
 }
 
-.artistName {
+.secondaryName {
   font-size: var(--font-size-sm);
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -53,12 +53,12 @@
   margin: 0;
 }
 
-.albumItem:hover {
+.squareItem:hover {
   transform: translateY(-5px);
   transition: 0.3s ease-in-out;
 }
 
-.albumOverlay {
+.itemOverlay {
   position: absolute;
   inset: 0;
   display: flex;
@@ -78,25 +78,25 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.albumItem:hover .albumOverlay {
+.squareItem:hover .itemOverlay {
   opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .albumImage,
-  .albumOverlay,
+  .squareImage,
+  .itemOverlay,
   .playButton,
-  .albumTitle {
+  .itemTitle {
     transition: none;
   }
 }
 
 @media (max-width: 768px) {
-  .albumItem:hover .albumImage {
+  .squareItem:hover .squareImage {
     transform: none;
   }
 
-  .albumImage {
+  .squareImage {
     transform: none;
   }
 }

@@ -112,6 +112,32 @@ function FavoritesForm({ onSubmit, onCancel }) {
     }
   };
 
+  const getSecondaryNameLabel = (type) => {
+    switch (type) {
+      case FavoriteType.ALBUM:
+        return "Artist Name";
+      case FavoriteType.PODCAST:
+        return "Host/Network (Optional)";
+      default:
+        return "Secondary Name";
+    }
+  };
+
+  const getExternalUrlPlaceholder = (type) => {
+    switch (type) {
+      case FavoriteType.ALBUM:
+        return "YouTube Music URL";
+      case FavoriteType.PODCAST:
+        return "Spotify/Apple Podcasts URL";
+      case FavoriteType.ARTIST:
+        return "Artist Profile URL";
+      case FavoriteType.CHANNEL:
+        return "YouTube Channel URL";
+      default:
+        return "External URL";
+    }
+  };
+
   return (
     <div className={styles.formContainer}>
       <div className={styles.formToggle}>
@@ -181,6 +207,7 @@ function FavoritesForm({ onSubmit, onCancel }) {
             <label>Type</label>
             <select name="type" value={formData.type} onChange={handleChange}>
               <option value={FavoriteType.ALBUM}>Album</option>
+              <option value={FavoriteType.PODCAST}>Podcast</option>
               <option value={FavoriteType.ARTIST}>Artist</option>
               <option value={FavoriteType.CHANNEL}>Channel</option>
             </select>
@@ -193,21 +220,26 @@ function FavoritesForm({ onSubmit, onCancel }) {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="Enter name..."
+              placeholder={
+                formData.type === FavoriteType.PODCAST
+                  ? "Podcast Name"
+                  : "Enter name..."
+              }
               required
             />
           </div>
 
-          {formData.type === FavoriteType.ALBUM && (
+          {(formData.type === FavoriteType.ALBUM ||
+            formData.type === FavoriteType.PODCAST) && (
             <div className={styles.field}>
-              <label>Artist Name</label>
+              <label>{getSecondaryNameLabel(formData.type)}</label>
               <input
                 type="text"
                 name="secondary_name"
                 value={formData.secondary_name}
                 onChange={handleChange}
-                placeholder="Artist Name"
-                required
+                placeholder={getSecondaryNameLabel(formData.type)}
+                required={formData.type === FavoriteType.ALBUM}
               />
             </div>
           )}
@@ -219,7 +251,11 @@ function FavoritesForm({ onSubmit, onCancel }) {
               name="image_url"
               value={formData.image_url}
               onChange={handleImageUrlChange}
-              placeholder="https://..."
+              placeholder={
+                formData.type === FavoriteType.PODCAST
+                  ? "Podcast Cover Art URL"
+                  : "https://..."
+              }
               required
             />
             {imagePreview && (
@@ -236,7 +272,7 @@ function FavoritesForm({ onSubmit, onCancel }) {
               name="external_url"
               value={formData.external_url}
               onChange={handleChange}
-              placeholder="https://..."
+              placeholder={getExternalUrlPlaceholder(formData.type)}
               required
             />
           </div>

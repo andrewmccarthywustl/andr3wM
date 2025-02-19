@@ -15,6 +15,7 @@ export const MediaType = {
 
 export const FavoriteType = {
   ALBUM: "album",
+  PODCAST: "podcast",
   ARTIST: "artist",
   CHANNEL: "channel",
 };
@@ -205,6 +206,11 @@ export const api = {
       throw new Error("Invalid favorite type");
     }
 
+    // Validate required fields based on type
+    if (favorite.type === FavoriteType.ALBUM && !favorite.secondary_name) {
+      throw new Error("Artist name (secondary_name) is required for albums");
+    }
+
     const { data, error } = await supabase
       .from("favorites")
       .insert([
@@ -223,6 +229,11 @@ export const api = {
   },
 
   updateFavorite: async (id, favorite) => {
+    // Validate required fields based on type
+    if (favorite.type === FavoriteType.ALBUM && !favorite.secondary_name) {
+      throw new Error("Artist name (secondary_name) is required for albums");
+    }
+
     const { data, error } = await supabase
       .from("favorites")
       .update({
@@ -243,6 +254,7 @@ export const api = {
     const { error } = await supabase.from("favorites").delete().eq("id", id);
     if (error) throw error;
   },
+
   searchFavorites: async (term) => {
     const { data, error } = await supabase
       .from("favorites")
