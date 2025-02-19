@@ -5,24 +5,15 @@ import useIsMobile from "../../hooks/useIsMobile";
 
 function ReviewItem({ review, onClick, index }) {
   const itemRef = useRef(null);
-  const [touched, setTouched] = useState(false);
   const isMobile = useIsMobile();
-
-  const handleTouch = () => {
-    setTouched(true);
-    setTimeout(() => setTouched(false), 3000);
-  };
 
   return (
     <div
       ref={itemRef}
-      className={`${styles.reviewItem} ${touched ? styles.touched : ""}`}
-      onClick={!isMobile ? () => onClick(review) : undefined}
+      className={styles.reviewItem}
+      onClick={() => onClick(review)} // Simplified to work on both mobile and desktop
     >
-      <div
-        className={styles.imageContainer}
-        onTouchStart={isMobile ? handleTouch : undefined}
-      >
+      <div className={styles.imageContainer}>
         <img
           src={review.image_url}
           alt={review.title}
