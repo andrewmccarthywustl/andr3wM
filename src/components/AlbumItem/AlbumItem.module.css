@@ -26,31 +26,35 @@
 
 .albumInfo {
   padding: var(--spacing-sm);
+  height: 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .albumTitle {
   font-family: var(--font-heading);
   font-size: var(--font-size-base);
-  color: var(--light-primary);
-  margin: 0;
-  margin-bottom: var(--spacing-xs);
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  transition: transform var(--transition-normal);
-}
-
-.albumItem:hover {
-  transform: translateY(-5px);
+  margin: 0;
 }
 
 .artistName {
   font-size: var(--font-size-sm);
-  color: var(--light-primary);
-  margin: 0;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.albumItem:hover {
+  transform: translateY(-5px);
 }
 
 .albumOverlay {

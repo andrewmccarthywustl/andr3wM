@@ -36,12 +36,8 @@ const AlbumItem = memo(({ album }) => {
       </div>
 
       <div className={styles.albumInfo}>
-        <h3 className={`${styles.albumTitle} ${typography.heading3}`}>
-          {album.name}
-        </h3>
-        <p className={`${styles.artistName} ${typography.bodyText}`}>
-          {album.artist}
-        </p>
+        <h3 className={`${styles.albumTitle}`}>{album.name}</h3>
+        <p className={`${styles.artistName}`}>{album.artist}</p>
       </div>
     </div>
   );
