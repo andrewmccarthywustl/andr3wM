@@ -1,7 +1,7 @@
 // src/components/SquareScrollList/SquareScrollList.jsx
 import React, { useState, useCallback, memo } from "react";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
-import SquareItem from "@/components/SquareItem";
+import SquareItem from "../SquareItem/SquareItem";
 import styles from "./SquareScrollList.module.css";
 import typography from "../../styles/typography.module.css";
 
