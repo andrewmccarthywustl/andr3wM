@@ -15,8 +15,8 @@ export const MediaType = {
 
 export const FavoriteType = {
   ALBUM: "album",
-  PODCAST: "podcast",
   ARTIST: "artist",
+  PODCAST: "podcast",
   CHANNEL: "channel",
   VIDEO: "video",
 };

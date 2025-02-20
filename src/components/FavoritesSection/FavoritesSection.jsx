@@ -14,8 +14,8 @@ const FavoritesSection = () => {
   // State management
   const [favorites, setFavorites] = useState({
     [FavoriteType.ALBUM]: [],
-    [FavoriteType.PODCAST]: [],
     [FavoriteType.ARTIST]: [],
+    [FavoriteType.PODCAST]: [],
     [FavoriteType.CHANNEL]: [],
     [FavoriteType.VIDEO]: [],
   });
@@ -141,14 +141,14 @@ const FavoritesSection = () => {
           <SquareScrollList
             title="Albums"
             items={formatSquareData(favorites[FavoriteType.ALBUM])}
-            buttonText="Open in YouTube Music"
+            buttonText="Listen to Album"
           />
         )}
 
         {/* Musicians Section */}
         {favorites[FavoriteType.ARTIST].length > 0 && (
           <CircularScrollList
-            title="Musicians"
+            title="Music Artists"
             items={formatCircularData(favorites[FavoriteType.ARTIST])}
             itemType={FavoriteType.ARTIST}
           />
@@ -159,7 +159,7 @@ const FavoritesSection = () => {
           <SquareScrollList
             title="Podcasts"
             items={formatSquareData(favorites[FavoriteType.PODCAST])}
-            buttonText="Listen Now"
+            buttonText="Open Podcast's Website"
           />
         )}
 
@@ -175,7 +175,7 @@ const FavoritesSection = () => {
         {/* Videos Section */}
         {favorites[FavoriteType.VIDEO].length > 0 && (
           <VideoList
-            title="Favorite Videos"
+            title="Videos"
             videos={formatVideoData(favorites[FavoriteType.VIDEO])}
           />
         )}

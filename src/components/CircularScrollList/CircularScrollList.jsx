@@ -46,9 +46,9 @@ const CircularScrollList = memo(({ title, items, itemType }) => {
   const getButtonText = (type) => {
     switch (type) {
       case FavoriteType.ARTIST:
-        return "View on YouTube Music";
+        return "Open Artist's Website";
       case FavoriteType.CHANNEL:
-        return "View Channel";
+        return "Open Channel on Youtube";
       default:
         return "View Profile";
     }

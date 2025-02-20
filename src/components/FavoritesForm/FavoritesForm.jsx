@@ -281,8 +281,8 @@ function FavoritesForm({ onSubmit, onCancel }) {
               disabled={isSubmitting}
             >
               <option value={FavoriteType.ALBUM}>Album</option>
-              <option value={FavoriteType.PODCAST}>Podcast</option>
               <option value={FavoriteType.ARTIST}>Artist</option>
+              <option value={FavoriteType.PODCAST}>Podcast</option>
               <option value={FavoriteType.CHANNEL}>Channel</option>
               <option value={FavoriteType.VIDEO}>Video</option>
             </select>
