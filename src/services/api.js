@@ -187,11 +187,14 @@ export const api = {
   },
 
   //favorites
+  // Favorites-related API methods
+
+  // Get all favorites, sorted by position within each type
   getFavorites: async (type = null) => {
     let query = supabase
       .from("favorites")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("position", { ascending: true });
 
     if (type && Object.values(FavoriteType).includes(type)) {
       query = query.eq("type", type);
@@ -207,16 +210,35 @@ export const api = {
       throw new Error("Invalid favorite type");
     }
 
-    // Validate required fields based on type
-    if (favorite.type === FavoriteType.ALBUM && !favorite.secondary_name) {
-      throw new Error("Artist name (secondary_name) is required for albums");
+    // Validate position is non-negative
+    if (favorite.position < 0) {
+      throw new Error("Position must be a non-negative number");
     }
 
-    if (favorite.type === FavoriteType.VIDEO && !favorite.secondary_name) {
-      throw new Error("Channel name (secondary_name) is required for videos");
+    // First, get all items of this type to validate position
+    const { data: existingItems, error: fetchError } = await supabase
+      .from("favorites")
+      .select("position")
+      .eq("type", favorite.type)
+      .order("position", { ascending: true });
+
+    if (fetchError) throw fetchError;
+
+    // Validate position is not larger than current count
+    if (favorite.position > existingItems.length) {
+      throw new Error(`Position cannot be larger than ${existingItems.length}`);
     }
 
-    const { data, error } = await supabase
+    // Shift items at and after the target position using PostgreSQL template
+    const { error: shiftError } = await supabase.rpc("increment_positions", {
+      p_type: favorite.type,
+      p_position: favorite.position,
+    });
+
+    if (shiftError) throw shiftError;
+
+    // Insert the new item
+    const { data: insertedItem, error: insertError } = await supabase
       .from("favorites")
       .insert([
         {
@@ -225,54 +247,109 @@ export const api = {
           secondary_name: favorite.secondary_name,
           image_url: favorite.image_url,
           external_url: favorite.external_url,
+          position: favorite.position,
         },
       ])
-      .select();
+      .select()
+      .single();
 
-    if (error) throw error;
-    return data[0];
+    if (insertError) throw insertError;
+    return insertedItem;
   },
 
-  updateFavorite: async (id, favorite) => {
-    // Validate required fields based on type
-    if (favorite.type === FavoriteType.ALBUM && !favorite.secondary_name) {
-      throw new Error("Artist name (secondary_name) is required for albums");
+  updateFavorite: async (id, updatedFavorite) => {
+    // Get the current favorite to check its position
+    const { data: currentFavorite, error: fetchError } = await supabase
+      .from("favorites")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (fetchError) throw fetchError;
+
+    // If position is changing, handle the reordering
+    if (currentFavorite.position !== updatedFavorite.position) {
+      // First, close the gap at the old position
+      const { error: closeGapError } = await supabase.rpc(
+        "decrement_positions",
+        {
+          p_type: currentFavorite.type,
+          p_position: currentFavorite.position,
+        }
+      );
+
+      if (closeGapError) throw closeGapError;
+
+      // Then, make space at the new position
+      const { error: makeSpaceError } = await supabase.rpc(
+        "increment_positions",
+        {
+          p_type: currentFavorite.type,
+          p_position: updatedFavorite.position,
+        }
+      );
+
+      if (makeSpaceError) throw makeSpaceError;
     }
 
-    if (favorite.type === FavoriteType.VIDEO && !favorite.secondary_name) {
-      throw new Error("Channel name (secondary_name) is required for videos");
-    }
-
-    const { data, error } = await supabase
+    // Update the favorite itself
+    const { data, error: updateError } = await supabase
       .from("favorites")
       .update({
-        type: favorite.type,
-        name: favorite.name,
-        secondary_name: favorite.secondary_name,
-        image_url: favorite.image_url,
-        external_url: favorite.external_url,
+        type: updatedFavorite.type,
+        name: updatedFavorite.name,
+        secondary_name: updatedFavorite.secondary_name,
+        image_url: updatedFavorite.image_url,
+        external_url: updatedFavorite.external_url,
+        position: updatedFavorite.position,
       })
       .eq("id", id)
-      .select();
+      .select()
+      .single();
 
-    if (error) throw error;
-    return data[0];
+    if (updateError) throw updateError;
+    return data;
   },
 
   deleteFavorite: async (id) => {
-    const { error } = await supabase.from("favorites").delete().eq("id", id);
-    if (error) throw error;
-  },
-
-  searchFavorites: async (term) => {
-    const { data, error } = await supabase
+    // Get the favorite to be deleted
+    const { data: favoriteToDelete, error: fetchError } = await supabase
       .from("favorites")
       .select("*")
-      .or(`name.ilike.%${term}%,secondary_name.ilike.%${term}%`)
-      .order("created_at", { ascending: false });
+      .eq("id", id)
+      .single();
+
+    if (fetchError) throw fetchError;
+
+    // Delete the favorite
+    const { error: deleteError } = await supabase
+      .from("favorites")
+      .delete()
+      .eq("id", id);
+
+    if (deleteError) throw deleteError;
+
+    // Close the gap by decrementing positions of all items after it
+    const { error: updateError } = await supabase.rpc("decrement_positions", {
+      p_type: favoriteToDelete.type,
+      p_position: favoriteToDelete.position,
+    });
+
+    if (updateError) throw updateError;
+
+    return { success: true };
+  },
+
+  getMaxPosition: async (type) => {
+    const { data, error } = await supabase
+      .from("favorites")
+      .select("position")
+      .eq("type", type)
+      .order("position", { ascending: false })
+      .limit(1);
 
     if (error) throw error;
-    return data;
+    return data.length > 0 ? data[0].position : -1;
   },
 
   //photos

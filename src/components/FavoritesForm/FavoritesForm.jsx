@@ -1,5 +1,5 @@
-// src/components/FavoritesForm/FavoritesForm.jsx
-import React, { useState } from "react";
+// FavoritesForm.jsx
+import React, { useState, useEffect } from "react";
 import { FavoriteType, api, supabase } from "../../services/api";
 import styles from "./FavoritesForm.module.css";
 
@@ -10,17 +10,53 @@ function FavoritesForm({ onSubmit, onCancel }) {
     secondary_name: "",
     image_url: "",
     external_url: "",
+    position: 0,
   });
+
   const [imagePreview, setImagePreview] = useState("");
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [showExisting, setShowExisting] = useState(false);
+  const [maxPosition, setMaxPosition] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Fetch max position when type changes or when switching between new/edit
+  useEffect(() => {
+    const fetchMaxPosition = async () => {
+      try {
+        const maxPos = await api.getMaxPosition(formData.type);
+        setMaxPosition(maxPos + 1);
+
+        // If creating new item, default to end of list
+        if (!selectedItem) {
+          setFormData((prev) => ({
+            ...prev,
+            position: maxPos + 1,
+          }));
+        }
+      } catch (error) {
+        console.error("Error fetching max position:", error);
+      }
+    };
+    fetchMaxPosition();
+  }, [formData.type, selectedItem]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => {
+      const updatedData = { ...prev, [name]: value };
+
+      if (name === "position") {
+        const numValue = parseInt(value, 10);
+        if (!isNaN(numValue)) {
+          updatedData.position = numValue;
+        }
+      }
+
+      return updatedData;
+    });
   };
 
   const handleImageUrlChange = (e) => {
@@ -42,11 +78,42 @@ function FavoritesForm({ onSubmit, onCancel }) {
     }
   };
 
+  const validatePosition = () => {
+    const pos = parseInt(formData.position, 10);
+
+    if (isNaN(pos)) {
+      setError("Position must be a valid number");
+      return false;
+    }
+
+    if (pos < 0) {
+      setError("Position cannot be negative");
+      return false;
+    }
+
+    if (!selectedItem && pos > maxPosition) {
+      setError(`Position cannot be greater than ${maxPosition}`);
+      return false;
+    }
+
+    if (selectedItem && pos > maxPosition - 1) {
+      setError(`Position cannot be greater than ${maxPosition - 1}`);
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateUrls()) return;
+    setError("");
+
+    if (!validateUrls() || !validatePosition()) {
+      return;
+    }
 
     try {
+      setIsSubmitting(true);
       if (selectedItem) {
         await api.updateFavorite(selectedItem.id, formData);
       } else {
@@ -56,6 +123,8 @@ function FavoritesForm({ onSubmit, onCancel }) {
       resetForm();
     } catch (error) {
       setError(error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -66,6 +135,7 @@ function FavoritesForm({ onSubmit, onCancel }) {
       secondary_name: "",
       image_url: "",
       external_url: "",
+      position: 0,
     });
     setImagePreview("");
     setSelectedItem(null);
@@ -86,7 +156,8 @@ function FavoritesForm({ onSubmit, onCancel }) {
       const { data, error } = await supabase
         .from("favorites")
         .select("*")
-        .ilike("name", `%${value}%`);
+        .ilike("name", `%${value}%`)
+        .order("position", { ascending: true });
 
       if (error) throw error;
       setSearchResults(data);
@@ -106,42 +177,27 @@ function FavoritesForm({ onSubmit, onCancel }) {
     if (!window.confirm("Are you sure you want to delete this item?")) return;
 
     try {
+      setIsSubmitting(true);
       await api.deleteFavorite(id);
       setSearchResults(searchResults.filter((item) => item.id !== id));
       onSubmit();
     } catch (error) {
       console.error("Delete error:", error);
+      setError("Failed to delete item");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const getSecondaryNameLabel = (type) => {
-    switch (type) {
-      case FavoriteType.ALBUM:
-        return "Artist Name";
-      case FavoriteType.PODCAST:
-        return "Host/Network (Optional)";
-      case FavoriteType.VIDEO:
-        return "Channel Name";
-      default:
-        return "Secondary Name";
+  const getPositionHelp = () => {
+    if (selectedItem) {
+      return `Enter a position between 0 and ${
+        maxPosition - 1
+      }. Item will be removed from its current position (${
+        selectedItem.position
+      }) and inserted at the new position, shifting other items as needed.`;
     }
-  };
-
-  const getExternalUrlPlaceholder = (type) => {
-    switch (type) {
-      case FavoriteType.ALBUM:
-        return "YouTube Music URL";
-      case FavoriteType.PODCAST:
-        return "Spotify/Apple Podcasts URL";
-      case FavoriteType.ARTIST:
-        return "Artist Profile URL";
-      case FavoriteType.CHANNEL:
-        return "YouTube Channel URL";
-      case FavoriteType.VIDEO:
-        return "YouTube Video URL";
-      default:
-        return "External URL";
-    }
+    return `Enter a position between 0 and ${maxPosition}. Items at or after this position will be shifted forward.`;
   };
 
   return (
@@ -190,17 +246,22 @@ function FavoritesForm({ onSubmit, onCancel }) {
                   <h3>{item.name}</h3>
                   {item.secondary_name && <p>{item.secondary_name}</p>}
                   <p className={styles.itemType}>{item.type}</p>
+                  <p className={styles.itemPosition}>
+                    Current Position: {item.position}
+                  </p>
                 </div>
                 <div className={styles.itemActions}>
                   <button
                     onClick={() => handleEdit(item)}
                     className={styles.editButton}
+                    disabled={isSubmitting}
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(item.id)}
                     className={styles.deleteButton}
+                    disabled={isSubmitting}
                   >
                     Delete
                   </button>
@@ -213,13 +274,41 @@ function FavoritesForm({ onSubmit, onCancel }) {
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
             <label>Type</label>
-            <select name="type" value={formData.type} onChange={handleChange}>
+            <select
+              name="type"
+              value={formData.type}
+              onChange={handleChange}
+              disabled={isSubmitting}
+            >
               <option value={FavoriteType.ALBUM}>Album</option>
               <option value={FavoriteType.PODCAST}>Podcast</option>
               <option value={FavoriteType.ARTIST}>Artist</option>
               <option value={FavoriteType.CHANNEL}>Channel</option>
               <option value={FavoriteType.VIDEO}>Video</option>
             </select>
+          </div>
+
+          <div className={styles.field}>
+            <label>
+              Position
+              {selectedItem && (
+                <span className={styles.currentPosition}>
+                  (Current: {selectedItem.position})
+                </span>
+              )}
+            </label>
+            <input
+              type="number"
+              name="position"
+              value={formData.position}
+              onChange={handleChange}
+              min="0"
+              max={selectedItem ? maxPosition - 1 : maxPosition}
+              required
+              className={styles.input}
+              disabled={isSubmitting}
+            />
+            <small className={styles.fieldHelp}>{getPositionHelp()}</small>
           </div>
 
           <div className={styles.field}>
@@ -235,6 +324,7 @@ function FavoritesForm({ onSubmit, onCancel }) {
                   : "Enter name..."
               }
               required
+              disabled={isSubmitting}
             />
           </div>
 
@@ -242,17 +332,23 @@ function FavoritesForm({ onSubmit, onCancel }) {
             formData.type === FavoriteType.PODCAST ||
             formData.type === FavoriteType.VIDEO) && (
             <div className={styles.field}>
-              <label>{getSecondaryNameLabel(formData.type)}</label>
+              <label>
+                {formData.type === FavoriteType.ALBUM
+                  ? "Artist Name"
+                  : formData.type === FavoriteType.PODCAST
+                  ? "Host/Network"
+                  : "Channel Name"}
+              </label>
               <input
                 type="text"
                 name="secondary_name"
                 value={formData.secondary_name}
                 onChange={handleChange}
-                placeholder={getSecondaryNameLabel(formData.type)}
                 required={
                   formData.type === FavoriteType.ALBUM ||
                   formData.type === FavoriteType.VIDEO
                 }
+                disabled={isSubmitting}
               />
             </div>
           )}
@@ -267,6 +363,7 @@ function FavoritesForm({ onSubmit, onCancel }) {
                 onChange={handleImageUrlChange}
                 placeholder="https://..."
                 required
+                disabled={isSubmitting}
               />
               {imagePreview && (
                 <div className={styles.preview}>
@@ -283,16 +380,32 @@ function FavoritesForm({ onSubmit, onCancel }) {
               name="external_url"
               value={formData.external_url}
               onChange={handleChange}
-              placeholder={getExternalUrlPlaceholder(formData.type)}
+              placeholder={
+                formData.type === FavoriteType.ALBUM
+                  ? "YouTube Music URL"
+                  : formData.type === FavoriteType.PODCAST
+                  ? "Podcast URL"
+                  : formData.type === FavoriteType.ARTIST
+                  ? "Artist Profile URL"
+                  : formData.type === FavoriteType.CHANNEL
+                  ? "YouTube Channel URL"
+                  : "YouTube Video URL"
+              }
               required
+              disabled={isSubmitting}
             />
           </div>
 
           {error && <p className={styles.error}>{error}</p>}
 
           <div className={styles.buttons}>
-            <button type="submit" className={styles.submitButton}>
-              {selectedItem ? "Update" : "Add"} Favorite
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Saving..." : selectedItem ? "Update" : "Add"}{" "}
+              Favorite
             </button>
             <button
               type="button"
@@ -301,6 +414,7 @@ function FavoritesForm({ onSubmit, onCancel }) {
                 onCancel();
               }}
               className={styles.cancelButton}
+              disabled={isSubmitting}
             >
               Cancel
             </button>
