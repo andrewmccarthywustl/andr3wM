@@ -95,6 +95,20 @@
 }
 
 @media (max-width: 768px) {
+  .circularItem {
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .circularItem:hover {
+    transform: none;
+  }
+
+  .circularItem:hover .circularOverlay {
+    opacity: 0;
+  }
+
   .circularItem:hover .circularImage {
     transform: none;
   }

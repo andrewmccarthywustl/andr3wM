@@ -1,10 +1,12 @@
-import React, { memo, useCallback } from "react";
+// src/components/SquareItem/SquareItem.jsx
+import React, { memo, useCallback, useRef } from "react";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import styles from "./SquareItem.module.css";
 import typography from "../../styles/typography.module.css";
 
 const SquareItem = memo(({ item, buttonText }) => {
   const isMobile = useIsMobile();
+  const touchStartRef = useRef({ x: 0, y: 0, time: 0 });
 
   const handleClick = useCallback(
     (e) => {
@@ -14,10 +16,36 @@ const SquareItem = memo(({ item, buttonText }) => {
     [item.externalUrl]
   );
 
+  const handleTouchStart = (e) => {
+    touchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      time: Date.now(),
+    };
+  };
+
+  const handleTouchEnd = (e) => {
+    const touchEnd = {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY,
+      time: Date.now(),
+    };
+
+    const deltaX = Math.abs(touchEnd.x - touchStartRef.current.x);
+    const deltaY = Math.abs(touchEnd.y - touchStartRef.current.y);
+    const deltaTime = touchEnd.time - touchStartRef.current.time;
+
+    if (deltaTime < 200 && deltaX < 10 && deltaY < 10) {
+      handleClick(e);
+    }
+  };
+
   return (
     <div
       className={styles.squareItem}
-      onClick={handleClick}
+      onClick={!isMobile ? handleClick : undefined}
+      onTouchStart={isMobile ? handleTouchStart : undefined}
+      onTouchEnd={isMobile ? handleTouchEnd : undefined}
       role="button"
       tabIndex={0}
     >
@@ -45,7 +73,6 @@ const SquareItem = memo(({ item, buttonText }) => {
   );
 });
 
-// Add display name for React DevTools
 SquareItem.displayName = "SquareItem";
 
 export default SquareItem;

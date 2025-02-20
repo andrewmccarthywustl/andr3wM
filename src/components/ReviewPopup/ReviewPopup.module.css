@@ -1,3 +1,5 @@
+/* src/components/ReviewPopup/ReviewPopup.module.css */
+
 .reviewPopup {
   position: fixed;
   inset: calc(100vw - 600px);
@@ -26,6 +28,7 @@
   height: 100%;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
+  scroll-behavior: auto;
 }
 
 .backButton {
@@ -146,6 +149,12 @@
 
 .deleteButton:hover {
   background-color: var(--delete-button-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviewPopupContent {
+    scroll-behavior: auto;
+  }
 }
 
 @media (max-width: 768px) {

@@ -324,7 +324,7 @@ function MediaReviews() {
           isEditing={isEditing}
           setIsEditing={setIsEditing}
           currentUser={user}
-          isOpen={isPopupOpen}
+          isOpen={isPopupOpen && selectedReview !== null}
           isMobile={isMobile}
         />
       )}

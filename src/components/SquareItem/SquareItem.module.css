@@ -92,8 +92,18 @@
 }
 
 @media (max-width: 768px) {
-  .squareItem:hover .squareImage {
+  .squareItem {
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .squareItem:hover {
     transform: none;
+  }
+
+  .squareItem:hover .itemOverlay {
+    opacity: 0;
   }
 
   .squareImage {
