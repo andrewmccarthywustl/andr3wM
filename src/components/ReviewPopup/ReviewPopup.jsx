@@ -1,6 +1,6 @@
 // src/components/ReviewPopup/ReviewPopup.jsx
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoChevronBack } from "react-icons/io5";
 import EditReviewForm from "../EditReviewForm";
 import styles from "./ReviewPopup.module.css";
@@ -18,6 +18,8 @@ function ReviewPopup({
   isMobile,
 }) {
   const popupContentRef = useRef(null);
+  const [isClosing, setIsClosing] = useState(false);
+  const touchStartRef = useRef({ x: 0, y: 0, time: 0 });
 
   useEffect(() => {
     if (isOpen && popupContentRef.current) {
@@ -25,10 +27,61 @@ function ReviewPopup({
     }
   }, [isOpen, review]);
 
+  const handleClose = () => {
+    if (isMobile) {
+      // On mobile, close immediately
+      onClose();
+    } else {
+      // On desktop, animate the closing
+      setIsClosing(true);
+      setTimeout(() => {
+        setIsClosing(false);
+        onClose();
+      }, 300);
+    }
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      time: Date.now(),
+    };
+  };
+
+  const handleTouchEnd = (e) => {
+    const touchEnd = {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY,
+      time: Date.now(),
+    };
+
+    const deltaX = Math.abs(touchEnd.x - touchStartRef.current.x);
+    const deltaY = Math.abs(touchEnd.y - touchStartRef.current.y);
+    const deltaTime = touchEnd.time - touchStartRef.current.time;
+
+    // Only close if it was a quick tap without much movement
+    if (deltaTime < 200 && deltaX < 10 && deltaY < 10) {
+      handleClose();
+    }
+  };
+
   return (
-    <div className={`${styles.reviewPopup} ${isOpen ? styles.open : ""}`}>
+    <div
+      className={`
+        ${styles.reviewPopup}
+        ${isOpen ? styles.open : ""}
+        ${!isMobile && isClosing ? styles.closing : ""}
+        ${isMobile ? styles.mobile : ""}
+      `}
+    >
       <div ref={popupContentRef} className={styles.reviewPopupContent}>
-        <button className={styles.backButton} onClick={onClose}>
+        <button
+          className={styles.backButton}
+          onClick={!isMobile ? handleClose : undefined}
+          onTouchStart={isMobile ? handleTouchStart : undefined}
+          onTouchEnd={isMobile ? handleTouchEnd : undefined}
+        >
           <IoChevronBack />
         </button>
         {isEditing ? (

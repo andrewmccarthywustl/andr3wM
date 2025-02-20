@@ -10,15 +10,45 @@
   color: var(--light-primary);
   font-family: var(--font-body);
   z-index: var(--z-index-modal);
-  transition: transform var(--transition-normal);
+  transition: transform 300ms ease;
   transform: translateX(100%);
   border-left: 2px solid var(--light-primary);
   max-width: 600px;
   right: 0;
+  visibility: hidden;
 }
 
 .reviewPopup.open {
   transform: translateX(0);
+  visibility: visible;
+}
+
+/* Animation only on desktop */
+.reviewPopup:not(.mobile).open {
+  animation: slideIn 300ms ease forwards;
+}
+
+.reviewPopup:not(.mobile).closing {
+  transform: translateX(100%);
+  animation: slideOut 300ms ease forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .reviewPopupContent {
@@ -45,6 +75,25 @@
   justify-content: center;
   z-index: var(--z-index-modal);
   padding: var(--spacing-sm);
+}
+
+/* Mobile-specific touch improvements */
+.reviewPopup.mobile .backButton {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  /* Larger touch target for mobile */
+  padding: var(--spacing-md);
+}
+
+/* Hover effect only for desktop */
+@media (hover: hover) {
+  .backButton:not(.mobile) {
+    transition: transform 200ms ease;
+  }
+
+  .backButton:not(.mobile):hover {
+    transform: scale(1.1);
+  }
 }
 
 .reviewPopupHeader {
@@ -155,6 +204,35 @@
   .reviewPopupContent {
     scroll-behavior: auto;
   }
+
+  .reviewPopup,
+  .reviewPopup.open,
+  .reviewPopup.closing {
+    transition: none;
+    animation: none;
+  }
+
+  .reviewPopup.open {
+    transform: translateX(0);
+    visibility: visible;
+  }
+}
+
+/* Mobile styles */
+.reviewPopup.mobile {
+  width: 100%;
+  max-width: 100%;
+  border: 0px;
+  inset: 0px;
+  top: 80px;
+  /* Remove animations for mobile */
+  transition: none;
+}
+
+.reviewPopup.mobile.open {
+  animation: none;
+  transform: translateX(0);
+  visibility: visible;
 }
 
 @media (max-width: 768px) {
@@ -168,6 +246,10 @@
 
   .reviewPopupHeader {
     grid-template-columns: 1fr;
+  }
+
+  .reviewPopupText {
+    padding-bottom: 50px;
   }
 
   .imageWrapper {
