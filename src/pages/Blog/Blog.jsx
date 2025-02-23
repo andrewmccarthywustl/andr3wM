@@ -1,7 +1,7 @@
 // src/pages/Blog/Blog.jsx
 
 import React, { useState, useEffect } from "react";
-import { api } from "../../services/api";
+import { blogApi } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import RichBlogPostEditor from "../../components/RichBlogPostEditor/RichBlogPostEditor";
 import BlogPost from "../../components/BlogPost/BlogPost";
@@ -25,7 +25,7 @@ function Blog() {
   const fetchBlogPosts = async () => {
     try {
       setIsLoading(true);
-      const data = await api.getBlogPosts();
+      const data = await blogApi.getBlogPosts();
       console.log("Fetched blog posts:", data);
       setBlogPosts(data);
     } catch (error) {
@@ -40,7 +40,7 @@ function Blog() {
     try {
       setError(null);
       console.log("Submitting new blog post:", newBlogPost);
-      const addedPost = await api.addBlogPost(newBlogPost);
+      const addedPost = await blogApi.addBlogPost(newBlogPost);
       console.log("Received added post from API:", addedPost);
       setBlogPosts([addedPost, ...blogPosts]);
       setIsAddingPost(false);
@@ -53,7 +53,10 @@ function Blog() {
   const handleEditSubmit = async (updatedPost) => {
     try {
       console.log("Submitting edited post:", updatedPost);
-      const editedPost = await api.updateBlogPost(updatedPost.id, updatedPost);
+      const editedPost = await blogApi.updateBlogPost(
+        updatedPost.id,
+        updatedPost
+      );
       console.log("Received edited post from API:", editedPost);
       setBlogPosts(
         blogPosts.map((post) => (post.id === editedPost.id ? editedPost : post))
@@ -72,7 +75,7 @@ function Blog() {
     if (!deleteConfirmation) return;
 
     try {
-      await api.deleteBlogPost(deleteConfirmation);
+      await blogApi.deleteBlogPost(deleteConfirmation);
       setBlogPosts(blogPosts.filter((post) => post.id !== deleteConfirmation));
       setDeleteConfirmation(null);
     } catch (error) {

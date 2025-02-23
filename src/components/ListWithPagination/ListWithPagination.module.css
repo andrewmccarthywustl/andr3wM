@@ -1,0 +1,128 @@
+/* src/components/ListWithPagination/ListWithPagination.module.css */
+.listContainer {
+  width: 100%;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: var(--light-primary);
+  margin: 0;
+}
+
+.randomButton {
+  padding: 8px 16px;
+  font-size: 16px;
+  color: var(--light-primary);
+  background: transparent;
+  border: 1px solid var(--light-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.randomButton:hover {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+.randomIcon {
+  font-size: 14px;
+}
+
+.list {
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 1);
+}
+
+.listItem {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 1);
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.itemTitle {
+  font-size: 24px;
+  color: var(--light-primary);
+  margin: 0;
+  font-weight: normal;
+}
+
+.itemSubtitle {
+  font-size: 16px;
+  color: var(--light-primary);
+  opacity: 0.7;
+  margin: 0;
+}
+
+.watchButton {
+  padding: 8px 16px;
+  font-size: 16px;
+  color: var(--light-primary);
+  background: var(--dark-primary);
+  border: 1px solid var(--light-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.playIcon {
+  font-size: 14px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+/* Style for pagination buttons - Add this */
+.paginationButton {
+  padding: 8px 12px; /* Adjust padding as needed */
+  font-size: 16px;
+  color: var(--light-primary);
+  background: var(--dark-primary); /* Or any other background */
+  border: 1px solid var(--light-primary);
+  cursor: pointer;
+  /* Add any other styles you want for the pagination buttons */
+}
+
+.paginationButton:hover {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 48px;
+  }
+
+  .listItem {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .watchButton {
+    width: 100%;
+    justify-content: center;
+  }
+}

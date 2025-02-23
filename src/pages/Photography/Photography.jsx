@@ -6,7 +6,7 @@ import ImageCard from "../../components/ImageCard";
 import AdminPhotoForm from "../../components/AdminPhotoForm/AdminPhotoForm";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { api } from "../../services/api";
+import { photoApi } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import Modal from "../../components/Modal/Modal";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -31,7 +31,7 @@ function Photography() {
 
       setLoading(true);
       try {
-        const newPhotos = await api.getPhotos({
+        const newPhotos = await photoApi.getPhotos({
           page: pageNum,
           filter: filterValue,
         });
@@ -103,7 +103,10 @@ function Photography() {
 
   const handlePhotoEdited = async (updatedPhoto) => {
     try {
-      const editedPhoto = await api.updatePhoto(updatedPhoto.id, updatedPhoto);
+      const editedPhoto = await photoApi.updatePhoto(
+        updatedPhoto.id,
+        updatedPhoto
+      );
       setPhotos(photos.map((p) => (p.id === editedPhoto.id ? editedPhoto : p)));
       setIsEditModalOpen(false);
       setEditingPhoto(null);
@@ -120,7 +123,7 @@ function Photography() {
   const handleDeletePhoto = async (photoId) => {
     if (window.confirm("Are you sure you want to delete this photo?")) {
       try {
-        await api.deletePhoto(photoId);
+        await photoApi.deletePhoto(photoId);
         setPhotos(photos.filter((p) => p.id !== photoId));
       } catch (error) {
         console.error("Error deleting photo:", error);

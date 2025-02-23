@@ -33,6 +33,26 @@
   left: calc(50% + 120px);
 }
 
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+  border: 2px solid var(--light-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-normal);
+  min-width: 100px;
+  justify-content: center;
+}
+
+.actionButton:hover {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
 .listContainer {
   max-width: var(--container-max-width);
   margin: 0 auto;

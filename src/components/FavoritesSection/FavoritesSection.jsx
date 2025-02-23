@@ -1,37 +1,36 @@
-// FavoritesSection.jsx
+// src/components/FavoritesSection/FavoritesSection.jsx
 import React, { useState, useEffect, useCallback } from "react";
 import SquareScrollList from "../SquareScrollList";
 import CircularScrollList from "../CircularScrollList";
-import VideoList from "../VideoList";
+import ListWithPagination from "../ListWithPagination";
 import FavoritesForm from "../FavoritesForm";
-import { api, FavoriteType } from "../../services/api";
+import { favoriteApi, FavoriteType } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import LoadingSpinner from "../LoadingSpinner";
+import { FaPlay } from "react-icons/fa";
 import styles from "./FavoritesSection.module.css";
 import typography from "../../styles/typography.module.css";
 
 const FavoritesSection = () => {
-  // State management
   const [favorites, setFavorites] = useState({
     [FavoriteType.ALBUM]: [],
     [FavoriteType.ARTIST]: [],
     [FavoriteType.PODCAST]: [],
     [FavoriteType.CHANNEL]: [],
     [FavoriteType.VIDEO]: [],
+    [FavoriteType.SONG]: [],
   });
   const [isAddingFavorite, setIsAddingFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user } = useAuth();
 
-  // Fetch favorites data
   const fetchFavorites = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
-      const data = await api.getFavorites();
+      const data = await favoriteApi.getFavorites();
 
-      // Sort and categorize favorites by type
       const categorized = Object.values(FavoriteType).reduce((acc, type) => {
         acc[type] = data
           .filter((item) => item.type === type)
@@ -52,7 +51,6 @@ const FavoritesSection = () => {
     fetchFavorites();
   }, [fetchFavorites]);
 
-  // Form submission handler
   const handleFavoriteSubmit = async () => {
     await fetchFavorites();
     setIsAddingFavorite(false);
@@ -78,14 +76,62 @@ const FavoritesSection = () => {
       position: item.position,
     }));
 
-  const formatVideoData = (items) =>
+  const formatListData = (items) =>
     items.map((item) => ({
       id: item.id,
       title: item.name,
-      channel: item.secondary_name,
+      subtitle: item.secondary_name,
       url: item.external_url,
       position: item.position,
     }));
+
+  // Render functions for ListWithPagination
+  const renderVideo = (video) => (
+    <div key={video.id} className={styles.listItem}>
+      <div className={styles.itemInfo}>
+        <p className={styles.itemTitle}>{video.title}</p>
+        <p className={styles.itemSubtitle}>{video.subtitle}</p>
+      </div>
+      <button
+        onClick={() => window.open(video.url, "_blank", "noopener,noreferrer")}
+        className={styles.actionButton}
+      >
+        <FaPlay className={styles.actionIcon} />
+        <span>Watch</span>
+      </button>
+    </div>
+  );
+
+  const renderSong = (song) => (
+    <div key={song.id} className={styles.listItem}>
+      <div className={styles.itemInfo}>
+        <p className={styles.itemTitle}>{song.title}</p>
+        <p className={styles.itemSubtitle}>{song.subtitle}</p>
+      </div>
+      <button
+        onClick={() => window.open(song.url, "_blank", "noopener,noreferrer")}
+        className={styles.actionButton}
+      >
+        <FaPlay className={styles.actionIcon} />
+        <span>Play</span>
+      </button>
+    </div>
+  );
+
+  // Random selection handlers
+  const handleRandomVideo = () => {
+    const videos = favorites[FavoriteType.VIDEO];
+    if (videos.length === 0) return;
+    const randomVideo = videos[Math.floor(Math.random() * videos.length)];
+    window.open(randomVideo.external_url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleRandomSong = () => {
+    const songs = favorites[FavoriteType.SONG];
+    if (songs.length === 0) return;
+    const randomSong = songs[Math.floor(Math.random() * songs.length)];
+    window.open(randomSong.external_url, "_blank", "noopener,noreferrer");
+  };
 
   if (isLoading) {
     return (
@@ -154,6 +200,16 @@ const FavoritesSection = () => {
           />
         )}
 
+        {/* Songs Section */}
+        {favorites[FavoriteType.SONG].length > 0 && (
+          <ListWithPagination
+            title="Songs"
+            items={formatListData(favorites[FavoriteType.SONG])}
+            renderItem={renderSong}
+            onRandomSelect={handleRandomSong}
+          />
+        )}
+
         {/* Podcasts Section */}
         {favorites[FavoriteType.PODCAST].length > 0 && (
           <SquareScrollList
@@ -174,9 +230,11 @@ const FavoritesSection = () => {
 
         {/* Videos Section */}
         {favorites[FavoriteType.VIDEO].length > 0 && (
-          <VideoList
+          <ListWithPagination
             title="Videos"
-            videos={formatVideoData(favorites[FavoriteType.VIDEO])}
+            items={formatListData(favorites[FavoriteType.VIDEO])}
+            renderItem={renderVideo}
+            onRandomSelect={handleRandomVideo}
           />
         )}
 

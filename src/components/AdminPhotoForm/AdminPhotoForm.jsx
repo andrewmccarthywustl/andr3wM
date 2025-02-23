@@ -1,7 +1,7 @@
 // src/components/AdminPhotoForm/AdminPhotoForm.jsx
 
 import React, { useState, useEffect } from "react";
-import { api } from "../../services/api";
+import { photoApi } from "../../services/api";
 import styles from "./AdminPhotoForm.module.css";
 
 function AdminPhotoForm({ photo, onPhotoAdded, onCancel }) {
@@ -27,7 +27,7 @@ function AdminPhotoForm({ photo, onPhotoAdded, onCancel }) {
     e.preventDefault();
     try {
       if (photo) {
-        await api.updatePhoto(photo.id, photoData);
+        await photoApi.updatePhoto(photo.id, photoData);
       } else {
         await api.addPhoto(photoData);
       }

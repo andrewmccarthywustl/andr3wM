@@ -1,6 +1,6 @@
 // FavoritesForm.jsx
 import React, { useState, useEffect } from "react";
-import { FavoriteType, api, supabase } from "../../services/api";
+import { favoriteApi, FavoriteType } from "../../services/api";
 import styles from "./FavoritesForm.module.css";
 
 function FavoritesForm({ onSubmit, onCancel }) {
@@ -26,7 +26,7 @@ function FavoritesForm({ onSubmit, onCancel }) {
   useEffect(() => {
     const fetchMaxPosition = async () => {
       try {
-        const maxPos = await api.getMaxPosition(formData.type);
+        const maxPos = await favoriteApi.getMaxPosition(formData.type);
         setMaxPosition(maxPos + 1);
 
         // If creating new item, default to end of list
@@ -115,9 +115,9 @@ function FavoritesForm({ onSubmit, onCancel }) {
     try {
       setIsSubmitting(true);
       if (selectedItem) {
-        await api.updateFavorite(selectedItem.id, formData);
+        await favoriteApi.updateFavorite(selectedItem.id, formData);
       } else {
-        await api.addFavorite(formData);
+        await favoriteApi.addFavorite(formData);
       }
       onSubmit();
       resetForm();
@@ -178,7 +178,7 @@ function FavoritesForm({ onSubmit, onCancel }) {
 
     try {
       setIsSubmitting(true);
-      await api.deleteFavorite(id);
+      await favoriteApi.deleteFavorite(id);
       setSearchResults(searchResults.filter((item) => item.id !== id));
       onSubmit();
     } catch (error) {

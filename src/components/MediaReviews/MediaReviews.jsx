@@ -1,6 +1,6 @@
 // src/components/MediaReviews/MediaReviews.jsx
 import React, { useState, useEffect, useRef } from "react";
-import { api, MediaType } from "../../services/api";
+import { reviewApi, MediaType } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import ReviewItem from "../ReviewItem/ReviewItem";
 import ReviewForm from "../ReviewForm";
@@ -108,7 +108,7 @@ function MediaReviews() {
   const fetchReviews = async () => {
     try {
       setIsLoading(true);
-      const allReviews = await api.getReviews();
+      const allReviews = await reviewApi.getReviews();
       const categorizedReviews = {
         [MediaType.MOVIE]: allReviews.filter(
           (review) => review.media_type === MediaType.MOVIE
@@ -131,7 +131,7 @@ function MediaReviews() {
 
   const handleReviewSubmit = async (reviewData) => {
     try {
-      const addedReview = await api.addReview(reviewData);
+      const addedReview = await reviewApi.addReview(reviewData);
       setReviews((prevReviews) => ({
         ...prevReviews,
         [addedReview.media_type]: [
@@ -148,7 +148,7 @@ function MediaReviews() {
 
   const handleEditReview = async (updatedReview) => {
     try {
-      const editedReview = await api.updateReview(
+      const editedReview = await reviewApi.updateReview(
         updatedReview.id,
         updatedReview
       );
@@ -176,7 +176,7 @@ function MediaReviews() {
   const confirmDeleteReview = async () => {
     if (!deleteConfirmation) return;
     try {
-      await api.deleteReview(deleteConfirmation);
+      await reviewApi.deleteReview(deleteConfirmation);
       setReviews((prevReviews) => {
         const updatedReviews = { ...prevReviews };
         Object.keys(updatedReviews).forEach((mediaType) => {
