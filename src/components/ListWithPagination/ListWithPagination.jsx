@@ -6,7 +6,7 @@ import styles from "./ListWithPagination.module.css";
 const ListWithPagination = ({
   title,
   items,
-  itemsPerPage = 5,
+  itemsPerPage = 4,
   renderItem,
   onRandomSelect,
   showRandom = true,
