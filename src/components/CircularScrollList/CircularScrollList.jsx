@@ -1,5 +1,5 @@
-// CircularScrollList.jsx
-import React, { useState, useCallback, memo } from "react";
+// src/components/CircularScrollList/CircularScrollList.jsx
+import React, { useState, useCallback, memo, useRef } from "react";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import { FavoriteType } from "../../services/api";
 import CircularItem from "../CircularItem";
@@ -11,6 +11,7 @@ const CircularScrollList = memo(({ title, items, itemType }) => {
     canScrollLeft: false,
     canScrollRight: true,
   });
+  const scrollContainerRef = useRef(null);
 
   const handleScroll = useCallback((e) => {
     const container = e.target;
@@ -30,7 +31,7 @@ const CircularScrollList = memo(({ title, items, itemType }) => {
   }, []);
 
   const scrollItems = useCallback((direction) => {
-    const container = document.querySelector("#circular-scroll-container");
+    const container = scrollContainerRef.current;
     if (!container) return;
 
     const scrollAmount = 200 * 3;
@@ -91,7 +92,7 @@ const CircularScrollList = memo(({ title, items, itemType }) => {
         )}
 
         <div
-          id="circular-scroll-container"
+          ref={scrollContainerRef}
           className={styles.itemList}
           onScroll={handleScroll}
           role="list"
