@@ -162,7 +162,9 @@
 
   .listItem {
     align-items: flex-start;
-    min-height: 130px; /* Increased to accommodate 2 lines */
+    min-height: 100px; /* Increased to accommodate 2 lines */
+    padding-bottom: 5px;
+    padding-top: 10px;
   }
 
   .itemInfo {
