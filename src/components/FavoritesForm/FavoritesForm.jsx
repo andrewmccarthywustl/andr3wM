@@ -1,4 +1,5 @@
-// FavoritesForm.jsx
+// src/components/FavoritesForm/FavoritesForm.jsx
+
 import React, { useState, useEffect } from "react";
 import { favoriteApi, FavoriteType } from "../../services/api";
 import styles from "./FavoritesForm.module.css";
@@ -22,14 +23,12 @@ function FavoritesForm({ onSubmit, onCancel }) {
   const [maxPosition, setMaxPosition] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Fetch max position when type changes or when switching between new/edit
   useEffect(() => {
     const fetchMaxPosition = async () => {
       try {
         const maxPos = await favoriteApi.getMaxPosition(formData.type);
         setMaxPosition(maxPos + 1);
 
-        // If creating new item, default to end of list
         if (!selectedItem) {
           setFormData((prev) => ({
             ...prev,
@@ -55,6 +54,14 @@ function FavoritesForm({ onSubmit, onCancel }) {
         }
       }
 
+      // Clear image URL if type is VIDEO or SONG
+      if (
+        name === "type" &&
+        (value === FavoriteType.VIDEO || value === FavoriteType.SONG)
+      ) {
+        updatedData.image_url = "";
+      }
+
       return updatedData;
     });
   };
@@ -67,7 +74,10 @@ function FavoritesForm({ onSubmit, onCancel }) {
 
   const validateUrls = () => {
     try {
-      if (formData.type !== FavoriteType.VIDEO) {
+      if (
+        formData.type !== FavoriteType.VIDEO &&
+        formData.type !== FavoriteType.SONG
+      ) {
         new URL(formData.image_url);
       }
       new URL(formData.external_url);
@@ -235,13 +245,16 @@ function FavoritesForm({ onSubmit, onCancel }) {
           <div className={styles.existingItems}>
             {searchResults.map((item) => (
               <div key={item.id} className={styles.existingItem}>
-                {item.image_url && (
-                  <img
-                    src={item.image_url}
-                    alt={item.name}
-                    className={styles.itemImage}
-                  />
-                )}
+                {item.image_url &&
+                  ![FavoriteType.VIDEO, FavoriteType.SONG].includes(
+                    item.type
+                  ) && (
+                    <img
+                      src={item.image_url}
+                      alt={item.name}
+                      className={styles.itemImage}
+                    />
+                  )}
                 <div className={styles.itemInfo}>
                   <h3>{item.name}</h3>
                   {item.secondary_name && <p>{item.secondary_name}</p>}
@@ -285,6 +298,7 @@ function FavoritesForm({ onSubmit, onCancel }) {
               <option value={FavoriteType.PODCAST}>Podcast</option>
               <option value={FavoriteType.CHANNEL}>Channel</option>
               <option value={FavoriteType.VIDEO}>Video</option>
+              <option value={FavoriteType.SONG}>Song</option>
             </select>
           </div>
 
@@ -321,6 +335,8 @@ function FavoritesForm({ onSubmit, onCancel }) {
               placeholder={
                 formData.type === FavoriteType.VIDEO
                   ? "Video Title"
+                  : formData.type === FavoriteType.SONG
+                  ? "Song Title"
                   : "Enter name..."
               }
               required
@@ -330,14 +346,17 @@ function FavoritesForm({ onSubmit, onCancel }) {
 
           {(formData.type === FavoriteType.ALBUM ||
             formData.type === FavoriteType.PODCAST ||
-            formData.type === FavoriteType.VIDEO) && (
+            formData.type === FavoriteType.VIDEO ||
+            formData.type === FavoriteType.SONG) && (
             <div className={styles.field}>
               <label>
                 {formData.type === FavoriteType.ALBUM
                   ? "Artist Name"
                   : formData.type === FavoriteType.PODCAST
                   ? "Host/Network"
-                  : "Channel Name"}
+                  : formData.type === FavoriteType.VIDEO
+                  ? "Channel Name"
+                  : "Artist Name"}
               </label>
               <input
                 type="text"
@@ -346,14 +365,15 @@ function FavoritesForm({ onSubmit, onCancel }) {
                 onChange={handleChange}
                 required={
                   formData.type === FavoriteType.ALBUM ||
-                  formData.type === FavoriteType.VIDEO
+                  formData.type === FavoriteType.VIDEO ||
+                  formData.type === FavoriteType.SONG
                 }
                 disabled={isSubmitting}
               />
             </div>
           )}
 
-          {formData.type !== FavoriteType.VIDEO && (
+          {![FavoriteType.VIDEO, FavoriteType.SONG].includes(formData.type) && (
             <div className={styles.field}>
               <label>Image URL</label>
               <input
@@ -389,7 +409,9 @@ function FavoritesForm({ onSubmit, onCancel }) {
                   ? "Artist Profile URL"
                   : formData.type === FavoriteType.CHANNEL
                   ? "YouTube Channel URL"
-                  : "YouTube Video URL"
+                  : formData.type === FavoriteType.SONG
+                  ? "Music URL"
+                  : "Video URL"
               }
               required
               disabled={isSubmitting}
