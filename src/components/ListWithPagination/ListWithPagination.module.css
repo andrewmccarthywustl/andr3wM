@@ -1,6 +1,7 @@
 /* src/components/ListWithPagination/ListWithPagination.module.css */
 .listContainer {
   width: 100%;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .titleContainer {
@@ -27,6 +28,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: all var(--transition-normal);
 }
 
 .randomButton:hover {
@@ -41,21 +43,26 @@
 .list {
   width: 100%;
   border-top: 1px solid rgba(255, 255, 255, 1);
+  margin-bottom: var(--spacing-xl);
 }
 
 .listItem {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  padding-bottom: 16px;
+  align-items: center;
+  padding: 16px 0;
+  min-height: 70px;
   border-bottom: 1px solid rgba(255, 255, 255, 1);
+  box-sizing: border-box;
 }
 
 .itemInfo {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
+  max-width: calc(100% - 120px);
 }
 
 .itemTitle {
@@ -63,6 +70,11 @@
   color: var(--light-primary);
   margin: 0;
   font-weight: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .itemSubtitle {
@@ -70,9 +82,14 @@
   color: var(--light-primary);
   opacity: 0.7;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
-.watchButton {
+.actionButton {
   padding: 8px 16px;
   font-size: 16px;
   color: var(--light-primary);
@@ -82,47 +99,97 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 100px;
+  justify-content: center;
+  transition: all var(--transition-normal);
 }
 
-.playIcon {
-  font-size: 14px;
+.actionButton:hover {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+.emptyItem {
+  min-height: 67px;
+  border-bottom: 1px solid rgba(255, 255, 255, 1);
+  background: transparent;
 }
 
 .pagination {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  align-items: center;
+  gap: 16px;
   margin-top: 24px;
 }
 
-/* Style for pagination buttons - Add this */
-.paginationButton {
-  padding: 8px 12px; /* Adjust padding as needed */
-  font-size: 16px;
+.paginationButton.prevNext {
+  padding: 8px 16px;
+  font-size: 14px;
   color: var(--light-primary);
-  background: var(--dark-primary); /* Or any other background */
+  background: var(--dark-primary);
   border: 1px solid var(--light-primary);
   cursor: pointer;
-  /* Add any other styles you want for the pagination buttons */
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.paginationButton:hover {
+.paginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.paginationButton:not(:disabled):hover {
   background-color: var(--light-primary);
   color: var(--dark-primary);
 }
 
+.pageInfo {
+  color: var(--light-primary);
+  font-size: 14px;
+  width: 70px;
+}
+
 @media (max-width: 768px) {
-  .sectionTitle {
-    font-size: 48px;
+  .itemTitle {
+    font-size: 18px; /* Reduced from 24px */
+    -webkit-line-clamp: 2; /* Allow 2 lines on mobile */
+    line-height: 1.3; /* Add line height for better readability */
+    margin-right: 10px;
   }
 
   .listItem {
-    flex-direction: column;
-    gap: 16px;
+    align-items: flex-start;
+    min-height: 130px; /* Increased to accommodate 2 lines */
   }
 
-  .watchButton {
-    width: 100%;
-    justify-content: center;
+  .itemInfo {
+    max-width: calc(100% - 100px); /* Slightly increased space for text */
+  }
+  .sectionTitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  .actionButton {
+    margin-top: 4px;
+  }
+
+  .titleContainer {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .pagination {
+    gap: 12px;
+  }
+
+  .paginationButton.prevNext {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .pageInfo {
+    font-size: 13px;
   }
 }

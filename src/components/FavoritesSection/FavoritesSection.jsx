@@ -85,39 +85,6 @@ const FavoritesSection = () => {
       position: item.position,
     }));
 
-  // Render functions for ListWithPagination
-  const renderVideo = (video) => (
-    <div key={video.id} className={styles.listItem}>
-      <div className={styles.itemInfo}>
-        <p className={styles.itemTitle}>{video.title}</p>
-        <p className={styles.itemSubtitle}>{video.subtitle}</p>
-      </div>
-      <button
-        onClick={() => window.open(video.url, "_blank", "noopener,noreferrer")}
-        className={styles.actionButton}
-      >
-        <FaPlay className={styles.actionIcon} />
-        <span>Watch</span>
-      </button>
-    </div>
-  );
-
-  const renderSong = (song) => (
-    <div key={song.id} className={styles.listItem}>
-      <div className={styles.itemInfo}>
-        <p className={styles.itemTitle}>{song.title}</p>
-        <p className={styles.itemSubtitle}>{song.subtitle}</p>
-      </div>
-      <button
-        onClick={() => window.open(song.url, "_blank", "noopener,noreferrer")}
-        className={styles.actionButton}
-      >
-        <FaPlay className={styles.actionIcon} />
-        <span>Play</span>
-      </button>
-    </div>
-  );
-
   // Random selection handlers
   const handleRandomVideo = () => {
     const videos = favorites[FavoriteType.VIDEO];
@@ -131,6 +98,10 @@ const FavoritesSection = () => {
     if (songs.length === 0) return;
     const randomSong = songs[Math.floor(Math.random() * songs.length)];
     window.open(randomSong.external_url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleActionClick = (item) => {
+    window.open(item.url, "_blank", "noopener,noreferrer");
   };
 
   if (isLoading) {
@@ -205,8 +176,10 @@ const FavoritesSection = () => {
           <ListWithPagination
             title="Songs"
             items={formatListData(favorites[FavoriteType.SONG])}
-            renderItem={renderSong}
             onRandomSelect={handleRandomSong}
+            actionButton={handleActionClick}
+            actionIcon={<FaPlay />}
+            actionText="Play"
           />
         )}
 
@@ -233,8 +206,10 @@ const FavoritesSection = () => {
           <ListWithPagination
             title="Videos"
             items={formatListData(favorites[FavoriteType.VIDEO])}
-            renderItem={renderVideo}
             onRandomSelect={handleRandomVideo}
+            actionButton={handleActionClick}
+            actionIcon={<FaPlay />}
+            actionText="Watch"
           />
         )}
 

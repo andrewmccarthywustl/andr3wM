@@ -1,6 +1,6 @@
 // src/components/ListWithPagination/ListWithPagination.jsx
 import React, { useState } from "react";
-import { FaPlay, FaRandom } from "react-icons/fa";
+import { FaRandom } from "react-icons/fa";
 import styles from "./ListWithPagination.module.css";
 
 const ListWithPagination = ({
@@ -10,13 +10,45 @@ const ListWithPagination = ({
   renderItem,
   onRandomSelect,
   showRandom = true,
+  actionButton,
+  actionIcon,
+  actionText,
+  showActionButton = true,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(items.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+
   const currentItems = items.slice(startIndex, endIndex);
+  const paddedItems = [...currentItems];
+  while (paddedItems.length < itemsPerPage) {
+    paddedItems.push(null);
+  }
+
+  const handlePageChange = (page) => {
+    if (page < 1 || page > totalPages) return;
+    setCurrentPage(page);
+  };
+
+  const defaultRenderItem = (item) => (
+    <>
+      <div className={styles.itemInfo}>
+        <h3 className={styles.itemTitle}>{item.title}</h3>
+        <p className={styles.itemSubtitle}>{item.subtitle}</p>
+      </div>
+      {showActionButton && (
+        <button
+          onClick={() => actionButton(item)}
+          className={styles.actionButton}
+        >
+          {actionIcon}
+          <span>{actionText}</span>
+        </button>
+      )}
+    </>
+  );
 
   return (
     <div className={styles.listContainer}>
@@ -30,42 +62,41 @@ const ListWithPagination = ({
         )}
       </div>
       <div className={styles.list}>
-        {currentItems.map((item) => (
-          <div key={item.id} className={styles.listItem}>
-            {/* Conditionally render based on renderItem */}
-            {renderItem ? (
-              renderItem(item) // RenderItem is responsible for the entire item
+        {paddedItems.map((item, index) => (
+          <div key={item?.id || `empty-${index}`} className={styles.listItem}>
+            {item ? (
+              renderItem ? (
+                renderItem(item)
+              ) : (
+                defaultRenderItem(item)
+              )
             ) : (
-              <>
-                <div className={styles.itemInfo}>
-                  <h3 className={styles.itemTitle}>{item.title}</h3>
-                  <p className={styles.itemSubtitle}>{item.subtitle}</p>
-                </div>
-                <button
-                  onClick={() =>
-                    window.open(item.url, "_blank", "noopener,noreferrer")
-                  }
-                  className={styles.watchButton}
-                >
-                  <FaPlay className={styles.playIcon} />
-                  <span>Watch</span>
-                </button>
-              </>
+              <div className={styles.emptyItem} />
             )}
           </div>
         ))}
       </div>
       {totalPages > 1 && (
         <div className={styles.pagination}>
-          {[...Array(totalPages)].map((_, i) => (
-            <button
-              key={i + 1}
-              onClick={() => setCurrentPage(i + 1)}
-              className={styles.paginationButton}
-            >
-              {i + 1}
-            </button>
-          ))}
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            className={`${styles.paginationButton} ${styles.prevNext}`}
+            disabled={currentPage === 1}
+          >
+            « Prev
+          </button>
+
+          <span className={styles.pageInfo}>
+            Page {currentPage} of {totalPages}
+          </span>
+
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            className={`${styles.paginationButton} ${styles.prevNext}`}
+            disabled={currentPage === totalPages}
+          >
+            Next »
+          </button>
         </div>
       )}
     </div>
