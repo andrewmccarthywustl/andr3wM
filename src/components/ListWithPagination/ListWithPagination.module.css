@@ -149,7 +149,7 @@
 .pageInfo {
   color: var(--light-primary);
   font-size: 14px;
-  width: 70px;
+  width: 80px;
 }
 
 @media (max-width: 768px) {
