@@ -163,16 +163,15 @@ function FavoritesForm({ onSubmit, onCancel }) {
     }
 
     try {
-      const { data, error } = await supabase
-        .from("favorites")
-        .select("*")
-        .ilike("name", `%${value}%`)
-        .order("position", { ascending: true });
-
-      if (error) throw error;
-      setSearchResults(data);
+      // Get all favorites and filter client-side
+      const allFavorites = await favoriteApi.getFavorites();
+      const filteredResults = allFavorites.filter((item) =>
+        item.name.toLowerCase().includes(value.toLowerCase())
+      );
+      setSearchResults(filteredResults);
     } catch (error) {
       console.error("Search error:", error);
+      setError("Failed to search items");
     }
   };
 
