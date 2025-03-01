@@ -138,12 +138,10 @@ function Photography() {
   };
 
   return (
-    <div className={styles.photographyContainer}>
-      <PageTitle
-        title="Photography"
-        subtitle="A visual exploration of moments captured through my lens"
-      />
-      {/*
+    <div className={styles.photographyPage}>
+      <PageTitle title="Photography" />
+      <div className={styles.photographyContainer}>
+        {/*
       <div className={styles.filterContainer}>
         <button
           className={filter === "all" ? styles.active : ""}
@@ -171,75 +169,76 @@ function Photography() {
         </button>
       </div> */}
 
-      {user && (
-        <button onClick={handleAddPhoto} className={styles.addButton}>
-          Add New Photo
-        </button>
-      )}
+        {user && (
+          <button onClick={handleAddPhoto} className={styles.addButton}>
+            Add New Photo
+          </button>
+        )}
 
-      {isAdding && (
-        <AdminPhotoForm
-          onPhotoAdded={handlePhotoAdded}
-          onCancel={() => setIsAdding(false)}
-        />
-      )}
-
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className={styles.myMasonryGrid}
-        columnClassName={styles.myMasonryGridColumn}
-      >
-        {photos.map((photo, index) => (
-          <div key={photo.id} className={styles.photoWrapper}>
-            <ImageCard photo={photo} onClick={() => openLightbox(index)} />
-            {user && (
-              <div className={styles.adminControls}>
-                <button onClick={() => handleEditPhoto(photo)}>Edit</button>
-                <button onClick={() => handleDeletePhoto(photo.id)}>
-                  Delete
-                </button>
-              </div>
-            )}
-          </div>
-        ))}
-      </Masonry>
-
-      {loading && (
-        <div className={styles.loaderContainer}>
-          <LoadingSpinner />
-        </div>
-      )}
-
-      {lightboxIsOpen && (
-        <Lightbox
-          open={lightboxIsOpen}
-          close={() => setLightboxIsOpen(false)}
-          slides={photos.map((photo) => ({
-            src: photo.url,
-            alt: photo.title,
-          }))}
-          currentIndex={photoIndex}
-          index={photoIndex}
-          onPrev={() =>
-            setPhotoIndex(
-              (prevIndex) => (prevIndex - 1 + photos.length) % photos.length
-            )
-          }
-          onNext={() =>
-            setPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length)
-          }
-        />
-      )}
-
-      <Modal isOpen={isEditModalOpen} onClose={handleCancelEdit}>
-        {editingPhoto && (
+        {isAdding && (
           <AdminPhotoForm
-            photo={editingPhoto}
-            onPhotoAdded={handlePhotoEdited}
-            onCancel={handleCancelEdit}
+            onPhotoAdded={handlePhotoAdded}
+            onCancel={() => setIsAdding(false)}
           />
         )}
-      </Modal>
+
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className={styles.myMasonryGrid}
+          columnClassName={styles.myMasonryGridColumn}
+        >
+          {photos.map((photo, index) => (
+            <div key={photo.id} className={styles.photoWrapper}>
+              <ImageCard photo={photo} onClick={() => openLightbox(index)} />
+              {user && (
+                <div className={styles.adminControls}>
+                  <button onClick={() => handleEditPhoto(photo)}>Edit</button>
+                  <button onClick={() => handleDeletePhoto(photo.id)}>
+                    Delete
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </Masonry>
+
+        {loading && (
+          <div className={styles.loaderContainer}>
+            <LoadingSpinner />
+          </div>
+        )}
+
+        {lightboxIsOpen && (
+          <Lightbox
+            open={lightboxIsOpen}
+            close={() => setLightboxIsOpen(false)}
+            slides={photos.map((photo) => ({
+              src: photo.url,
+              alt: photo.title,
+            }))}
+            currentIndex={photoIndex}
+            index={photoIndex}
+            onPrev={() =>
+              setPhotoIndex(
+                (prevIndex) => (prevIndex - 1 + photos.length) % photos.length
+              )
+            }
+            onNext={() =>
+              setPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length)
+            }
+          />
+        )}
+
+        <Modal isOpen={isEditModalOpen} onClose={handleCancelEdit}>
+          {editingPhoto && (
+            <AdminPhotoForm
+              photo={editingPhoto}
+              onPhotoAdded={handlePhotoEdited}
+              onCancel={handleCancelEdit}
+            />
+          )}
+        </Modal>
+      </div>
     </div>
   );
 }
