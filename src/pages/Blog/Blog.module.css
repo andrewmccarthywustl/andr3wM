@@ -64,7 +64,7 @@
   background-color: var(--secondary-accent-color);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 768px) {
   .blogGrid {
     grid-template-columns: 1fr;
   }
