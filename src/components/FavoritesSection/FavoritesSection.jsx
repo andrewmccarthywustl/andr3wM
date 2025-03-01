@@ -129,6 +129,14 @@ const FavoritesSection = () => {
 
   return (
     <div className={styles.favoritesSection}>
+      {isAddingFavorite && (
+        <div className={styles.formContainer}>
+          <FavoritesForm
+            onSubmit={handleFavoriteSubmit}
+            onCancel={() => setIsAddingFavorite(false)}
+          />
+        </div>
+      )}
       <div className={styles.favoritesHeader}>
         <h1 className={`${styles.sectionTitle} ${typography.heading1}`}>
           Favorites
@@ -142,16 +150,6 @@ const FavoritesSection = () => {
           </button>
         )}
       </div>
-
-      {isAddingFavorite && (
-        <div className={styles.formContainer}>
-          <FavoritesForm
-            onSubmit={handleFavoriteSubmit}
-            onCancel={() => setIsAddingFavorite(false)}
-          />
-        </div>
-      )}
-
       <div className={styles.listContainer}>
         {/* Albums Section */}
         {favorites[FavoriteType.ALBUM].length > 0 && (

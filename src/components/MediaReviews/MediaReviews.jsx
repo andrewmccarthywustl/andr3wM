@@ -259,7 +259,11 @@ function MediaReviews() {
           {isAddingReview && <ReviewForm onSubmit={handleReviewSubmit} />}
         </div>
       )}
-      <h1 className={typography.heading1}>Reviews</h1>
+      <div className={styles.reviewsHeader}>
+        <h1 className={`${styles.sectionTitle} ${typography.heading1}`}>
+          Reviews
+        </h1>
+      </div>
       {[MediaType.MOVIE, MediaType.SHOW, MediaType.BOOK].map((mediaType) => (
         <section key={mediaType} className={styles.reviewSection}>
           <div className={styles.sectionHeader}>

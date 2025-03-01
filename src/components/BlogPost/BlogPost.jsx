@@ -3,7 +3,7 @@ import styles from "./BlogPost.module.css";
 import RichBlogPostEditor from "../RichBlogPostEditor/RichBlogPostEditor";
 import typography from "../../styles/typography.module.css";
 
-function BlogPost({ post, onEdit, onDelete, currentUser, index }) {
+function BlogPost({ post, onEdit, onDelete, currentUser, index, id }) {
   const [isEditing, setIsEditing] = useState(false);
   const postRef = useRef(null);
 
@@ -74,7 +74,11 @@ function BlogPost({ post, onEdit, onDelete, currentUser, index }) {
   };
 
   return (
-    <div ref={postRef} className={`${styles.blogPost} ${styles.slideIn}`}>
+    <div
+      ref={postRef}
+      className={`${styles.blogPost} ${styles.slideIn}`}
+      id={id}
+    >
       {isEditing ? (
         <RichBlogPostEditor
           initialContent={{ title: post.title, ...post.content }}

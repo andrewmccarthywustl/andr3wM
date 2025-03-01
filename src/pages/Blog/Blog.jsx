@@ -4,6 +4,7 @@ import { blogApi } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import RichBlogPostEditor from "../../components/RichBlogPostEditor/RichBlogPostEditor";
 import BlogPost from "../../components/BlogPost/BlogPost";
+import BlogSidebar from "../../components/BlogSidebar/BlogSidebar";
 import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import PageTitle from "../../components/PageTitle/PageTitle";
@@ -82,6 +83,13 @@ function Blog() {
     setDeleteConfirmation(null);
   };
 
+  const scrollToPost = (postId) => {
+    const element = document.getElementById(`post-${postId}`);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   if (isLoading) return <LoadingSpinner />;
 
   if (error) return <div className={styles.errorMessage}>{error}</div>;
@@ -91,43 +99,52 @@ function Blog() {
       <div className={styles.contentWrapper}>
         <PageTitle title="The Blog" />
 
-        {user && !isAddingPost && (
-          <button
-            onClick={() => setIsAddingPost(true)}
-            className={styles.addPostButton}
-          >
-            Add Blog Post
-          </button>
-        )}
+        <div className={styles.blogGrid}>
+          <div className={styles.blogContentColumn}>
+            {user && !isAddingPost && (
+              <button
+                onClick={() => setIsAddingPost(true)}
+                className={styles.addPostButton}
+              >
+                Add Blog Post
+              </button>
+            )}
 
-        {isAddingPost && (
-          <RichBlogPostEditor
-            onSave={handleBlogPostSubmit}
-            onCancel={() => setIsAddingPost(false)}
-          />
-        )}
+            {isAddingPost && (
+              <RichBlogPostEditor
+                onSave={handleBlogPostSubmit}
+                onCancel={() => setIsAddingPost(false)}
+              />
+            )}
 
-        <div className={styles.blogPosts}>
-          {blogPosts.map((post, index) => (
-            <BlogPost
-              key={post.id}
-              post={post}
-              onEdit={handleEditSubmit}
-              onDelete={handleDeletePost}
-              currentUser={user}
-              index={index}
-            />
-          ))}
+            <div className={styles.blogPosts}>
+              {blogPosts.map((post, index) => (
+                <BlogPost
+                  key={post.id}
+                  post={post}
+                  onEdit={handleEditSubmit}
+                  onDelete={handleDeletePost}
+                  currentUser={user}
+                  index={index}
+                  id={`post-${post.id}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.sidebarColumn}>
+            <BlogSidebar posts={blogPosts} onPostClick={scrollToPost} />
+          </div>
         </div>
-
-        {deleteConfirmation && (
-          <DeleteConfirmation
-            onConfirm={confirmDeletePost}
-            onCancel={cancelDeletePost}
-            itemName="blog post"
-          />
-        )}
       </div>
+
+      {deleteConfirmation && (
+        <DeleteConfirmation
+          onConfirm={confirmDeletePost}
+          onCancel={cancelDeletePost}
+          itemName="blog post"
+        />
+      )}
     </div>
   );
 }

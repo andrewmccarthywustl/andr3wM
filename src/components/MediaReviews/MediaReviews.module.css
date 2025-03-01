@@ -26,12 +26,11 @@
   margin-bottom: var(--spacing-xl);
 }
 
-.sectionTitle {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-3xl);
-  color: var(--light-primary);
-  margin: 0;
-  margin-right: var(--spacing-md);
+.reviewsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .sortContainer {

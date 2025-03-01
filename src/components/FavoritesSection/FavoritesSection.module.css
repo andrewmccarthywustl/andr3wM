@@ -17,8 +17,8 @@
 .sectionTitle {
   font-family: var(--font-heading);
   font-size: var(--font-size-4xl);
+  margin-left: var(--spacing-md);
   color: var(--light-primary);
-  margin: 0;
 }
 
 .addButton {
