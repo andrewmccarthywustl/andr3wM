@@ -11,6 +11,7 @@ function AdminPhotoForm({ photo, onPhotoAdded, onCancel }) {
     url: "",
     category: "other",
   });
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (photo) {
@@ -29,11 +30,12 @@ function AdminPhotoForm({ photo, onPhotoAdded, onCancel }) {
       if (photo) {
         await photoApi.updatePhoto(photo.id, photoData);
       } else {
-        await api.addPhoto(photoData);
+        await photoApi.addPhoto(photoData);
       }
       onPhotoAdded(photoData);
     } catch (error) {
       console.error("Error saving photo:", error);
+      setError(error.message || "Failed to save photo");
     }
   };
 
@@ -72,6 +74,7 @@ function AdminPhotoForm({ photo, onPhotoAdded, onCancel }) {
         <option value="portrait">Portrait</option>
         <option value="other">Other</option>
       </select>
+      {error && <p className={styles.error}>{error}</p>}
       <button type="submit">{photo ? "Update" : "Add"} Photo</button>
       <button type="button" onClick={onCancel}>
         Cancel
