@@ -2,8 +2,7 @@
   background-color: var(--dark-primary);
   color: var(--light-primary);
   font-family: var(--font-body);
-  /* padding: var(--spacing-2xl) var(--spacing-md); */
-  padding-bottom: var(--spacing-3xl);
+  padding: var(--spacing-md);
 }
 
 .mediaReviews {
@@ -157,6 +156,9 @@
     padding: var(--spacing-md);
     padding-right: 0;
   }
+  .mediaReviewsContainer {
+    padding: var(--spacing-sm);
+  }
 
   .reviewList {
     touch-action: pan-x pan-y;
@@ -169,7 +171,7 @@
     font-size: var(--font-size-2xl);
   }
   .reviewSection {
-    padding: var(--spacing-md) 0 var(--spacing-md) var(--spacing-md);
+    padding: 0;
   }
 
   .scrollArrow,

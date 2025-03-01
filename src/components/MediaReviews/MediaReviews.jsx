@@ -247,7 +247,7 @@ function MediaReviews() {
   if (error) return <div className={styles.error}>{error}</div>;
 
   return (
-    <div className={styles.mediaReviewsWrapper}>
+    <div className={styles.mediaReviewsContainer}>
       {user && (
         <div className={styles.addReviewSection}>
           <button
