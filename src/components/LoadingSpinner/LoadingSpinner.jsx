@@ -11,7 +11,6 @@ function LoadingSpinner() {
           <div className={styles.dot2}></div>
           <div className={styles.dot3}></div>
         </div>
-        <div className={styles.pulseRing}></div>
       </div>
     </div>
   );
