@@ -96,9 +96,8 @@ function Blog() {
 
   return (
     <div className={styles.blogPageContainer}>
+      <PageTitle title="The Blog" />
       <div className={styles.contentWrapper}>
-        <PageTitle title="The Blog" />
-
         <div className={styles.blogGrid}>
           <div className={styles.blogContentColumn}>
             {user && !isAddingPost && (
