@@ -64,17 +64,16 @@
   background-color: var(--secondary-accent-color);
 }
 
-@media (max-width: 768px) {
-  .blogGrid {
-    grid-template-columns: 1fr;
-  }
-
+@media (max-width: 1200px) {
   .sidebarColumn {
     display: none;
   }
 }
 
 @media (max-width: 768px) {
+  .blogGrid {
+    grid-template-columns: 1fr;
+  }
   .contentWrapper {
     padding: 0 16px;
   }
