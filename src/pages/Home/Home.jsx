@@ -1,17 +1,19 @@
-// Home.jsx
+// src/pages/Home/Home.jsx
 import React from "react";
+import PageTitle from "../../components/PageTitle/PageTitle";
 import styles from "./Home.module.css";
 import typography from "../../styles/typography.module.css";
 
 function Home() {
   return (
     <div className={styles.homeContainer}>
-      <div className={styles.gridLayout}>
-        <div className={styles.titleArea}>
-          <h1 className={typography.heading1}>Welcome To My Website</h1>
-        </div>
+      <PageTitle
+        title="Welcome To My Website"
+        subtitle="A personal space for my creative work, thoughts, and interests"
+      />
 
-        <div className={`${styles.textBlock} ${styles.blockOne}`}>
+      <div className={styles.gridLayout}>
+        <div className={styles.blockOne}>
           <p className={typography.bodyText}>
             This website functions as a panopticon for myself; it keeps me
             accountable and motivates me to do things I have wanted to do with
@@ -44,11 +46,12 @@ function Home() {
           </div>
         </div>
 
-        <div className={`${styles.textBlock} ${styles.blockFour}`}>
+        <div className={styles.blockFour}>
           <p className={typography.heading1}>
             <a
               href="https://www.youtube.com/watch?v=PaVNww17wJs"
               target="_blank"
+              rel="noreferrer"
             >
               Illegitimi Non Carborundum
             </a>
@@ -74,7 +77,8 @@ function Home() {
             />
           </div>
         </div>
-        <div className={`${styles.textBlock} ${styles.blockSeven}`}>
+
+        <div className={styles.blockSeven}>
           <p className={typography.bodyText}>
             This is my social media without the vanity. I own the data on this
             website, and having access to a lot of data about yourself in the

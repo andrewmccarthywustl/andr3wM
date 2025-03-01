@@ -1,27 +1,21 @@
-.blogContainer {
+/* src/pages/Blog/Blog.module.css */
+.blogPageContainer {
   min-height: calc(100vh - 60px);
   background-color: var(--dark-primary);
-  font-family: var(--font-body);
-  padding: var(--spacing-2xl) var(--spacing-md);
-}
-.blogContent {
-  max-width: var(--container-med-width); /* Changed from container-max-width */
-  margin: 0 auto;
+  padding: var(--spacing-xl) 0;
 }
 
-.blogTitle {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-4xl);
-  color: var(--light-primary);
-  text-align: center;
-  margin-bottom: var(--spacing-2xl);
-  animation: fadeInDown var(--transition-slow) ease-out;
+.contentWrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .blogPosts {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-2xl);
+  max-width: var(--container-med-width);
 }
 
 .errorMessage {
@@ -51,15 +45,7 @@
 }
 
 @media (max-width: 768px) {
-  .inlineImage {
-    float: none;
-    max-width: 100%;
-    margin: var(--spacing-md) 0;
-    margin-left: 0;
-  }
-
   .contentWrapper {
-    display: flex;
-    flex-direction: column;
+    padding: 0 16px;
   }
 }

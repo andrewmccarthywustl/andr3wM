@@ -1,5 +1,4 @@
 // src/pages/Photography/Photography.jsx
-
 import React, { useState, useEffect, useCallback } from "react";
 import Masonry from "react-masonry-css";
 import ImageCard from "../../components/ImageCard";
@@ -9,7 +8,8 @@ import "yet-another-react-lightbox/styles.css";
 import { photoApi } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import Modal from "../../components/Modal/Modal";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import PageTitle from "../../components/PageTitle/PageTitle";
 import styles from "./Photography.module.css";
 
 function Photography() {
@@ -50,13 +50,13 @@ function Photography() {
 
   useEffect(() => {
     fetchPhotos(page, filter, true);
-  }, [filter]);
+  }, [filter, fetchPhotos]);
 
   useEffect(() => {
     if (page > 1) {
       fetchPhotos(page, filter);
     }
-  }, [page, fetchPhotos]);
+  }, [page, filter, fetchPhotos]);
 
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
@@ -139,18 +139,51 @@ function Photography() {
 
   return (
     <div className={styles.photographyContainer}>
-      <h1 className={styles.title}>Photography</h1>
+      <PageTitle
+        title="Photography"
+        subtitle="A visual exploration of moments captured through my lens"
+      />
+      {/*
+      <div className={styles.filterContainer}>
+        <button
+          className={filter === "all" ? styles.active : ""}
+          onClick={() => handleFilterChange("all")}
+        >
+          All
+        </button>
+        <button
+          className={filter === "nature" ? styles.active : ""}
+          onClick={() => handleFilterChange("nature")}
+        >
+          Nature
+        </button>
+        <button
+          className={filter === "urban" ? styles.active : ""}
+          onClick={() => handleFilterChange("urban")}
+        >
+          Urban
+        </button>
+        <button
+          className={filter === "portrait" ? styles.active : ""}
+          onClick={() => handleFilterChange("portrait")}
+        >
+          Portrait
+        </button>
+      </div> */}
+
       {user && (
         <button onClick={handleAddPhoto} className={styles.addButton}>
           Add New Photo
         </button>
       )}
+
       {isAdding && (
         <AdminPhotoForm
           onPhotoAdded={handlePhotoAdded}
           onCancel={() => setIsAdding(false)}
         />
       )}
+
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className={styles.myMasonryGrid}
@@ -170,11 +203,13 @@ function Photography() {
           </div>
         ))}
       </Masonry>
+
       {loading && (
         <div className={styles.loaderContainer}>
           <LoadingSpinner />
         </div>
       )}
+
       {lightboxIsOpen && (
         <Lightbox
           open={lightboxIsOpen}
@@ -195,6 +230,7 @@ function Photography() {
           }
         />
       )}
+
       <Modal isOpen={isEditModalOpen} onClose={handleCancelEdit}>
         {editingPhoto && (
           <AdminPhotoForm

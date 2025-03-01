@@ -1,5 +1,4 @@
 // src/pages/Blog/Blog.jsx
-
 import React, { useState, useEffect } from "react";
 import { blogApi } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
@@ -7,8 +6,8 @@ import RichBlogPostEditor from "../../components/RichBlogPostEditor/RichBlogPost
 import BlogPost from "../../components/BlogPost/BlogPost";
 import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import PageTitle from "../../components/PageTitle/PageTitle";
 import styles from "./Blog.module.css";
-import typography from "../../styles/typography.module.css";
 
 function Blog() {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -26,7 +25,6 @@ function Blog() {
     try {
       setIsLoading(true);
       const data = await blogApi.getBlogPosts();
-      console.log("Fetched blog posts:", data);
       setBlogPosts(data);
     } catch (error) {
       console.error("Error fetching blog posts:", error);
@@ -39,9 +37,7 @@ function Blog() {
   const handleBlogPostSubmit = async (newBlogPost) => {
     try {
       setError(null);
-      console.log("Submitting new blog post:", newBlogPost);
       const addedPost = await blogApi.addBlogPost(newBlogPost);
-      console.log("Received added post from API:", addedPost);
       setBlogPosts([addedPost, ...blogPosts]);
       setIsAddingPost(false);
     } catch (error) {
@@ -52,12 +48,10 @@ function Blog() {
 
   const handleEditSubmit = async (updatedPost) => {
     try {
-      console.log("Submitting edited post:", updatedPost);
       const editedPost = await blogApi.updateBlogPost(
         updatedPost.id,
         updatedPost
       );
-      console.log("Received edited post from API:", editedPost);
       setBlogPosts(
         blogPosts.map((post) => (post.id === editedPost.id ? editedPost : post))
       );
@@ -93,11 +87,10 @@ function Blog() {
   if (error) return <div className={styles.errorMessage}>{error}</div>;
 
   return (
-    <div className={styles.blogContainer}>
-      <div className={styles.blogContent}>
-        <h1 className={`${styles.blogTitle} ${typography.heading1}`}>
-          The Blog
-        </h1>
+    <div className={styles.blogPageContainer}>
+      <div className={styles.contentWrapper}>
+        <PageTitle title="The Blog" />
+
         {user && !isAddingPost && (
           <button
             onClick={() => setIsAddingPost(true)}
@@ -106,12 +99,14 @@ function Blog() {
             Add Blog Post
           </button>
         )}
+
         {isAddingPost && (
           <RichBlogPostEditor
             onSave={handleBlogPostSubmit}
             onCancel={() => setIsAddingPost(false)}
           />
         )}
+
         <div className={styles.blogPosts}>
           {blogPosts.map((post, index) => (
             <BlogPost
@@ -124,6 +119,7 @@ function Blog() {
             />
           ))}
         </div>
+
         {deleteConfirmation && (
           <DeleteConfirmation
             onConfirm={confirmDeletePost}
