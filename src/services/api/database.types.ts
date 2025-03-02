@@ -95,6 +95,7 @@ export type Database = {
           description?: string;
           url: string;
           category: string;
+          position?: number; // Added position property
           created_at: string;
         };
         Insert: {
@@ -102,6 +103,7 @@ export type Database = {
           description?: string;
           url: string;
           category: string;
+          position?: number; // Added position property
           created_at?: string;
         };
         Update: {
@@ -109,6 +111,7 @@ export type Database = {
           description?: string;
           url?: string;
           category?: string;
+          position?: number; // Added position property
         };
       };
     };

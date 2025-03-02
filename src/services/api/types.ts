@@ -65,5 +65,6 @@ export interface Photo {
   description?: string;
   url: string;
   category: string;
+  position?: number; // Added position property
   created_at: string;
 }

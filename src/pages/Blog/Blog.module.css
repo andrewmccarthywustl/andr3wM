@@ -71,13 +71,15 @@
 }
 
 @media (max-width: 768px) {
+  .blogPageContainer {
+  }
   .blogGrid {
     grid-template-columns: 1fr;
   }
   .contentWrapper {
     padding: 0;
   }
-  .blogPageContainer {
+  /* .blogPageContainer {
     padding: 0;
-  }
+  } */
 }

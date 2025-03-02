@@ -137,37 +137,61 @@ function Photography() {
     700: 2,
   };
 
+  // Current photo info for the lightbox
+  const currentPhoto = photos[photoIndex] || {};
+
+  // Custom render for lightbox
+  const renderLightboxCaption = () => {
+    return (
+      <div className={styles.lightboxCaption}>
+        <h3 className={styles.lightboxTitle}>{currentPhoto.title}</h3>
+        <p className={styles.lightboxDate}>
+          {new Date(currentPhoto.created_at).toLocaleDateString()}
+        </p>
+        {currentPhoto.description && (
+          <p className={styles.lightboxDescription}>
+            {currentPhoto.description}
+          </p>
+        )}
+        {currentPhoto.category && (
+          <span className={styles.lightboxCategory}>
+            {currentPhoto.category}
+          </span>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className={styles.photographyPage}>
       <PageTitle title="Photography" />
       <div className={styles.photographyContainer}>
-        {/*
-      <div className={styles.filterContainer}>
-        <button
-          className={filter === "all" ? styles.active : ""}
-          onClick={() => handleFilterChange("all")}
-        >
-          All
-        </button>
-        <button
-          className={filter === "nature" ? styles.active : ""}
-          onClick={() => handleFilterChange("nature")}
-        >
-          Nature
-        </button>
-        <button
-          className={filter === "urban" ? styles.active : ""}
-          onClick={() => handleFilterChange("urban")}
-        >
-          Urban
-        </button>
-        <button
-          className={filter === "portrait" ? styles.active : ""}
-          onClick={() => handleFilterChange("portrait")}
-        >
-          Portrait
-        </button>
-      </div> */}
+        {/* <div className={styles.filterContainer}>
+          <button
+            className={filter === "all" ? styles.active : ""}
+            onClick={() => handleFilterChange("all")}
+          >
+            All
+          </button>
+          <button
+            className={filter === "nature" ? styles.active : ""}
+            onClick={() => handleFilterChange("nature")}
+          >
+            Nature
+          </button>
+          <button
+            className={filter === "urban" ? styles.active : ""}
+            onClick={() => handleFilterChange("urban")}
+          >
+            Urban
+          </button>
+          <button
+            className={filter === "portrait" ? styles.active : ""}
+            onClick={() => handleFilterChange("portrait")}
+          >
+            Portrait
+          </button>
+        </div> */}
 
         {user && (
           <button onClick={handleAddPhoto} className={styles.addButton}>
@@ -212,20 +236,15 @@ function Photography() {
           <Lightbox
             open={lightboxIsOpen}
             close={() => setLightboxIsOpen(false)}
-            slides={photos.map((photo) => ({
-              src: photo.url,
-              alt: photo.title,
-            }))}
-            currentIndex={photoIndex}
-            index={photoIndex}
-            onPrev={() =>
-              setPhotoIndex(
-                (prevIndex) => (prevIndex - 1 + photos.length) % photos.length
-              )
-            }
-            onNext={() =>
-              setPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length)
-            }
+            slides={[{ src: currentPhoto.url, alt: currentPhoto.title }]}
+            render={{ caption: renderLightboxCaption }}
+            carousel={{ finite: true }}
+            controller={{
+              closeOnBackdropClick: true,
+              // Disable arrow navigation
+              prev: null,
+              next: null,
+            }}
           />
         )}
 

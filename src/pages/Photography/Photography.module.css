@@ -1,5 +1,4 @@
 /* src/pages/Photography/Photography.module.css */
-
 .photographyContainer {
   background-color: var(--dark-primary);
   color: var(--light-primary);
@@ -103,4 +102,49 @@
 
 .adminControls button:hover {
   background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Lightbox Caption Styles */
+.lightboxCaption {
+  color: var(--light-primary);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 1rem;
+  border-radius: 5px;
+  max-width: 100%;
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.lightboxTitle {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-heading);
+}
+
+.lightboxDate {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+
+.lightboxDescription {
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.lightboxCategory {
+  display: inline-block;
+  background-color: var(--accent-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+/* Ensure the lightbox navigation arrows are hidden */
+:global(.yarl__navigation_prev),
+:global(.yarl__navigation_next) {
+  display: none !important;
 }
