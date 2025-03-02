@@ -90,7 +90,8 @@ function Blog() {
     }
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading)
+    return <LoadingSpinner fullPage message="Loading blog posts..." />;
 
   if (error) return <div className={styles.errorMessage}>{error}</div>;
 

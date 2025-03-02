@@ -16,11 +16,7 @@ function AppContent() {
   const { isLoading } = useAuth();
 
   if (isLoading) {
-    return (
-      <div className={utilityStyles.flexCenter}>
-        <LoadingSpinner />
-      </div>
-    );
+    return <LoadingSpinner fullPage message="Preparing your experience..." />;
   }
 
   return (

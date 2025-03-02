@@ -1,13 +1,29 @@
 // src/pages/Media/Media.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MediaNav from "../../components/MediaNav/MediaNav";
 import MediaReviews from "../../components/MediaReviews/MediaReviews";
 import FavoritesSection from "../../components/FavoritesSection/FavoritesSection";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import styles from "./Media.module.css";
 import typography from "../../styles/typography.module.css";
 
 function Media() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading or fetch necessary data
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500); // Short timeout to ensure components are ready
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner fullPage message="Loading media..." />;
+  }
+
   return (
     <div className={styles.mediaPage}>
       <PageTitle

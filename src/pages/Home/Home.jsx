@@ -1,10 +1,26 @@
 // src/pages/Home/Home.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import styles from "./Home.module.css";
 import typography from "../../styles/typography.module.css";
 
 function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading or perform actual data fetching
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner fullPage message="Loading homepage..." />;
+  }
+
   return (
     <div className={styles.homeContainer}>
       <PageTitle

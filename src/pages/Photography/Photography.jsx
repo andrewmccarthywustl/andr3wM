@@ -162,37 +162,14 @@ function Photography() {
     );
   };
 
+  if (loading && page === 1) {
+    return <LoadingSpinner fullPage message="Loading photos..." />;
+  }
+
   return (
     <div className={styles.photographyPage}>
       <PageTitle title="Photography" />
       <div className={styles.photographyContainer}>
-        {/* <div className={styles.filterContainer}>
-          <button
-            className={filter === "all" ? styles.active : ""}
-            onClick={() => handleFilterChange("all")}
-          >
-            All
-          </button>
-          <button
-            className={filter === "nature" ? styles.active : ""}
-            onClick={() => handleFilterChange("nature")}
-          >
-            Nature
-          </button>
-          <button
-            className={filter === "urban" ? styles.active : ""}
-            onClick={() => handleFilterChange("urban")}
-          >
-            Urban
-          </button>
-          <button
-            className={filter === "portrait" ? styles.active : ""}
-            onClick={() => handleFilterChange("portrait")}
-          >
-            Portrait
-          </button>
-        </div> */}
-
         {user && (
           <button onClick={handleAddPhoto} className={styles.addButton}>
             Add New Photo
@@ -226,9 +203,9 @@ function Photography() {
           ))}
         </Masonry>
 
-        {loading && (
+        {loading && page > 1 && (
           <div className={styles.loaderContainer}>
-            <LoadingSpinner />
+            <LoadingSpinner fullPage={false} />
           </div>
         )}
 
@@ -241,7 +218,6 @@ function Photography() {
             carousel={{ finite: true }}
             controller={{
               closeOnBackdropClick: true,
-              // Disable arrow navigation
               prev: null,
               next: null,
             }}

@@ -10,6 +10,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import { FaPlay } from "react-icons/fa";
 import styles from "./FavoritesSection.module.css";
 import typography from "../../styles/typography.module.css";
+import useLoading from "../../hooks/useLoading";
 
 const FavoritesSection = () => {
   const [favorites, setFavorites] = useState({
@@ -21,14 +22,13 @@ const FavoritesSection = () => {
     [FavoriteType.SONG]: [],
   });
   const [isAddingFavorite, setIsAddingFavorite] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { isLoading, error, startLoading, stopLoading, setLoadingError } =
+    useLoading(true);
   const { user } = useAuth();
 
   const fetchFavorites = useCallback(async () => {
     try {
-      setIsLoading(true);
-      setError(null);
+      startLoading();
       const data = await favoriteApi.getFavorites();
 
       const categorized = Object.values(FavoriteType).reduce((acc, type) => {
@@ -41,11 +41,11 @@ const FavoritesSection = () => {
       setFavorites(categorized);
     } catch (error) {
       console.error("Error fetching favorites:", error);
-      setError("Failed to load favorites. Please try again later.");
+      setLoadingError("Failed to load favorites. Please try again later.");
     } finally {
-      setIsLoading(false);
+      stopLoading();
     }
-  }, []);
+  }, [startLoading, stopLoading, setLoadingError]);
 
   useEffect(() => {
     fetchFavorites();
@@ -107,7 +107,7 @@ const FavoritesSection = () => {
   if (isLoading) {
     return (
       <div className={styles.loadingContainer}>
-        <LoadingSpinner />
+        <LoadingSpinner fullPage message="Loading your favorites..." />
       </div>
     );
   }

@@ -12,6 +12,7 @@ import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import styles from "./MediaReviews.module.css";
 import typography from "../../styles/typography.module.css";
 import useIsMobile from "../../hooks/useIsMobile";
+import useLoading from "../../hooks/useLoading";
 
 function MediaReviews() {
   const [reviews, setReviews] = useState({
@@ -19,8 +20,8 @@ function MediaReviews() {
     [MediaType.SHOW]: [],
     [MediaType.BOOK]: [],
   });
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { isLoading, error, startLoading, stopLoading, setLoadingError } =
+    useLoading(true);
   const [selectedReview, setSelectedReview] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(null);
@@ -107,7 +108,7 @@ function MediaReviews() {
 
   const fetchReviews = async () => {
     try {
-      setIsLoading(true);
+      startLoading();
       const allReviews = await reviewApi.getReviews();
       const categorizedReviews = {
         [MediaType.MOVIE]: allReviews.filter(
@@ -123,9 +124,9 @@ function MediaReviews() {
       setReviews(categorizedReviews);
     } catch (error) {
       console.error("Error fetching reviews:", error);
-      setError("Failed to load reviews. Please try again later.");
+      setLoadingError("Failed to load reviews. Please try again later.");
     } finally {
-      setIsLoading(false);
+      stopLoading();
     }
   };
 
@@ -142,7 +143,7 @@ function MediaReviews() {
       setIsAddingReview(false);
     } catch (error) {
       console.error("Error adding review:", error);
-      setError("Failed to add review. Please try again.");
+      setLoadingError("Failed to add review. Please try again.");
     }
   };
 
@@ -165,7 +166,7 @@ function MediaReviews() {
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating review:", error);
-      setError("Failed to update review. Please try again.");
+      setLoadingError("Failed to update review. Please try again.");
     }
   };
 
@@ -190,7 +191,7 @@ function MediaReviews() {
       setDeleteConfirmation(null);
     } catch (error) {
       console.error("Error deleting review:", error);
-      setError("Failed to delete review. Please try again.");
+      setLoadingError("Failed to delete review. Please try again.");
     }
   };
 
@@ -243,8 +244,13 @@ function MediaReviews() {
     setSelectedReview(null);
   };
 
-  if (isLoading) return <LoadingSpinner />;
-  if (error) return <div className={styles.error}>{error}</div>;
+  if (isLoading) {
+    return <LoadingSpinner fullPage message="Loading reviews..." />;
+  }
+
+  if (error) {
+    return <div className={styles.error}>{error}</div>;
+  }
 
   return (
     <div className={styles.mediaReviewsContainer}>

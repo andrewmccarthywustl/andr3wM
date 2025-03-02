@@ -3,17 +3,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  width: 100%;
+  padding: var(--spacing-xl) 0;
+  background-color: transparent;
+}
+
+.fullPage {
+  min-height: calc(100vh - 120px); /* Account for header and some padding */
   background-color: var(--dark-primary);
+  position: relative;
+  z-index: 10;
 }
 
 .spinnerWrapper {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 160px;
-  height: 160px;
 }
 
 .spinner {
@@ -47,6 +55,13 @@
 
 .dot3 {
   right: 0;
+}
+
+.loadingMessage {
+  margin-top: var(--spacing-md);
+  color: var(--light-primary);
+  font-family: var(--font-body);
+  text-align: center;
 }
 
 @keyframes bounce {
