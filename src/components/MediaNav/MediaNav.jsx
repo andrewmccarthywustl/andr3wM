@@ -1,27 +1,23 @@
 // src/components/MediaNav/MediaNav.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useScrollTo } from "../../hooks/useScrollTo";
 import styles from "./MediaNav.module.css";
 import typography from "../../styles/typography.module.css";
 
 function MediaNav() {
   const [activeSection, setActiveSection] = useState("reviews");
+  const scrollToElement = useScrollTo(90); // Account for header + nav height
 
-  const scrollToSection = (sectionId) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest",
-      });
-    }
+  const handleNavClick = (sectionId) => {
+    scrollToElement(sectionId);
+    setActiveSection(sectionId);
   };
 
   return (
     <nav className={styles.mediaNav}>
       <div className={styles.mediaNavContent}>
         <button
-          onClick={() => scrollToSection("reviews")}
+          onClick={() => handleNavClick("reviews")}
           className={`${styles.navButton} ${
             activeSection === "reviews" ? styles.active : ""
           } ${typography.heading3}`}
@@ -29,7 +25,7 @@ function MediaNav() {
           Reviews
         </button>
         <button
-          onClick={() => scrollToSection("favorites")}
+          onClick={() => handleNavClick("favorites")}
           className={`${styles.navButton} ${
             activeSection === "favorites" ? styles.active : ""
           } ${typography.heading3}`}

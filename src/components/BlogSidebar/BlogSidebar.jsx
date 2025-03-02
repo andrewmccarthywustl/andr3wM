@@ -1,9 +1,11 @@
 // src/components/BlogSidebar/BlogSidebar.jsx
 import React, { useState } from "react";
+import { useScrollTo } from "../../hooks/useScrollTo";
 import styles from "./BlogSidebar.module.css";
 
 const BlogSidebar = ({ posts, onPostClick }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const scrollToElement = useScrollTo(110); // Adjust header offset as needed
 
   // Format date to display in a readable format
   const formatDate = (dateString) => {
@@ -29,6 +31,12 @@ const BlogSidebar = ({ posts, onPostClick }) => {
   // Sort years in descending order
   const sortedYears = Object.keys(groupedPosts).sort((a, b) => b - a);
 
+  const handlePostClick = (postId) => {
+    scrollToElement(`post-${postId}`);
+    // Call the original onPostClick if needed
+    if (onPostClick) onPostClick(postId);
+  };
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.sidebarHeader}>
@@ -53,7 +61,7 @@ const BlogSidebar = ({ posts, onPostClick }) => {
                 {groupedPosts[year].map((post) => (
                   <li key={post.id} className={styles.postItem}>
                     <button
-                      onClick={() => onPostClick(post.id)}
+                      onClick={() => handlePostClick(post.id)}
                       className={styles.postLink}
                     >
                       <span className={styles.postTitle}>{post.title}</span>

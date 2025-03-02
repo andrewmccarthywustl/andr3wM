@@ -82,12 +82,43 @@ function Blog() {
   const cancelDeletePost = () => {
     setDeleteConfirmation(null);
   };
-
+  // In Blog.jsx
   const scrollToPost = (postId) => {
+    // The element ID should include "post-" prefix based on your markup
     const element = document.getElementById(`post-${postId}`);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // Maybe add visual highlighting if needed
+      console.log(`Post #post-${postId} exists`);
     }
+    if (!element) {
+      console.error(`Post element with id "post-${postId}" not found`);
+      return;
+    }
+
+    // Calculate the header height (adjust value as needed)
+    const headerHeight = 80;
+
+    // Calculate position
+    const elementRect = element.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const targetPosition = scrollTop + elementRect.top - headerHeight;
+
+    // Scroll the window
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth",
+    });
+
+    setTimeout(() => {
+      element.style.backgroundColor = "";
+    }, 1500);
+
+    // Debug info
+    console.log(`Scrolling to post-${postId}`, {
+      elementRect,
+      headerHeight,
+      targetPosition,
+    });
   };
 
   if (isLoading)
@@ -126,7 +157,7 @@ function Blog() {
                   onDelete={handleDeletePost}
                   currentUser={user}
                   index={index}
-                  id={`post-${post.id}`}
+                  id={`post-${post.id}`} // This is crucial - ensure this exact format is used
                 />
               ))}
             </div>
