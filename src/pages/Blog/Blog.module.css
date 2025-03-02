@@ -75,6 +75,9 @@
     grid-template-columns: 1fr;
   }
   .contentWrapper {
-    padding: 0 16px;
+    padding: 0;
+  }
+  .blogPageContainer {
+    padding: 0;
   }
 }
