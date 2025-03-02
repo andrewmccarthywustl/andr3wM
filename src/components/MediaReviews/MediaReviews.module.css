@@ -158,6 +158,12 @@
   .mediaReviewsContainer {
     padding: var(--spacing-sm);
   }
+  .reviewsHeader {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
+    padding: 0 var(--spacing-md);
+  }
 
   .reviewList {
     touch-action: pan-x pan-y;
@@ -166,9 +172,6 @@
     padding: 0;
   }
 
-  .sectionTitle {
-    font-size: var(--font-size-2xl);
-  }
   .reviewSection {
     padding: 0;
   }
