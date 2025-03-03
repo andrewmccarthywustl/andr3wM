@@ -8,6 +8,8 @@
   z-index: var(--z-index-header);
   border-bottom: 3px solid var(--light-primary);
   height: 60px;
+  display: flex;
+  align-items: center;
 }
 
 .headerContent {
@@ -57,9 +59,6 @@
 @media (max-width: 768px) {
   .nav {
     gap: var(--spacing-md);
-  }
-
-  .navLink {
-    font-size: var(--font-size-sm);
+    display: flex;
   }
 }
