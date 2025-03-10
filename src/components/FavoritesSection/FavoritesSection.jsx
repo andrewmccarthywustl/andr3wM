@@ -87,6 +87,34 @@ const FavoritesSection = () => {
     }));
 
   // Random selection handlers
+  const handleRandomAlbum = () => {
+    const albums = favorites[FavoriteType.ALBUM];
+    if (albums.length === 0) return;
+    const randomAlbum = albums[Math.floor(Math.random() * albums.length)];
+    window.open(randomAlbum.external_url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleRandomArtist = () => {
+    const artists = favorites[FavoriteType.ARTIST];
+    if (artists.length === 0) return;
+    const randomArtist = artists[Math.floor(Math.random() * artists.length)];
+    window.open(randomArtist.external_url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleRandomPodcast = () => {
+    const podcasts = favorites[FavoriteType.PODCAST];
+    if (podcasts.length === 0) return;
+    const randomPodcast = podcasts[Math.floor(Math.random() * podcasts.length)];
+    window.open(randomPodcast.external_url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleRandomChannel = () => {
+    const channels = favorites[FavoriteType.CHANNEL];
+    if (channels.length === 0) return;
+    const randomChannel = channels[Math.floor(Math.random() * channels.length)];
+    window.open(randomChannel.external_url, "_blank", "noopener,noreferrer");
+  };
+
   const handleRandomVideo = () => {
     const videos = favorites[FavoriteType.VIDEO];
     if (videos.length === 0) return;
@@ -171,6 +199,7 @@ const FavoritesSection = () => {
             title="Albums"
             items={formatSquareData(favorites[FavoriteType.ALBUM])}
             buttonText="Listen to Album"
+            onRandomSelect={handleRandomAlbum}
           />
         )}
 
@@ -180,6 +209,7 @@ const FavoritesSection = () => {
             title="Music Artists"
             items={formatCircularData(favorites[FavoriteType.ARTIST])}
             itemType={FavoriteType.ARTIST}
+            onRandomSelect={handleRandomArtist}
           />
         )}
 
@@ -201,6 +231,7 @@ const FavoritesSection = () => {
             title="Podcasts"
             items={formatSquareData(favorites[FavoriteType.PODCAST])}
             buttonText="Open Podcast's Website"
+            onRandomSelect={handleRandomPodcast}
           />
         )}
 
@@ -210,6 +241,7 @@ const FavoritesSection = () => {
             title="YouTube Channels"
             items={formatCircularData(favorites[FavoriteType.CHANNEL])}
             itemType={FavoriteType.CHANNEL}
+            onRandomSelect={handleRandomChannel}
           />
         )}
 
