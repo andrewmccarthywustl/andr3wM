@@ -3,11 +3,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { reviewApi, MediaType } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import ReviewItem from "../ReviewItem/ReviewItem";
-import ReviewForm from "../ReviewForm";
+import ReviewsForm from "../ReviewsForm";
 import ReviewPopup from "../ReviewPopup/ReviewPopup";
-import DeleteConfirmation from "../DeleteConfirmation";
 import LoadingSpinner from "../LoadingSpinner";
 import SortDropdown from "../SortDropdown";
+import DataExport from "../DataExport";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import styles from "./MediaReviews.module.css";
 import typography from "../../styles/typography.module.css";
@@ -27,7 +27,6 @@ function MediaReviews() {
   const [deleteConfirmation, setDeleteConfirmation] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAddingReview, setIsAddingReview] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
   const [scrollStates, setScrollStates] = useState({
     [MediaType.MOVIE]: { canScrollLeft: false, canScrollRight: true },
     [MediaType.SHOW]: { canScrollLeft: false, canScrollRight: true },
@@ -130,21 +129,9 @@ function MediaReviews() {
     }
   };
 
-  const handleReviewSubmit = async (reviewData) => {
-    try {
-      const addedReview = await reviewApi.addReview(reviewData);
-      setReviews((prevReviews) => ({
-        ...prevReviews,
-        [addedReview.media_type]: [
-          addedReview,
-          ...prevReviews[addedReview.media_type],
-        ],
-      }));
-      setIsAddingReview(false);
-    } catch (error) {
-      console.error("Error adding review:", error);
-      setLoadingError("Failed to add review. Please try again.");
-    }
+  const handleReviewFormSubmit = () => {
+    fetchReviews(); // Refresh the reviews list
+    setIsAddingReview(false);
   };
 
   const handleEditReview = async (updatedReview) => {
@@ -254,22 +241,38 @@ function MediaReviews() {
 
   return (
     <div className={styles.mediaReviewsContainer}>
-      {user && (
-        <div className={styles.addReviewSection}>
-          <button
-            onClick={() => setIsAddingReview(!isAddingReview)}
-            className={styles.addReviewButton}
-          >
-            {isAddingReview ? "Cancel" : "Add New Review"}
-          </button>
-          {isAddingReview && <ReviewForm onSubmit={handleReviewSubmit} />}
-        </div>
-      )}
       <div className={styles.reviewsHeader}>
         <h1 className={`${styles.sectionTitle} ${typography.heading1}`}>
           Reviews
         </h1>
+        {user && (
+          <div className={styles.headerActions}>
+            <button
+              onClick={() => setIsAddingReview(!isAddingReview)}
+              className={styles.addReviewButton}
+            >
+              {isAddingReview ? "Cancel" : "Add/Edit Review"}
+            </button>
+            <DataExport
+              data={Object.values(reviews).flat()}
+              fileName="media-reviews.json"
+              label="Export Reviews"
+              types={Object.values(MediaType)}
+              isReviews={true}
+            />
+          </div>
+        )}
       </div>
+
+      {isAddingReview && user && (
+        <div className={styles.reviewFormContainer}>
+          <ReviewsForm
+            onSubmit={handleReviewFormSubmit}
+            onCancel={() => setIsAddingReview(false)}
+          />
+        </div>
+      )}
+
       {[MediaType.MOVIE, MediaType.SHOW, MediaType.BOOK].map((mediaType) => (
         <section key={mediaType} className={styles.reviewSection}>
           <div className={styles.sectionHeader}>
@@ -313,14 +316,20 @@ function MediaReviews() {
               className={styles.reviewList}
               onScroll={(e) => handleScroll(mediaType, e)}
             >
-              {reviews[mediaType].map((review, index) => (
-                <ReviewItem
-                  key={review.id}
-                  review={review}
-                  onClick={openReviewPopup}
-                  index={index}
-                />
-              ))}
+              {reviews[mediaType].length > 0 ? (
+                reviews[mediaType].map((review, index) => (
+                  <ReviewItem
+                    key={review.id}
+                    review={review}
+                    onClick={openReviewPopup}
+                    index={index}
+                  />
+                ))
+              ) : (
+                <div className={styles.emptyReviews}>
+                  <p>No {mediaType} reviews yet</p>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -329,20 +338,8 @@ function MediaReviews() {
         <ReviewPopup
           review={selectedReview}
           onClose={closeReviewPopup}
-          onEdit={handleEditReview}
-          onDelete={handleDeleteReview}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          currentUser={user}
           isOpen={isPopupOpen && selectedReview !== null}
           isMobile={isMobile}
-        />
-      )}
-      {deleteConfirmation && (
-        <DeleteConfirmation
-          onConfirm={confirmDeleteReview}
-          onCancel={cancelDeleteReview}
-          itemName="review"
         />
       )}
     </div>

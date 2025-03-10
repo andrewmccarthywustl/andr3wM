@@ -1,3 +1,4 @@
+/* src/components/MediaReviews/MediaReviews.module.css */
 .mediaReviewsContainer {
   background-color: var(--dark-primary);
   color: var(--light-primary);
@@ -31,6 +32,13 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-2xl);
+  flex-wrap: wrap;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
 }
 
 .sortContainer {
@@ -108,28 +116,35 @@
   scrollbar-width: none;
   /*top padding is for the review item hover animation*/
   padding-top: 5px;
+  min-height: 400px;
 }
 
 .reviewList::-webkit-scrollbar {
   display: none;
 }
 
-.addReviewSection {
-  margin-bottom: var(--spacing-2xl);
-}
-
+/* Update these styles in src/components/MediaReviews/MediaReviews.module.css */
 .addReviewButton {
-  background-color: var(--accent-color);
+  background-color: var(--dark-primary);
   color: var(--light-primary);
-  border: none;
+  border: 2px solid var(--light-primary);
   padding: var(--spacing-sm) var(--spacing-xl);
-  border-radius: var(--border-radius-sm);
+  border-radius: 0; /* Sharp edges */
   font-size: var(--font-size-base);
+  cursor: pointer;
   transition: background-color var(--transition-normal);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 .addReviewButton:hover {
-  background-color: var(--secondary-accent-color);
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+.reviewFormContainer {
+  margin-bottom: var(--spacing-3xl);
 }
 
 .error {
@@ -138,6 +153,17 @@
   color: var(--light-primary);
   border-radius: var(--border-radius-sm);
   margin-bottom: var(--spacing-xl);
+}
+
+.emptyReviews {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  color: var(--light-primary);
+  opacity: 0.6;
+  font-style: italic;
 }
 
 @keyframes bounce {
@@ -163,6 +189,14 @@
     gap: var(--spacing-md);
     text-align: center;
     padding: 0 var(--spacing-md);
+  }
+
+  .headerActions {
+    margin-top: var(--spacing-md);
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    gap: var(--spacing-sm);
   }
 
   .reviewList {

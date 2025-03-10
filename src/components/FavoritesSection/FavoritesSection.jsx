@@ -4,6 +4,7 @@ import SquareScrollList from "../SquareScrollList";
 import CircularScrollList from "../CircularScrollList";
 import ListWithPagination from "../ListWithPagination";
 import FavoritesForm from "../FavoritesForm";
+import DataExport from "../DataExport";
 import { favoriteApi, FavoriteType } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import LoadingSpinner from "../LoadingSpinner";
@@ -129,7 +130,32 @@ const FavoritesSection = () => {
 
   return (
     <div className={styles.favoritesSection}>
-      {isAddingFavorite && (
+      <div className={styles.favoritesHeader}>
+        <h1 className={`${styles.sectionTitle} ${typography.heading1}`}>
+          Favorites
+        </h1>
+        <div className={styles.headerActions}>
+          {user && (
+            <button
+              onClick={() => setIsAddingFavorite(!isAddingFavorite)}
+              className={styles.addButton}
+            >
+              {isAddingFavorite ? "Cancel" : "Add/Edit Favorite"}
+            </button>
+          )}
+          {user && (
+            <DataExport
+              data={Object.values(favorites).flat()}
+              fileName="favorites.json"
+              label="Export Favorites"
+              types={Object.values(FavoriteType)}
+              isReviews={false}
+            />
+          )}
+        </div>
+      </div>
+
+      {isAddingFavorite && user && (
         <div className={styles.formContainer}>
           <FavoritesForm
             onSubmit={handleFavoriteSubmit}
@@ -137,19 +163,7 @@ const FavoritesSection = () => {
           />
         </div>
       )}
-      <div className={styles.favoritesHeader}>
-        <h1 className={`${styles.sectionTitle} ${typography.heading1}`}>
-          Favorites
-        </h1>
-        {user && (
-          <button
-            onClick={() => setIsAddingFavorite(true)}
-            className={styles.addButton}
-          >
-            Add Favorite
-          </button>
-        )}
-      </div>
+
       <div className={styles.listContainer}>
         {/* Albums Section */}
         {favorites[FavoriteType.ALBUM].length > 0 && (
