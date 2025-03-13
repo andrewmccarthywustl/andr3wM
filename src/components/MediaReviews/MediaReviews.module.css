@@ -27,6 +27,11 @@
   margin-bottom: var(--spacing-xl);
 }
 
+.bigTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
+  color: var(--light-primary);
+}
 .reviewsHeader {
   display: flex;
   justify-content: space-between;

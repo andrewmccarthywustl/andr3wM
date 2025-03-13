@@ -242,9 +242,7 @@ function MediaReviews() {
   return (
     <div className={styles.mediaReviewsContainer}>
       <div className={styles.reviewsHeader}>
-        <h1 className={`${styles.sectionTitle} ${typography.heading1}`}>
-          Reviews
-        </h1>
+        <h1 className={`${styles.bigTitle} ${typography.heading1}`}>Reviews</h1>
         {user && (
           <div className={styles.headerActions}>
             <button
