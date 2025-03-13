@@ -67,6 +67,9 @@
   .gridLayout {
     grid-template-columns: repeat(2, 1fr);
   }
+  .section {
+    padding: var(--spacing-md) 0;
+  }
 
   .blockOne {
     grid-column: 1 / 3;
