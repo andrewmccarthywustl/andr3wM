@@ -47,12 +47,18 @@ function Media() {
         <ul>
           <li>Read more books than tv shows watched.</li>
           <li>Not have like as my most used word.</li>
-          <li>Learn some cool shit, hear different perspectives.</li>
+          <li>Learn some cool shit, hear different perspectives</li>
           <li>
             Add a section for things I made instead of just judging other
             peoples things
           </li>
         </ul>
+        <h3>
+          The stories we hear shape the stories we tell, and the stories we tell
+          shape who we become. Each narrative we absorb becomes a thread in the
+          tapestry of our identity, weating itself into our understanding of the
+          world and our place within it.
+        </h3>
       </div>
 
       <div className={styles.spacer}></div>

@@ -4,19 +4,11 @@
   padding: var(--spacing-xl) 0;
 }
 
-.gridLayout {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: auto;
-  gap: 24px;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
 .introContent {
   padding: 0 var(--spacing-md);
   max-width: 50%;
   margin: 0;
+  border: 2px solid var(--light-primary);
 }
 .li {
   font-size: 10rem;
