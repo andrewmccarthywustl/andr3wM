@@ -27,38 +27,45 @@ function Media() {
   return (
     <div className={styles.mediaPage}>
       <PageTitle title="Media" />
-      <div className={styles.introContent}>
-        {" "}
-        <p>
-          This page is just where I keep track of the movies, tv shows and books
-          I watch/read. This practice has helped me keep track of my time and
-          holds me accountable for what I'm doing with my time to some extent.
-          LLMs are also really good at reccommending things, owning this data of
-          what I like and my thoughts is perfect context for LLMs. I have done a
-          little bit of data analysis on myself and my vocabulary is shite. I
-          don't put much effort into writing these reviews, but I am now
-          attempting to make an active effort to improve my writing. Overall
-          this page is goofy, but it has genuinely helped me better use my time.
-          This page has helped me gain a sense of agency and a feeling of growth
-          in this modern world where algorithms drown you with a constant stream
-          of things.
-        </p>
-        <h2>Goals for this page:</h2>
-        <ul>
-          <li>Read more books than tv shows watched.</li>
-          <li>Not have like as my most used word.</li>
-          <li>Learn some cool shit, hear different perspectives</li>
-          <li>
-            Add a section for things I made instead of just judging other
-            peoples things
-          </li>
-        </ul>
-        <h3>
-          The stories we hear shape the stories we tell, and the stories we tell
-          shape who we become. Each narrative we absorb becomes a thread in the
-          tapestry of our identity, weating itself into our understanding of the
-          world and our place within it.
-        </h3>
+      <div className={styles.gridLayout}>
+        <div className={styles.blockOne}>
+          {" "}
+          <h2>Preamble:</h2>
+          <p>
+            This page is just where I keep track of the movies, tv shows and
+            books I watch/read. This practice has helped me keep track of my
+            time and holds me accountable for what I'm doing with my time to
+            some extent. LLMs are also really good at reccommending things,
+            owning this data of what I like and my thoughts is perfect context
+            for LLMs. I have done a little bit of data analysis on myself and my
+            vocabulary is shite. I don't put much effort into writing these
+            reviews, but I am now attempting to make an active effort to improve
+            my writing. Overall this page is goofy, but it has genuinely helped
+            me better use my time. This page has helped me gain a sense of
+            agency and a feeling of growth in this modern world where algorithms
+            drown you with a constant stream of things.
+          </p>
+        </div>
+        <div className={styles.blockTwo}>
+          <h2>Goals for this page:</h2>
+          <ul>
+            <li>Read more books than tv shows watched.</li>
+            <li>Not have like as my most used word.</li>
+            <li>Learn some cool shit, hear different perspectives</li>
+            <li>
+              Add a section for things I made instead of just judging other
+              peoples things
+            </li>
+          </ul>
+        </div>
+        <div className={styles.blockThree}>
+          <h3>
+            The stories we hear shape the stories we tell, and the stories we
+            tell shape who we become. Each narrative we absorb becomes a thread
+            in the tapestry of our identity, weating itself into our
+            understanding of the world and our place within it.
+          </h3>
+        </div>
       </div>
 
       <div className={styles.spacer}></div>

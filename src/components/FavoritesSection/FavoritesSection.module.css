@@ -99,7 +99,9 @@
     padding: 0 var(--spacing-md);
     margin-left: 0;
   }
-
+  .sectionTitle {
+    margin-left: 0;
+  }
   .headerActions {
     display: flex;
     flex-direction: column;
