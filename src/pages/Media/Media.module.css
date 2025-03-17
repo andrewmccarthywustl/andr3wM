@@ -30,7 +30,7 @@
 }
 
 .blockThree {
-  grid-column: 1/6; /* Alternative syntax to make it clearer */
+  grid-column: 1/3; /* Alternative syntax to make it clearer */
   /* or grid-column: 1 / -1; to span all columns */
   grid-row: 2;
   padding: 0 var(--spacing-md);
@@ -56,18 +56,6 @@ ul {
   width: 100%;
   height: auto; /* Allow height to adjust proportionally */
   display: block;
-}
-
-/* Fixed grid items */
-.blockOne {
-  grid-column: 1 / 3;
-  grid-row: 1;
-  padding-right: 20px;
-}
-
-.blockTwo {
-  grid-column: 3 / 6;
-  grid-row: 1;
 }
 
 /* Add space between grid and nav */
