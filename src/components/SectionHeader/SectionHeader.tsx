@@ -120,7 +120,7 @@ const SectionHeader: React.FC<CombinedSectionHeaderProps> = (props) => {
                   }
                 </span>
                 <span className={styles.buttonLabel}>
-                  Sort by {getCurrentSortLabel()}
+                  {getCurrentSortLabel()}
                 </span>
               </button>
 
