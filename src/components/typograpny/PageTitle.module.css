@@ -28,7 +28,7 @@
 .horizontalLine {
   height: 1px;
   width: 100%;
-  background-color: var(--gray-primary);
+  background-color: var(--border-color);
   margin-top: var(--spacing-lg);
 }
 

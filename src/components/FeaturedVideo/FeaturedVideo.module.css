@@ -93,7 +93,7 @@
 .horizontalLine {
   height: 1px;
   width: 100%;
-  background-color: rgba(150, 150, 150, 0.3);
+  background-color: var(--border-color);
   margin: 40px 0 0 0;
 }
 

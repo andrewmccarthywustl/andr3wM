@@ -2,7 +2,7 @@
 .blogCard {
   display: block;
   background-color: var(--dark-primary);
-  border: 2px solid var(--light-primary);
+  border: 1px solid var(--border-color);
   overflow: hidden;
   transition: transform var(--transition-normal);
   height: 100%;
@@ -18,7 +18,7 @@
   width: 100%;
   height: 200px;
   overflow: hidden;
-  border-bottom: 2px solid var(--light-primary);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .cardImage {
