@@ -1,4 +1,5 @@
 // src/components/ReviewPopup/ReviewPopup.tsx
+
 import React, { useEffect, useRef, useState } from "react";
 import { IoChevronBack } from "react-icons/io5";
 import { Review } from "../../services/api/types";
@@ -30,6 +31,25 @@ const ReviewPopup: React.FC<ReviewPopupProps> = ({
       popupContentRef.current.scrollTop = 0;
     }
   }, [isOpen, review]);
+
+  // Add keyboard event listener for Escape key
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isOpen) {
+        handleClose();
+      }
+    };
+
+    // Add event listener when popup is open
+    if (isOpen) {
+      document.addEventListener("keydown", handleEscKey);
+    }
+
+    // Cleanup function to remove the event listener
+    return () => {
+      document.removeEventListener("keydown", handleEscKey);
+    };
+  }, [isOpen]); // Re-run when isOpen changes
 
   const handleClose = () => {
     if (isMobile) {
@@ -119,9 +139,7 @@ const ReviewPopup: React.FC<ReviewPopupProps> = ({
           </div>
         </div>
         <div className={styles.reviewPopupBody}>
-          <p className={styles.reviewPopupText}>
-            {review.review_text} <br /> <br /> -@ndr3wM
-          </p>
+          <p className={styles.reviewPopupText}>{review.review_text}</p>
         </div>
       </div>
     </aside>
