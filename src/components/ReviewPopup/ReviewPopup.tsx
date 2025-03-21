@@ -119,7 +119,9 @@ const ReviewPopup: React.FC<ReviewPopupProps> = ({
           </div>
         </div>
         <div className={styles.reviewPopupBody}>
-          <p className={styles.reviewPopupText}>{review.review_text}</p>
+          <p className={styles.reviewPopupText}>
+            {review.review_text} <br /> <br /> -@ndr3wM
+          </p>
         </div>
       </div>
     </aside>

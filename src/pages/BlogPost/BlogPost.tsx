@@ -153,6 +153,8 @@ const BlogPost: React.FC = () => {
                 </p>
               ) : null
             )}
+            <br />
+            <h3>-@ndr3wM</h3>
           </div>
         </article>
 
