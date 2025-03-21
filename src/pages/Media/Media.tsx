@@ -5,6 +5,8 @@ import {
   favoriteApi,
   MediaType,
   FavoriteType,
+  Review,
+  Favorite,
 } from "../../services/api";
 import PageContainer from "../../components/layout/PageContainer";
 import SectionContainer from "../../components/layout/SectionContainer";
@@ -27,9 +29,9 @@ import styles from "./Media.module.css";
 
 // Create ReviewPopupContext
 interface ReviewPopupContextType {
-  selectedReview: any | null;
+  selectedReview: Review | null;
   isPopupOpen: boolean;
-  openReviewPopup: (review: any) => void;
+  openReviewPopup: (review: Review) => void;
   closeReviewPopup: () => void;
 }
 
@@ -45,38 +47,81 @@ export const useReviewPopup = () => {
   return context;
 };
 
+// Define types for our state objects
+interface ReviewsState {
+  [MediaType.MOVIE]: Review[];
+  [MediaType.SHOW]: Review[];
+  [MediaType.BOOK]: Review[];
+  [key: string]: Review[]; // Add index signature
+}
+
+interface FavoritesState {
+  [FavoriteType.ALBUM]: Favorite[];
+  [FavoriteType.ARTIST]: Favorite[];
+  [FavoriteType.PODCAST]: Favorite[];
+  [FavoriteType.CHANNEL]: Favorite[];
+  [FavoriteType.VIDEO]: Favorite[];
+  [FavoriteType.SONG]: Favorite[];
+  [key: string]: Favorite[]; // Add index signature
+}
+
+interface ResetKeysState {
+  [MediaType.MOVIE]: string;
+  [MediaType.SHOW]: string;
+  [MediaType.BOOK]: string;
+  [key: string]: string; // Add index signature
+}
+
+interface SortOptions {
+  [MediaType.MOVIE]: { key: string; order: "asc" | "desc" };
+  [MediaType.SHOW]: { key: string; order: "asc" | "desc" };
+  [MediaType.BOOK]: { key: string; order: "asc" | "desc" };
+  [key: string]: { key: string; order: "asc" | "desc" }; // Add index signature
+}
+
+// Interface for formatted item data
+interface SquareItemData {
+  id: number | string;
+  name: string;
+  secondaryName?: string;
+  imageUrl: string;
+  externalUrl: string;
+  position?: number;
+}
+
+interface CircularItemData {
+  id: number | string;
+  name: string;
+  imageUrl: string;
+  url: string;
+  position?: number;
+}
+
+interface ListItemData {
+  id: number | string;
+  title: string;
+  subtitle?: string;
+  url: string;
+  position?: number;
+}
+
 const Media: React.FC = () => {
   // State for reviews
-  const [reviews, setReviews] = useState<{
-    [MediaType.MOVIE]: any[];
-    [MediaType.SHOW]: any[];
-    [MediaType.BOOK]: any[];
-  }>({
+  const [reviews, setReviews] = useState<ReviewsState>({
     [MediaType.MOVIE]: [],
     [MediaType.SHOW]: [],
     [MediaType.BOOK]: [],
   });
 
   // Add reset keys for scroll position
-  const [resetKeys, setResetKeys] = useState<{
-    [MediaType.MOVIE]: string;
-    [MediaType.SHOW]: string;
-    [MediaType.BOOK]: string;
-  }>({
+  const [resetKeys, setResetKeys] = useState<ResetKeysState>({
     [MediaType.MOVIE]: "0",
     [MediaType.SHOW]: "0",
     [MediaType.BOOK]: "0",
   });
 
   // State for favorites
-  const [favorites, setFavorites] = useState<{
-    [FavoriteType.ALBUM]: any[];
-    [FavoriteType.ARTIST]: any[];
-    [FavoriteType.PODCAST]: any[];
-    [FavoriteType.CHANNEL]: any[];
-    [FavoriteType.VIDEO]: any[];
-    [FavoriteType.SONG]: any[];
-  }>({
+  const [favorites, setFavorites] = useState<FavoritesState>({
     [FavoriteType.ALBUM]: [],
     [FavoriteType.ARTIST]: [],
     [FavoriteType.PODCAST]: [],
@@ -87,17 +132,17 @@ const Media: React.FC = () => {
 
   const [isLoadingReviews, setIsLoadingReviews] = useState<boolean>(true);
   const [isLoadingFavorites, setIsLoadingFavorites] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [_error, setError] = useState<string | null>(null); // Using underscore to indicate unused
   const [isAddingReview, setIsAddingReview] = useState<boolean>(false);
   const [isAddingFavorite, setIsAddingFavorite] = useState<boolean>(false);
   const { user } = useAuth();
   const isMobile = useIsMobile();
 
   // Global review popup state
-  const [selectedReview, setSelectedReview] = useState<any | null>(null);
+  const [selectedReview, setSelectedReview] = useState<Review | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
 
-  const openReviewPopup = (review: any) => {
+  const openReviewPopup = (review: Review) => {
     setSelectedReview(review);
     setIsPopupOpen(true);
   };
@@ -111,7 +156,7 @@ const Media: React.FC = () => {
   };
 
   // Sort options for reviews
-  const [sortOptions, setSortOptions] = useState({
+  const [sortOptions, setSortOptions] = useState<SortOptions>({
     [MediaType.MOVIE]: { key: "created_at", order: "desc" as "asc" | "desc" },
     [MediaType.SHOW]: { key: "created_at", order: "desc" as "asc" | "desc" },
     [MediaType.BOOK]: { key: "created_at", order: "desc" as "asc" | "desc" },
@@ -281,7 +326,7 @@ const Media: React.FC = () => {
   };
 
   // Format data for favorite list components
-  const formatSquareData = (items) =>
+  const formatSquareData = (items: Favorite[]): SquareItemData[] =>
     items.map((item) => ({
       id: item.id,
       name: item.name,
@@ -291,7 +336,7 @@ const Media: React.FC = () => {
       position: item.position,
     }));
 
-  const formatCircularData = (items) =>
+  const formatCircularData = (items: Favorite[]): CircularItemData[] =>
     items.map((item) => ({
       id: item.id,
       name: item.name,
@@ -300,7 +345,7 @@ const Media: React.FC = () => {
       position: item.position,
     }));
 
-  const formatListData = (items) =>
+  const formatListData = (items: Favorite[]): ListItemData[] =>
     items.map((item) => ({
       id: item.id,
       title: item.name,
@@ -309,7 +354,7 @@ const Media: React.FC = () => {
       position: item.position,
     }));
 
-  const handleActionClick = (item) => {
+  const handleActionClick = (item: ListItemData) => {
     window.open(item.url, "_blank", "noopener,noreferrer");
   };
 
@@ -340,11 +385,11 @@ const Media: React.FC = () => {
         </SectionContainer>
 
         {/* Reviews Section */}
-        <SectionContainer id="reviews">
+        <SectionContainer noPaddingTop>
           <div className={styles.sectionWithActions}>
             <SectionTitle
               title="Reviews"
-              subtitle="My thoughts on various media I've consumed"
+              subtitle="I'm not trying to be a film critic but I'm trying to watch/read good stuff"
             />
 
             {user && (
@@ -428,11 +473,11 @@ const Media: React.FC = () => {
         </SectionContainer>
 
         {/* Favorites Section */}
-        <SectionContainer id="favorites">
+        <SectionContainer>
           <div className={styles.sectionWithActions}>
             <SectionTitle
               title="Favorites"
-              subtitle="Content I particularly enjoy"
+              subtitle="A structure to remember - the stochasticity will be great when I forget"
             />
 
             {user && (

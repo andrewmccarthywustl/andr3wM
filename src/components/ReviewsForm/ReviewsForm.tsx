@@ -65,9 +65,9 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({ onSubmit, onCancel }) => {
         return { ...prev, [name]: value.replace(/[^0-9.]/g, "") };
       }
 
-      // For media_type, clear irrelevant fields
+      // For media_type, cast the value to MediaType
       if (name === "media_type") {
-        const updatedData = { ...prev, [name]: value };
+        const updatedData = { ...prev, [name]: value as MediaType };
         if (value === MediaType.MOVIE) {
           updatedData.author = "";
         } else if (value === MediaType.BOOK) {

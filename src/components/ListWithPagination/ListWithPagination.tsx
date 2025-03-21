@@ -69,16 +69,15 @@ const ListWithPagination: React.FC<ListWithPaginationProps> = ({
     <div className={styles.listContainer}>
       <div className={styles.list}>
         {paddedItems.map((item, index) => (
-          <div key={item?.id || `empty-${index}`} className={styles.listItem}>
-            {item ? (
-              renderItem ? (
-                renderItem(item)
-              ) : (
-                defaultRenderItem(item)
-              )
-            ) : (
-              <div className={styles.emptyItem} />
-            )}
+          <div
+            key={item?.id || `empty-${index}`}
+            className={item?.id ? styles.listItem : styles.emptyItem}
+          >
+            {item?.id
+              ? renderItem
+                ? renderItem(item)
+                : defaultRenderItem(item)
+              : null}
           </div>
         ))}
       </div>

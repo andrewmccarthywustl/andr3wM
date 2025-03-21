@@ -1,6 +1,6 @@
 // src/pages/MyWorks/MyWorks.tsx
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PageContainer from "../../components/layout/PageContainer";
 import SectionContainer from "../../components/layout/SectionContainer";
 import PageTitle from "@/components/typograpny/PageTitle";
@@ -13,15 +13,6 @@ import { videoApi, photoApi } from "../../services/api";
 import { SimpleVideo as Video } from "../../services/api/videos";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./MyWorks.module.css";
-
-// interface Video {
-//   id: string;
-//   title: string;
-//   thumbnailurl: string;
-//   url: string;
-//   published_at?: string;
-//   position?: number;
-// }
 
 interface Photo {
   id: number;
@@ -40,6 +31,7 @@ const MyWorks: React.FC = () => {
   const [_isLoadingPhotos, setIsLoadingPhotos] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const fetchVideos = async (): Promise<void> => {
     setIsLoadingVideos(true);
@@ -105,6 +97,10 @@ const MyWorks: React.FC = () => {
     }));
   };
 
+  const handleNavigateToGallery = () => {
+    navigate("/my-works/photography");
+  };
+
   return (
     <PageContainer>
       <SectionContainer noPaddingBottom>
@@ -157,14 +153,20 @@ const MyWorks: React.FC = () => {
         )}
       </SectionContainer>
 
-      {/* Photography Section */}
+      {/* Photography Section - Using SectionHeader actionButtons */}
       {photos.length > 0 && (
         <SectionContainer noPaddingTop>
           <div className={styles.sectionHeader}>
-            <SectionHeader title="photography" />
-            <Link to="/my-works/photography" className={styles.galleryLink}>
-              view full gallery
-            </Link>
+            <SectionHeader
+              title="photography"
+              actionButtons={[
+                {
+                  type: "default",
+                  label: "view full gallery",
+                  onClick: handleNavigateToGallery,
+                },
+              ]}
+            />
           </div>
           <PhotoGrid photos={photos} />
         </SectionContainer>

@@ -196,15 +196,14 @@
   .actionButtonsContainer {
     width: 100%;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: flex-start; /* Align to the left instead of flex-end */
   }
 
-  .actionButton,
-  .sortButton {
-    flex: 1;
+  .actionButton {
+    flex: initial; /* Remove the flex: 1 to avoid stretching */
     white-space: nowrap;
     justify-content: center;
-    padding: var(--spacing-xs) var(--spacing-sm);
+    padding: var(--spacing-md);
     font-size: var(--font-size-xs);
   }
 

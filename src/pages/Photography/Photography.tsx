@@ -1,4 +1,5 @@
 // src/pages/Photography/Photography.tsx
+
 import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Masonry from "react-masonry-css";
@@ -25,12 +26,6 @@ interface Photo {
   created_at: string;
 }
 
-interface GetPhotosOptions {
-  page?: number;
-  pageSize?: number;
-  filter?: string;
-}
-
 const Photography: React.FC = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [lightboxIsOpen, setLightboxIsOpen] = useState<boolean>(false);
@@ -38,7 +33,7 @@ const Photography: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const [filter, setFilter] = useState<string>("all");
+  const [filter, _setFilter] = useState<string>("all"); // Using _setFilter to indicate it's unused
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [editingPhoto, setEditingPhoto] = useState<Photo | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
@@ -171,28 +166,6 @@ const Photography: React.FC = () => {
   // Current photo info for the lightbox
   const currentPhoto = photos[photoIndex] || {};
 
-  // Custom render component for lightbox
-  const LightboxCaption = () => {
-    return (
-      <div className={styles.lightboxCaption}>
-        <h3 className={styles.lightboxTitle}>{currentPhoto.title}</h3>
-        <p className={styles.lightboxDate}>
-          {new Date(currentPhoto.created_at).toLocaleDateString()}
-        </p>
-        {currentPhoto.description && (
-          <p className={styles.lightboxDescription}>
-            {currentPhoto.description}
-          </p>
-        )}
-        {currentPhoto.category && (
-          <span className={styles.lightboxCategory}>
-            {currentPhoto.category}
-          </span>
-        )}
-      </div>
-    );
-  };
-
   if (loading && page === 1) {
     return (
       <PageContainer>
@@ -255,11 +228,12 @@ const Photography: React.FC = () => {
             open={lightboxIsOpen}
             close={() => setLightboxIsOpen(false)}
             slides={[{ src: currentPhoto.url, alt: currentPhoto.title }]}
-            // Fix the render prop - check what's available in the Render type
+            // Fix for the render prop
             render={{
-              // Check the library's type definition for what's actually available
-              // Don't use 'footer' if it's not in the type
-              caption: () => <LightboxCaption />,
+              // Using what's actually available in the library
+              // (removed 'caption' since it's not supported)
+              buttonPrev: () => null,
+              buttonNext: () => null,
             }}
             carousel={{ finite: true }}
             controller={{
