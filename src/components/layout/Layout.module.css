@@ -1,0 +1,55 @@
+/* src/components/layout/Layout.module.css */
+.pageContainer {
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+}
+
+.sectionContainer {
+  padding: var(--container-padding-y) 0; /* No horizontal padding by default */
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--container-max-width);
+}
+
+.sectionContainer.fullWidth {
+  max-width: 100%;
+}
+
+.sectionContainer.noPaddingTop {
+  padding-top: 0;
+}
+
+.sectionContainer.noPaddingBottom {
+  padding-bottom: 0;
+}
+
+.sectionContainer.noPaddingX {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.contentContainer {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .sectionContainer {
+    padding: var(--container-padding-y-mobile) var(--container-padding-x-mobile);
+  }
+
+  .sectionContainer.noPaddingTop {
+    padding-top: 0;
+  }
+
+  .sectionContainer.noPaddingBottom {
+    padding-bottom: 0;
+  }
+
+  .sectionContainer.noPaddingX {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

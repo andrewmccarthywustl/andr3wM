@@ -2,8 +2,6 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import layoutStyles from "../styles/layout.module.css";
-import utilityStyles from "../styles/utilities.module.css";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -11,11 +9,9 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div className={layoutStyles.appContainer}>
+    <div className="app-container">
       <Header />
-      <main className={`${layoutStyles.mainContent} ${utilityStyles.fadeIn}`}>
-        <div className={layoutStyles.container}>{children}</div>
-      </main>
+      <main className="main-content">{children}</main>
       <Footer />
     </div>
   );

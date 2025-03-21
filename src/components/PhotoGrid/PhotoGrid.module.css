@@ -1,0 +1,76 @@
+/* src/components/PhotoGrid/PhotoGrid.module.css */
+.photoGridContainer {
+  width: 100%;
+  margin-bottom: var(--spacing-xl);
+}
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: var(--spacing-md);
+  width: 100%;
+}
+
+.photoItem {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  border: 1px solid var(--gray-primary);
+}
+
+.photoWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.photoOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.photoTitle {
+  color: var(--light-primary);
+  font-family: var(--font-accent);
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-sm);
+  text-align: center;
+}
+
+.photoItem:hover .photo {
+  transform: scale(1.05);
+}
+
+.photoItem:hover .photoOverlay {
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .photoGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .photoGrid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: var(--spacing-sm);
+  }
+}

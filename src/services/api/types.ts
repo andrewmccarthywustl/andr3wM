@@ -24,12 +24,10 @@ export const FavoriteType = {
 } as const;
 
 export interface BlogPost {
-  id: number;
+  id: string;
   title: string;
-  content: {
-    text: string;
-    images: string[];
-  };
+  content_text: string;
+  featured_image: string;
   author: string;
   created_at: string;
   updated_at?: string;
@@ -67,4 +65,13 @@ export interface Photo {
   category: string;
   position?: number; // Added position property
   created_at: string;
+}
+
+export interface YouTubeVideo {
+  id: string;
+  title: string;
+  thumbnailUrl: string;
+  url: string;
+  published_at: string; // Changed to snake_case for DB
+  position?: number;
 }

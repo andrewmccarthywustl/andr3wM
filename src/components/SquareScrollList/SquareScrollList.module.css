@@ -6,49 +6,9 @@
   will-change: transform;
 }
 
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacing-xl);
-}
-
-.sectionTitle {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-3xl);
-  color: var(--light-primary);
-  margin: 0;
-}
-
-.randomButton {
-  background-color: var(--dark-primary);
-  color: var(--light-primary);
-  border: 2px solid var(--light-primary);
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: 0;
-  font-size: var(--font-size-sm);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  transition: all var(--transition-normal);
-  font-family: var(--font-heading);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide);
-}
-
-.randomButton:hover {
-  background-color: var(--light-primary);
-  color: var(--dark-primary);
-}
-
-.randomIcon {
-  font-size: var(--font-size-sm);
-}
-
 .scrollContainer {
   position: relative;
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-xl);
 }
 
 .gradientLeft,
@@ -56,11 +16,11 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 150px;
-  opacity: 0;
-  transition: opacity var(--transition-normal);
+  width: 100px;
   z-index: 2;
   pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 0;
 }
 
 .gradientLeft {
@@ -89,7 +49,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-4xl);
   color: var(--light-primary);
   z-index: 3;
   padding: var(--spacing-sm);
@@ -98,15 +58,15 @@
 }
 
 .scrollArrow:hover {
-  transform: translateY(-50%) scale(1.2);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .scrollArrowLeft {
-  left: var(--spacing-md);
+  left: var(--spacing-sm);
 }
 
 .scrollArrowRight {
-  right: var(--spacing-md);
+  right: var(--spacing-sm);
 }
 
 .itemList {
@@ -125,10 +85,8 @@
   display: none;
 }
 
-/* Performance optimizations for reduced motion */
+/* Performance optimization for reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .gradientLeft,
-  .gradientRight,
   .scrollArrow {
     transition: none;
   }
@@ -144,10 +102,6 @@
   .gradientLeft,
   .gradientRight {
     display: none;
-  }
-
-  .sectionTitle {
-    font-size: var(--font-size-2xl);
   }
 
   .itemList {

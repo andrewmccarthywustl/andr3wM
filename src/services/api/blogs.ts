@@ -10,11 +10,18 @@ export const blogApi = {
       .order("created_at", { ascending: false });
 
     if (error) throw error;
+    return data || [];
+  },
 
-    return data.map((post) => ({
-      ...post,
-      content: JSON.parse(post.content),
-    }));
+  getBlogPostById: async (id: string): Promise<BlogPost> => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) throw error;
+    return data;
   },
 
   addBlogPost: async (
@@ -23,56 +30,56 @@ export const blogApi = {
     const { data: userData, error: userError } = await supabase.auth.getUser();
     if (userError) throw userError;
 
+    // Don't validate URL - just store as is
     const { data, error } = await supabase
       .from("blog_posts")
       .insert([
         {
           title: blogPost.title,
-          content: JSON.stringify(blogPost.content),
+          content_text: blogPost.content_text,
+          featured_image: blogPost.featured_image,
           author: userData.user.id,
         },
       ])
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error("Database error:", error);
+      throw new Error(`Failed to add blog post: ${error.message}`);
+    }
 
-    return {
-      ...data,
-      content: JSON.parse(data.content),
-    };
+    return data;
   },
 
   updateBlogPost: async (
-    id: number,
+    id: string,
     updatedPost: Partial<BlogPost>
   ): Promise<BlogPost> => {
     const { data, error } = await supabase
       .from("blog_posts")
       .update({
         title: updatedPost.title,
-        content: updatedPost.content
-          ? JSON.stringify(updatedPost.content)
-          : undefined,
+        content_text: updatedPost.content_text,
+        featured_image: updatedPost.featured_image,
         updated_at: new Date().toISOString(),
       })
       .eq("id", id)
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error("Update error:", error);
+      throw new Error(`Failed to update blog post: ${error.message}`);
+    }
 
-    return {
-      ...data,
-      content: JSON.parse(data.content),
-    };
+    return data;
   },
 
-  deleteBlogPost: async (id: number): Promise<{ message: string }> => {
+  deleteBlogPost: async (id: string): Promise<{ message: string }> => {
     const { error } = await supabase.from("blog_posts").delete().eq("id", id);
 
     if (error) throw error;
-
     return { message: "Blog post deleted successfully" };
   },
 };

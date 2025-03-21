@@ -1,10 +1,14 @@
 /* src/components/ImageCard/ImageCard.module.css */
-
 .imageCard {
   position: relative;
   overflow: hidden;
   background-color: var(--dark-primary);
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.imageCard:hover {
+  transform: translateY(-5px);
 }
 
 .image {
@@ -25,19 +29,53 @@
   bottom: 0;
   background-color: var(--dark-shadow);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: var(--spacing-md);
+  text-align: center;
 }
 
 .imageCard:hover .overlay {
-  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+.title {
+  color: var(--light-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-sm);
 }
 
 .date {
-  color: white;
-  font-size: 14px;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
+  color: var(--light-primary);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-accent);
+  position: relative;
+  opacity: 0.8;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .imageCard,
+  .image,
+  .overlay {
+    transition: none;
+  }
+
+  .imageCard:hover {
+    transform: none;
+  }
+
+  .imageCard:hover .image {
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: var(--font-size-base);
+  }
 }

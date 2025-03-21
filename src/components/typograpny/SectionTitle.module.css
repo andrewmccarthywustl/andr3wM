@@ -1,0 +1,44 @@
+/* src/components/typography/SectionTitle.module.css */
+.sectionTitleContainer {
+  margin-bottom: var(--spacing-xl);
+  width: 100%;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--light-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+  position: relative;
+  display: inline-block;
+  padding-bottom: var(--spacing-xs);
+}
+
+.sectionTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--light-primary);
+}
+
+.sectionSubtitle {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  color: var(--gray-light);
+  margin: 0;
+  max-width: 800px;
+}
+
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  .sectionSubtitle {
+    font-size: var(--font-size-base);
+  }
+}

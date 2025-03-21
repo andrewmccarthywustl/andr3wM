@@ -1,0 +1,96 @@
+/* src/styles/variables.css */
+:root {
+  /* Colors */
+  --dark-primary: #000000;
+  --dark-hover: #202020;
+  --dark-shadow: rgba(0, 0, 0, 0.3);
+  --light-primary: #ffffff;
+  --gray-primary: #666666;
+  --gray-secondary: #444444;
+  --gray-light: #999999;
+  --error-color: #ff4136;
+  --delete-button-color: #ff4136;
+  --delete-button-hover: #d63631;
+  --edit-button-color: #3498db;
+  --edit-button-hover: #2980b9;
+
+  /* Fonts */
+  --font-heading: "Made for Display", sans-serif;
+  --font-body: "Outfit", sans-serif;
+  --font-accent: "Space Mono", monospace;
+  --font-mono: "Space Mono", monospace;
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 600;
+  --font-weight-bold: 800;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 2rem; /* 32px */
+  --font-size-4xl: 2.5rem; /* 40px */
+  --font-size-5xl: 3.5rem; /* 56px */
+  --font-size-6xl: 4.5rem; /* 72px - For brutalist titles */
+
+  /* Line Heights */
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 1.5rem; /* 24px */
+  --spacing-xl: 2rem; /* 32px */
+  --spacing-2xl: 3rem; /* 48px */
+  --spacing-3xl: 4rem; /* 64px */
+
+  /* Layout */
+  --header-height: 60px;
+  --page-top-padding: var(--header-height);
+  --container-max-width: 1200px;
+  --container-med-width: 800px;
+  --content-max-width: 700px;
+  --container-padding-x: var(--spacing-xl);
+  --container-padding-y: var(--spacing-2xl);
+  --container-padding-x-mobile: var(--spacing-md);
+  --container-padding-y-mobile: var(--spacing-xl);
+
+  /* Border Radius */
+  --border-radius-sm: 0;
+  --border-radius-md: 0;
+  --border-radius-lg: 0;
+
+  /* Z-index layers */
+  --z-index-header: 500;
+  --z-index-sticky: 100;
+  --z-index-dropdown: 200;
+  --z-index-modal: 300;
+
+  /* Transitions */
+  --transition-normal: 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-5xl: 2.5rem;
+    --font-size-6xl: 3rem;
+    --font-size-4xl: 2rem;
+    --font-size-3xl: 1.75rem;
+    --font-size-2xl: 1.5rem;
+    --spacing-2xl: 2rem;
+    --spacing-3xl: 3rem;
+  }
+}

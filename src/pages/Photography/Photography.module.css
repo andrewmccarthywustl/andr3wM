@@ -1,40 +1,55 @@
 /* src/pages/Photography/Photography.module.css */
-.photographyContainer {
-  background-color: var(--dark-primary);
-  color: var(--light-primary);
-  min-height: calc(100vh - 60px);
-  padding: 0 1rem;
-}
-.photographyPage {
-  background-color: var(--dark-primary);
-  padding: var(--spacing-xl) 0;
+.headerContainer {
+  display: flex;
+  align-items: center;
+  margin: var(--spacing-xl);
+  width: 100%;
 }
 
-.title {
+.backLink {
+  font-family: var(--font-accent);
+  font-size: var(--font-size-lg);
   color: var(--light-primary);
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 2rem;
+  text-decoration: none;
+  transition: color var(--transition-normal);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-primary);
+  padding-bottom: var(--spacing-xs);
 }
-.titleContiner {
-  padding-left: 0;
+
+.backLink:hover {
+  color: var(--gray-light);
+  border-bottom-color: var(--light-primary);
+}
+
+.controlsContainer {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding-x);
+  margin-bottom: var(--spacing-lg);
+}
+
+.formContainer {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding-x);
+  margin-bottom: var(--spacing-lg);
 }
 
 .myMasonryGrid {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  margin-left: -16px; /* gutter size offset */
-  width: auto;
+  width: 100%;
+  padding: 0 var(--spacing-md);
 }
 
 .myMasonryGridColumn {
-  padding-left: 16px; /* gutter size */
+  padding-left: var(--spacing-md); /* gutter size */
   background-clip: padding-box;
 }
 
 .myMasonryGridColumn > div {
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
 .filterContainer {
@@ -46,7 +61,7 @@
 .filterContainer button {
   background-color: var(--dark-primary);
   color: var(--light-primary);
-  border: 1px solid var(--light-primary);
+  border: 1px solid var(--gray-primary);
   padding: 0.5rem 1rem;
   margin: 0 0.5rem;
   cursor: pointer;
@@ -55,29 +70,33 @@
 
 .filterContainer button:hover,
 .filterContainer button.active {
-  background-color: var(--light-primary);
-  color: var(--dark-primary);
+  background-color: var(--gray-primary);
 }
 
 .loaderContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: var(--spacing-xl);
   width: 100%;
+  margin-top: var(--spacing-lg);
 }
 
 .addButton {
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+  border: 1px solid var(--gray-primary);
   padding: 10px 20px;
+  margin-left: var(--spacing-xl);
   cursor: pointer;
-  margin-bottom: 20px;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  transition: all var(--transition-normal);
 }
 
 .addButton:hover {
-  background-color: var(--secondary-acent-color);
+  background-color: var(--gray-primary);
 }
 
 .photoWrapper {
@@ -94,14 +113,15 @@
 
 .adminControls button {
   background-color: rgba(0, 0, 0, 0.7);
-  color: white;
+  color: var(--light-primary);
   border: none;
   padding: 5px 10px;
   cursor: pointer;
+  transition: background-color var(--transition-normal);
 }
 
 .adminControls button:hover {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: var(--gray-primary);
 }
 
 /* Lightbox Caption Styles */
@@ -109,11 +129,12 @@
   color: var(--light-primary);
   background-color: rgba(0, 0, 0, 0.8);
   padding: 1rem;
-  border-radius: 5px;
+  border-radius: 0;
   max-width: 100%;
   width: 100%;
   text-align: center;
   margin-top: 1rem;
+  font-family: var(--font-body);
 }
 
 .lightboxTitle {
@@ -126,6 +147,7 @@
   font-size: 0.9rem;
   opacity: 0.8;
   margin-bottom: 0.5rem;
+  font-family: var(--font-accent);
 }
 
 .lightboxDescription {
@@ -136,11 +158,44 @@
 
 .lightboxCategory {
   display: inline-block;
-  background-color: var(--accent-color);
+  background-color: var(--gray-primary);
   padding: 0.2rem 0.5rem;
-  border-radius: 3px;
+  border-radius: 0;
   font-size: 0.8rem;
   margin-top: 0.5rem;
+  font-family: var(--font-accent);
+}
+
+@media (max-width: 768px) {
+  .headerContainer {
+    margin: var(--spacing-lg) 0;
+  }
+
+  .backLink {
+    font-size: var(--font-size-base);
+  }
+
+  .myMasonryGrid {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .myMasonryGridColumn {
+    padding-left: var(--spacing-sm);
+  }
+
+  .myMasonryGridColumn > div {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .adminControls {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .adminControls button {
+    padding: 3px 6px;
+    font-size: 12px;
+  }
 }
 
 /* Ensure the lightbox navigation arrows are hidden */

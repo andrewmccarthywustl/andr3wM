@@ -1,0 +1,92 @@
+/* src/components/ReviewList/ReviewList.module.css */
+.reviewListContainer {
+  position: relative;
+  margin-bottom: var(--spacing-xl);
+}
+
+.gradientLeft,
+.gradientRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.gradientLeft {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.gradientRight {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.gradientShow {
+  opacity: 1;
+}
+
+.scrollArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--font-size-4xl); /* Larger arrows */
+  color: var(--light-primary);
+  z-index: 3;
+  padding: var(--spacing-sm);
+  cursor: pointer;
+  /* Removed background-color and border-radius */
+  transition: transform var(--transition-normal);
+}
+
+.scrollArrow:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.scrollArrowLeft {
+  left: var(--spacing-sm);
+}
+
+.scrollArrowRight {
+  right: var(--spacing-sm);
+}
+
+.reviewList {
+  display: flex;
+  overflow-x: auto;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-sm) 0;
+  scrollbar-width: none;
+  min-height: 400px;
+  padding-top: 5px;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+
+.reviewList::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .scrollArrow,
+  .gradientLeft,
+  .gradientRight {
+    display: none;
+  }
+
+  .reviewList {
+    min-height: 350px;
+  }
+}

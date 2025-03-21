@@ -1,0 +1,66 @@
+/* src/components/BlogCard/BlogCard.module.css */
+.blogCard {
+  display: block;
+  background-color: var(--dark-primary);
+  border: 2px solid var(--light-primary);
+  overflow: hidden;
+  transition: transform var(--transition-normal);
+  height: 100%;
+  text-decoration: none;
+  color: var(--light-primary);
+}
+
+.blogCard:hover {
+  transform: translateY(-5px);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-bottom: 2px solid var(--light-primary);
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.blogCard:hover .cardImage {
+  transform: scale(1.05);
+}
+
+.cardContent {
+  padding: var(--spacing-md);
+}
+
+.cardTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-sm);
+}
+
+.cardDate {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--gray-light);
+  margin-bottom: var(--spacing-md);
+}
+
+.cardPreview {
+  font-size: var(--font-size-sm);
+  opacity: 0.8;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blogCard,
+  .cardImage {
+    transition: none;
+  }
+}

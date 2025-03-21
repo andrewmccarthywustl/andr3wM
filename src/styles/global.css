@@ -1,87 +1,107 @@
-:root {
-  /* Keep your CSS variables here since they need to be global */
-  /* Colors */
-  --dark-primary: #000000;
-  --dark-hover: #202020;
-  --dark-shadow: rgba(0, 0, 0, 0.3);
-  --light-primary: #ffffff;
-  --accent-color: #3cb371;
-  --secondary-accent-color: #ffff00;
-  --edit-button-color: #0000ff;
-  --edit-button-hover: #000099;
-  --delete-button-color: #ff0000;
-  --delete-button-hover: #990000;
-  --save-button-color: #00ff00;
-  --save-button-hover: #009900;
+/* src/styles/global.css */
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+/* Note: Add your Made for Display font or replace with another font */
 
-  /* Typography */
-  --font-heading: "Space Grotesk", sans-serif;
-  --font-body: "Outfit", sans-serif;
-  --font-weight-bold: 700;
-  --font-weight-medium: 500;
-  --font-weight-regular: 400;
-  --font-weight-light: 300;
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 2rem;
-  --font-size-4xl: 2.5rem;
-  --line-height-tight: 1.2;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.75;
-  --letter-spacing-tight: -0.02em;
-  --letter-spacing-normal: 0;
-  --letter-spacing-wide: 0.05em;
+@import "./variables.css";
 
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-  --spacing-3xl: 4rem;
-
-  /* Layout */
-  --container-max-width: 1200px;
-  --container-med-width: 800px;
-  --container-padding: var(--spacing-md);
-  --border-radius-sm: 4px;
-  --border-radius-md: 8px;
-  --border-radius-lg: 16px;
-
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
-
-  /* Z-index layers */
-  --z-index-header: 500;
-  --z-index-sticky: 100;
-  --z-index-dropdown: 200;
-  --z-index-modal: 300;
-  --z-index-popover: 400;
-  --z-index-toast: 600;
-}
-
-/* Global styles */
-body {
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: var(--font-body);
-  font-weight: var(--font-weight-regular);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  background-color: var(--dark-primary);
-  color: var(--light-primary);
 }
 
 html,
 body {
   height: 100%;
   overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Basic layouts */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  margin-top: 60px; /* Height of header */
   position: relative;
+}
+
+/* Utility classes (minimal set) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Basic animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
 }

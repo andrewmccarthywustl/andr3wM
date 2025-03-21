@@ -1,41 +1,20 @@
 /* src/pages/Blog/Blog.module.css */
-.blogPageContainer {
-  min-height: calc(100vh - 60px);
-  background-color: var(--dark-primary);
-  padding: var(--spacing-xl) 0;
-}
-
-.contentWrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
 .blogGrid {
   display: grid;
-  grid-template-columns: calc(var(--container-med-width) - 48px) 1fr;
-  gap: 48px;
-  position: relative;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
 }
 
-.blogContentColumn {
-  grid-column: 1;
-}
-
-.sidebarColumn {
-  grid-column: 2;
-  position: sticky;
-  top: 100px;
-  height: fit-content;
-  max-height: calc(100vh - 160px);
-  overflow-y: auto;
-  border: 1px solid var(--light-primary);
-}
-
-.blogPosts {
+.blogCardContainer {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2xl);
+  height: 100%;
+}
+
+.adminControls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--spacing-lg);
 }
 
 .errorMessage {
@@ -45,41 +24,21 @@
   padding: var(--spacing-md);
   border-radius: var(--border-radius-md);
   text-align: center;
-  margin-top: var(--spacing-2xl);
+  margin-bottom: var(--spacing-xl);
 }
 
-.addPostButton {
-  background-color: var(--accent-color);
-  color: var(--light-primary);
-  border: none;
-  padding: var(--spacing-sm) var(--spacing-xl);
-  border-radius: var(--border-radius-sm);
-  cursor: pointer;
-  font-size: var(--font-size-base);
-  margin-bottom: var(--spacing-2xl);
-  transition: background-color var(--transition-normal);
-}
-
-.addPostButton:hover {
-  background-color: var(--secondary-accent-color);
-}
-
-@media (max-width: 1200px) {
-  .sidebarColumn {
-    display: none;
-  }
+.emptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-2xl);
+  border: 2px dashed var(--gray-primary);
+  color: var(--gray-light);
+  font-style: italic;
 }
 
 @media (max-width: 768px) {
-  .blogPageContainer {
-  }
   .blogGrid {
     grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
   }
-  .contentWrapper {
-    padding: 0;
-  }
-  /* .blogPageContainer {
-    padding: 0;
-  } */
 }

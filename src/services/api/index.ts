@@ -5,3 +5,4 @@ export { blogApi } from "./blogs";
 export { reviewApi } from "./reviews";
 export { favoriteApi } from "./favorites";
 export { photoApi } from "./photos";
+export { videoApi } from "./videos";

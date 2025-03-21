@@ -1,0 +1,127 @@
+/* src/components/VideoGrid/VideoGrid.module.css */
+.videoGridSection {
+  margin-bottom: 40px;
+  font-family: "Space Mono", monospace;
+}
+
+.videoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.videoItem {
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: var(--dark-primary);
+  text-decoration: none;
+  color: var(--light-primary);
+  transition: transform var(--transition-normal);
+  overflow: hidden;
+}
+
+.videoItem:hover {
+  transform: translateY(-4px);
+}
+
+.thumbnailContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.videoItem:hover .thumbnailImage {
+  transform: scale(1.05);
+}
+
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+.videoItem:hover .playButton {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.playIcon {
+  font-size: 1.5rem;
+  color: var(--light-primary);
+  margin-left: 3px; /* Adjust for visual center */
+}
+
+.videoTitle {
+  margin: 0;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-xs);
+  font-size: var(--font-size-base);
+  font-family: "Made for Display", sans-serif;
+  font-weight: normal;
+}
+
+.videoDate {
+  padding: 0 var(--spacing-md) var(--spacing-md);
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--light-primary);
+  opacity: 0.7;
+  text-transform: lowercase;
+}
+
+.horizontalLine {
+  height: 1px;
+  width: 100%;
+  background-color: rgba(150, 150, 150, 0.3);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .videoGrid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .playButton {
+    width: 40px;
+    height: 40px;
+    opacity: 0.7;
+  }
+
+  .playIcon {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .videoGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .videoItem,
+  .thumbnailImage,
+  .playButton {
+    transition: none;
+  }
+}

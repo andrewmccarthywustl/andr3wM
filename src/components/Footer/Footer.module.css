@@ -1,8 +1,8 @@
-/* Footer.module.css */
+/* src/components/Footer/Footer.module.css */
 .footer {
   background-color: var(--dark-primary);
   padding: var(--spacing-md) 0;
-  border-top: 2px solid var(--light-primary);
+  border-top: 1px solid var(--gray-primary);
   width: 100%;
   position: relative;
 }
@@ -10,7 +10,7 @@
 .footerContent {
   max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 var(--spacing-2xl);
+  padding: 0 var(--spacing-xl);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,29 +22,35 @@
 }
 
 .socialLink {
-  color: var(--light-primary);
+  color: var(--gray-light);
   font-size: var(--font-size-3xl);
   text-decoration: none;
   padding: var(--spacing-sm) 0;
-  transition: transform var(--transition-normal);
+  transition: all var(--transition-normal);
 }
 
 .socialLink:hover {
+  color: var(--light-primary);
   transform: scale(1.1);
 }
 
 .adminLink {
   position: absolute;
-  color: var(--dark-primary);
+  color: var(--gray-light);
   bottom: var(--spacing-sm);
   right: var(--spacing-sm);
 }
 
+.logoutButton {
+  color: var(--gray-light);
+}
+.loginLink {
+  color: var(--dark-primary);
+}
 .loginLink,
 .logoutButton {
   font-family: var(--font-body);
   font-size: var(--font-size-xs);
-  color: var(--dark-primary);
   text-decoration: none;
   background: none;
   border: none;
@@ -52,9 +58,8 @@
   transition: opacity var(--transition-normal);
 }
 
-.loginLink:hover,
 .logoutButton:hover {
-  opacity: 1;
+  color: var(--light-primary);
 }
 
 @media (max-width: 768px) {

@@ -115,6 +115,32 @@ export type Database = {
         };
       };
     };
+    videos: {
+      Row: {
+        id: string;
+        title: string;
+        thumbnailUrl: string;
+        url: string;
+        published_at: string;
+        position: number;
+      };
+      Insert: {
+        id: string;
+        title: string;
+        thumbnailUrl: string;
+        url: string;
+        published_at: string;
+        position?: number;
+      };
+      Update: {
+        id?: string;
+        title?: string;
+        thumbnailUrl?: string;
+        url?: string;
+        published_at?: string;
+        position?: number;
+      };
+    };
     Functions: {
       increment_positions: {
         Args: {

@@ -1,0 +1,225 @@
+/* src/components/SectionHeader/SectionHeader.module.css */
+.sectionHeaderContainer {
+  margin-bottom: var(--spacing-xl);
+  width: 100%;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+  text-transform: lowercase;
+  letter-spacing: var(--letter-spacing-tight);
+  flex: 1;
+}
+
+.actionButtonsContainer {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-heading);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  font-size: var(--font-size-sm);
+  border: 2px solid var(--light-primary);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.actionButton:hover {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+/* Sort button and dropdown styling */
+.sortContainer {
+  position: relative;
+  display: flex;
+  gap: var(--spacing-xs);
+  margin-right: var(--spacing-md);
+}
+
+.sortButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-heading);
+  letter-spacing: var(--letter-spacing-wide);
+  font-size: var(--font-size-sm);
+  border: 2px solid var(--light-primary);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-transform: uppercase;
+}
+
+.sortButton:hover {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+.orderToggleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--light-primary);
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.orderToggleButton:hover {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+.orderIcon {
+  font-size: 18px;
+}
+
+.sortDropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: var(--z-index-dropdown);
+  margin-top: var(--spacing-xs);
+  background-color: var(--dark-primary);
+  border: 2px solid var(--light-primary);
+  min-width: 200px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sortOption {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--light-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-normal);
+  text-align: left;
+}
+
+.sortOption:last-child {
+  border-bottom: none;
+}
+
+.sortOption:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sortOption.activeSort {
+  background-color: rgba(255, 255, 255, 0.1);
+  font-weight: var(--font-weight-medium);
+}
+
+.sortOptionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  color: var(--light-primary);
+}
+
+.horizontalLine {
+  height: 1px;
+  width: 100%;
+  background-color: var(--gray-primary);
+  margin: 0;
+}
+
+.customContent {
+  /* For any additional custom content */
+  display: flex;
+  align-items: center;
+}
+
+.active {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+.buttonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .sectionHeaderContainer {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .headerContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .sectionTitle {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-xs);
+    width: 100%;
+  }
+
+  .actionButtonsContainer {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .actionButton,
+  .sortButton {
+    flex: 1;
+    white-space: nowrap;
+    justify-content: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+  }
+
+  .orderToggleButton {
+    height: 36px;
+    width: 36px;
+  }
+
+  .sortDropdown {
+    width: 200px;
+    position: absolute;
+    right: 0;
+  }
+
+  .sortContainer {
+    margin-right: auto;
+  }
+}

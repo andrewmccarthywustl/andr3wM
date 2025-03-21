@@ -1,0 +1,89 @@
+/* src/components/VideoForm/VideoForm.module.css */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 25px;
+  background-color: var(--dark-primary);
+  border: 2px solid var(--light-primary);
+  color: var(--light-primary);
+}
+
+.formTitle {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  font-family: var(--font-heading);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.formGroup label {
+  font-weight: bold;
+}
+
+.formGroup input,
+.formGroup textarea {
+  padding: 10px;
+  border: 1px solid var(--light-primary);
+  border-radius: 0;
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+  font-family: inherit;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.helpText {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-top: 3px;
+}
+
+.thumbnailPreview {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.thumbnailPreview img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid var(--light-primary);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.error {
+  color: var(--delete-button-color);
+  background-color: rgba(255, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 0;
+  border: 1px solid var(--delete-button-color);
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .form {
+    padding: 15px;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+}

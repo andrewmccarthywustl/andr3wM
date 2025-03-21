@@ -1,0 +1,52 @@
+/* src/components/typography/PageTitle.module.css */
+.pageTitleContainer {
+  padding: var(--spacing-xl) 0;
+  margin-bottom: var(--spacing-xl);
+  width: 100%;
+}
+
+.pageTitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-5xl);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--light-primary);
+  margin: 0 0 var(--spacing-md);
+  text-transform: uppercase;
+}
+
+.pageSubtitle {
+  font-family: var(--font-accent);
+  font-size: var(--font-size-lg);
+  line-height: 1.4;
+  color: var(--gray-light);
+  margin: 0 0 var(--spacing-lg);
+  max-width: 800px;
+}
+
+.horizontalLine {
+  height: 1px;
+  width: 100%;
+  background-color: var(--gray-primary);
+  margin-top: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+  .pageTitleContainer {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .pageTitle {
+    font-size: var(--font-size-4xl);
+  }
+
+  .pageSubtitle {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .horizontalLine {
+    margin-top: var(--spacing-md);
+  }
+}

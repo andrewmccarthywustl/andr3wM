@@ -1,0 +1,191 @@
+/* src/components/VideoManager/VideoManager.module.css */
+.videoManager {
+  margin-bottom: var(--spacing-2xl);
+  width: 100%;
+}
+
+.toggleButton {
+  margin-bottom: var(--spacing-lg);
+}
+
+.managerContent {
+  background-color: var(--dark-primary);
+  border: 2px solid var(--light-primary);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.searchSection {
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--dark-primary);
+  border: 1px solid var(--light-primary);
+  color: var(--light-primary);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-sm);
+}
+
+.searchResults {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: var(--dark-primary);
+  border: 1px solid var(--light-primary);
+  z-index: 10;
+}
+
+.searchResultItem {
+  display: flex;
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--gray-primary);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.searchResultItem:last-child {
+  border-bottom: none;
+}
+
+.searchResultItem:hover {
+  background-color: var(--dark-hover);
+}
+
+.resultThumbnail {
+  width: 80px;
+  flex-shrink: 0;
+  margin-right: var(--spacing-md);
+}
+
+.resultThumbnail img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.resultInfo {
+  flex: 1;
+}
+
+.resultInfo h4 {
+  margin: 0 0 var(--spacing-xs);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+}
+
+.resultPosition {
+  font-size: var(--font-size-xs);
+  color: var(--gray-light);
+  margin: 0;
+}
+
+.videoForm {
+  width: 100%;
+}
+
+.formTitle {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-xl);
+  font-family: var(--font-heading);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.formGroup:nth-child(5) {
+  grid-column: span 2;
+}
+
+.formGroup label {
+  font-weight: var(--font-weight-medium);
+}
+
+.formGroup input {
+  padding: var(--spacing-sm);
+  background-color: var(--dark-primary);
+  border: 1px solid var(--light-primary);
+  color: var(--light-primary);
+  font-family: inherit;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.helpText {
+  font-size: var(--font-size-xs);
+  color: var(--gray-light);
+  margin-top: var(--spacing-xs);
+}
+
+.thumbnailPreview {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto var(--spacing-lg);
+  border: 1px solid var(--light-primary);
+}
+
+.thumbnailPreview img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.error {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: var(--delete-button-color);
+  padding: var(--spacing-sm);
+  border: 1px solid var(--delete-button-color);
+  margin-bottom: var(--spacing-lg);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.deleteButton {
+  background-color: var(--delete-button-color);
+  color: var(--light-primary);
+  border-color: var(--delete-button-color);
+}
+
+.deleteButton:hover {
+  background-color: var(--delete-button-hover);
+}
+
+@media (max-width: 768px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formGroup:nth-child(5) {
+    grid-column: span 1;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+}

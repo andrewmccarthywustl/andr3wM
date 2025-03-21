@@ -1,0 +1,72 @@
+/* src/components/ui/Button.module.css */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  border-radius: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  padding: var(--spacing-sm) var(--spacing-lg);
+}
+
+.primary {
+  background-color: var(--dark-primary);
+  color: var(--light-primary);
+  border-color: var(--light-primary);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--light-primary);
+  color: var(--dark-primary);
+}
+
+.secondary {
+  background-color: var(--gray-primary);
+  color: var(--light-primary);
+  border-color: var(--gray-primary);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: var(--gray-secondary);
+}
+
+.outline {
+  background-color: transparent;
+  color: var(--light-primary);
+  border-color: var(--gray-primary);
+}
+
+.outline:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--light-primary);
+}
+
+.small {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+}
+
+.medium {
+  font-size: var(--font-size-base);
+}
+
+.large {
+  font-size: var(--font-size-lg);
+  padding: var(--spacing-md) var(--spacing-xl);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}

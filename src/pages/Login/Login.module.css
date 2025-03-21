@@ -1,20 +1,20 @@
 /* src/pages/Login/Login.module.css */
-
 .loginPage {
   min-height: calc(100vh - 120px);
   background-color: var(--dark-primary);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: var(--spacing-xl);
 }
 
 .loginContainer {
   width: 100%;
-  max-width: 400px;
-  padding: 30px;
+  max-width: 500px;
+  padding: var(--spacing-xl);
   background-color: var(--dark-primary);
   border: 2px solid var(--light-primary);
+  color: var(--light-primary);
 }
 
 .loginForm {
@@ -22,31 +22,35 @@
 }
 
 .loginTitle {
-  color: var(--light-primary);
-  font-size: 24px;
-  margin-bottom: 20px;
   text-align: center;
+  margin-bottom: var(--spacing-xl);
+  font-size: 1.5rem;
+  font-family: var(--font-heading);
 }
 
 .inputGroup {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-lg);
 }
 
 .label {
-  display: block;
   color: var(--light-primary);
-  margin-bottom: 5px;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  align-items: center;
 }
 
 .input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--light-primary);
+  padding: var(--spacing-sm);
   background-color: var(--dark-primary);
+  border: 2px solid var(--light-primary);
   color: var(--light-primary);
-  font-size: 16px;
-  box-sizing: border-box;
+  border-radius: 0;
+  font-family: var(--font-body);
+  transition: all var(--transition-normal);
 }
 
 .input:focus {
@@ -56,30 +60,50 @@
 
 .loginButton {
   width: 100%;
-  padding: 10px;
+  padding: var(--spacing-sm);
+  border: 2px solid var(--light-primary);
+  border-radius: 0;
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  transition: all var(--transition-normal);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
   background-color: var(--dark-primary);
   color: var(--light-primary);
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  border: 3px, solid, var(--light-primary);
+  margin-top: var(--spacing-md);
 }
 
-.loginButton:hover {
+.loginButton:hover:not(:disabled) {
   background-color: var(--light-primary);
   color: var(--dark-primary);
 }
 
 .error {
-  color: var(--secondary-acent-color);
+  color: var(--delete-button-color);
+  font-size: var(--font-size-sm);
+  background-color: rgba(255, 0, 0, 0.1);
+  padding: var(--spacing-sm);
+  border-radius: 0;
+  border: 2px solid var(--delete-button-color);
+  margin-top: var(--spacing-sm);
   text-align: center;
-  margin-top: 15px;
-  font-size: 14px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .loginContainer {
-    padding: 20px;
+    padding: var(--spacing-md);
+  }
+
+  .loginPage {
+    padding: var(--spacing-md);
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .input,
+  .loginButton {
+    transition: none;
   }
 }

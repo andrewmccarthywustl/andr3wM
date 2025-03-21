@@ -1,3 +1,4 @@
+/* src/components/Header/Header.module.css */
 .header {
   background-color: var(--dark-primary);
   padding: var(--spacing-md) 0;
@@ -6,8 +7,8 @@
   left: 0;
   right: 0;
   z-index: var(--z-index-header);
-  border-bottom: 3px solid var(--light-primary);
-  height: 60px;
+  border-bottom: 1px solid var(--gray-primary);
+  height: var(--header-height);
   display: flex;
   align-items: center;
 }
@@ -15,7 +16,8 @@
 .headerContent {
   max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 var(--container-padding);
+  padding: 0 var(--container-padding-x);
+  width: 100%;
 }
 
 .nav {
@@ -37,13 +39,14 @@
   background: none;
   border: none;
   cursor: pointer;
+  font-weight: var(--font-weight-medium);
 }
 
 .navLink::after {
   content: "";
   position: absolute;
   width: 100%;
-  height: 2px;
+  height: 1px;
   bottom: 0;
   left: 0;
   background-color: var(--light-primary);
@@ -59,6 +62,9 @@
 @media (max-width: 768px) {
   .nav {
     gap: var(--spacing-md);
-    display: flex;
+  }
+
+  .navLink {
+    font-size: var(--font-size-sm);
   }
 }
