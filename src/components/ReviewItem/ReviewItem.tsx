@@ -77,31 +77,39 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review, onClick }) => {
       <div
         className={styles.ratingBar}
         style={{
-          backgroundColor: `rgb(${
-            review.rating >= 9
-              ? 0
-              : review.rating >= 8
-              ? Math.round(255 * (1 - (review.rating - 8)))
-              : review.rating >= 7
-              ? Math.round(255 * 0.8)
-              : review.rating >= 5
-              ? 255
-              : review.rating >= 3
-              ? 255
-              : 255
-          }, ${
-            review.rating >= 9
-              ? 255
-              : review.rating >= 8
-              ? 255
-              : review.rating >= 7
-              ? 255
-              : review.rating >= 5
-              ? Math.round(255 * ((review.rating - 5) / 2))
-              : review.rating >= 3
-              ? Math.round(255 * (review.rating / 5) * 0.3)
-              : 0
-          }, 0)`,
+          backgroundColor: (() => {
+            const rating = review.rating;
+            // Reds - still for low ratings but not as far up the scale
+            if (rating < 4.0) return "#FF0D0D"; // Candy Apple Red
+            else if (rating < 4.5)
+              return "#FF2A11"; // Between Candy Apple and Orioles
+            // Red-Orange (for below average)
+            else if (rating < 5.0) return "#FF4E11"; // Orioles Orange
+            else if (rating < 5.5) return "#FF6513"; // Between Orioles and Beer
+            // Orange (for average)
+            else if (rating < 6.0) return "#FF8E15"; // Beer
+            else if (rating < 6.5) return "#FF9D24"; // Between Beer and Saffron
+            // Orange-Yellow (slightly above average)
+            else if (rating < 7.0) return "#FAB733"; // Saffron
+            else if (rating < 7.3)
+              return "#EAC033"; // Between Saffron and Brass
+            // Yellow-Tan (good ratings)
+            else if (rating < 7.6) return "#D5C533"; // Light Brass
+            else if (rating < 7.9) return "#ACB334"; // Brass
+            // Yellow-Green (very good ratings)
+            else if (rating < 8.2) return "#9AB53A"; // Yellowish Green
+            else if (rating < 8.4) return "#7BA928"; // Lime Green
+            else if (rating < 8.6) return "#5D9C1F"; // Medium Green
+            else if (rating < 8.8) return "#3F8F15"; // Forest Green
+            // Strong greens for excellent ratings
+            else if (rating < 9.0) return "#0A7F0A"; // Kelly Green
+            else if (rating < 9.2) return "#006E00"; // Deep Green
+            else if (rating < 9.4) return "#005C00"; // Pine Green
+            else if (rating < 9.6) return "#004B00"; // Dark Forest Green
+            // Darkest greens for exceptional top scores
+            else if (rating < 9.8) return "#003A00"; // Very Dark Green
+            else return "#002800"; // Almost Black Green
+          })(),
         }}
       />
     </div>
