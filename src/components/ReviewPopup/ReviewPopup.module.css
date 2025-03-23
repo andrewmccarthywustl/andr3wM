@@ -12,10 +12,9 @@
   z-index: var(--z-index-modal);
   transition: transform 300ms ease;
   transform: translateX(100%);
-  border-left: 2px solid var(--light-primary);
+  border-left: 1px solid var(--border-color);
   visibility: hidden;
   overflow: hidden;
-  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.3);
 }
 
 .reviewPopup.open {
@@ -110,7 +109,7 @@
   width: 200px;
   height: 300px;
   overflow: hidden;
-  border: 2px solid var(--light-primary);
+  border: 2px solid var(--border-color);
 }
 
 .reviewPopupImage {
@@ -145,16 +144,16 @@
   font-weight: var(--font-weight-bold);
   margin: var(--spacing-md) 0;
   padding: var(--spacing-sm) 0;
-  border-top: 1px solid var(--light-primary);
-  border-bottom: 1px solid var(--light-primary);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   text-align: center;
 }
 
 .reviewPopupDate {
-  font-size: var(--font-size-sm);
-  color: var(--light-primary);
+  font-size: var(--font-size-lg);
+  color: var(--gray-primary);
   margin: 0;
-  font-style: italic;
+  font-family: var(--font-accent);
 }
 
 .reviewPopupBody {

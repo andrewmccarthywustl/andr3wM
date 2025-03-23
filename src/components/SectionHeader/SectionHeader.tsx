@@ -26,6 +26,7 @@ interface SectionHeaderProps {
   className?: string;
   actionButtons?: ActionButton[];
   children?: ReactNode;
+  noMarginBottom?: boolean; // New prop for controlling bottom margin
 }
 
 // Extended SectionHeader with sorting capability
@@ -48,7 +49,13 @@ const isSortable = (
 };
 
 const SectionHeader: React.FC<CombinedSectionHeaderProps> = (props) => {
-  const { title, className = "", actionButtons = [], children } = props;
+  const {
+    title,
+    className = "",
+    actionButtons = [],
+    children,
+    noMarginBottom = false, // Default to false to maintain current behavior
+  } = props;
   const [isSortOpen, setIsSortOpen] = useState(false);
   const sortRef = useRef<HTMLDivElement>(null);
 
@@ -96,8 +103,21 @@ const SectionHeader: React.FC<CombinedSectionHeaderProps> = (props) => {
     }
   };
 
+  // Much more aggressive approach to override all possible margin styles
+  const containerStyle = noMarginBottom
+    ? {
+        margin: "0 !important",
+        marginBottom: "0 !important",
+        paddingBottom: "0 !important",
+      }
+    : {};
+
   return (
-    <div className={`${styles.sectionHeaderContainer} ${className}`}>
+    <div
+      className={`${styles.sectionHeaderContainer} ${className}`}
+      style={containerStyle}
+      data-no-margin={noMarginBottom ? "true" : "false"} // Add a data attribute for potential CSS targeting
+    >
       <div className={styles.headerContent}>
         <h2 className={styles.sectionTitle}>{title}</h2>
 
@@ -187,7 +207,8 @@ const SectionHeader: React.FC<CombinedSectionHeaderProps> = (props) => {
 
         {children && <div className={styles.customContent}>{children}</div>}
       </div>
-      <div className={styles.horizontalLine}></div>
+      {/* Only render the horizontal line if not suppressing margins */}
+      {!noMarginBottom && <div className={styles.horizontalLine}></div>}
     </div>
   );
 };

@@ -554,6 +554,7 @@ const Media: React.FC = () => {
           {favorites[FavoriteType.SONG].length > 0 && (
             <div className={styles.favoriteSection}>
               <SectionHeader
+                noMarginBottom={true}
                 title="Songs"
                 actionButtons={[
                   {
@@ -620,6 +621,7 @@ const Media: React.FC = () => {
             <div className={styles.favoriteSection}>
               <SectionHeader
                 title="Videos"
+                noMarginBottom
                 actionButtons={[
                   {
                     type: "default",

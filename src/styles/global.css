@@ -83,6 +83,13 @@ button {
   border: 0;
 }
 
+[data-no-margin="true"] {
+  margin: 0 !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  border-bottom: 1px solid var(--border-color);
+}
+
 /* Basic animations */
 @keyframes fadeIn {
   from {

@@ -3,7 +3,7 @@
   flex: 0 0 auto;
   width: 200px;
   background-color: var(--dark-primary);
-  border: 2px solid var(--light-primary);
+  border: 1px solid var(--border-color);
   cursor: pointer;
   position: relative;
   overflow: hidden; /* Add overflow hidden to contain all content */
@@ -14,7 +14,7 @@
   width: 100%; /* Force image container to respect parent width */
   height: 200px;
   overflow: hidden;
-  border-bottom: 2px solid var(--light-primary);
+  border-bottom: 1px solid var(--border-color);
   position: relative;
 }
 
