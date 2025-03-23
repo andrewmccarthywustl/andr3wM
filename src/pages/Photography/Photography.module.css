@@ -169,6 +169,7 @@
 @media (max-width: 768px) {
   .headerContainer {
     margin: var(--spacing-lg) 0;
+    padding-left: var(--spacing-md);
   }
 
   .backLink {
