@@ -79,36 +79,39 @@ const ReviewItem: React.FC<ReviewItemProps> = ({ review, onClick }) => {
         style={{
           backgroundColor: (() => {
             const rating = review.rating;
-            // Reds - still for low ratings but not as far up the scale
-            if (rating < 4.0) return "#FF0D0D"; // Candy Apple Red
+            // Reds - brighter versions
+            if (rating < 4.0) return "#FF3D3D"; // Brighter Candy Apple Red
             else if (rating < 4.5)
-              return "#FF2A11"; // Between Candy Apple and Orioles
-            // Red-Orange (for below average)
-            else if (rating < 5.0) return "#FF4E11"; // Orioles Orange
-            else if (rating < 5.5) return "#FF6513"; // Between Orioles and Beer
-            // Orange (for average)
-            else if (rating < 6.0) return "#FF8E15"; // Beer
-            else if (rating < 6.5) return "#FF9D24"; // Between Beer and Saffron
-            // Orange-Yellow (slightly above average)
-            else if (rating < 7.0) return "#FAB733"; // Saffron
+              return "#FF5A41"; // Brighter between Candy Apple and Orioles
+            // Red-Orange (for below average) - brighter versions
+            else if (rating < 5.0) return "#FF7E41"; // Brighter Orioles Orange
+            else if (rating < 5.5)
+              return "#FF9543"; // Brighter between Orioles and Beer
+            // Orange (for average) - brighter versions
+            else if (rating < 6.0) return "#FFAE45"; // Brighter Beer
+            else if (rating < 6.5)
+              return "#FFBD54"; // Brighter between Beer and Saffron
+            // Orange-Yellow (slightly above average) - brighter versions
+            else if (rating < 7.0) return "#FFD763"; // Brighter Saffron
             else if (rating < 7.3)
-              return "#EAC033"; // Between Saffron and Brass
-            // Yellow-Tan (good ratings)
-            else if (rating < 7.6) return "#D5C533"; // Light Brass
-            else if (rating < 7.9) return "#ACB334"; // Brass
-            // Yellow-Green (very good ratings)
-            else if (rating < 8.2) return "#9AB53A"; // Yellowish Green
-            else if (rating < 8.4) return "#7BA928"; // Lime Green
-            else if (rating < 8.6) return "#5D9C1F"; // Medium Green
-            else if (rating < 8.8) return "#3F8F15"; // Forest Green
-            // Strong greens for excellent ratings
-            else if (rating < 9.0) return "#0A7F0A"; // Kelly Green
-            else if (rating < 9.2) return "#006E00"; // Deep Green
-            else if (rating < 9.4) return "#005C00"; // Pine Green
-            else if (rating < 9.6) return "#004B00"; // Dark Forest Green
-            // Darkest greens for exceptional top scores
-            else if (rating < 9.8) return "#003A00"; // Very Dark Green
-            else return "#002800"; // Almost Black Green
+              return "#FFE063"; // Brighter between Saffron and Brass
+            // Yellow-Tan (good ratings) - brighter versions
+            else if (rating < 7.6) return "#F5E563"; // Brighter Light Brass
+            else if (rating < 7.9) return "#CCD364"; // Brighter Brass
+            // Yellow-Green (very good ratings) - brighter versions
+            else if (rating < 8.2) return "#BAD56A"; // Brighter Yellowish Green
+            else if (rating < 8.4) return "#9BC958"; // Brighter Lime Green
+            else if (rating < 8.6) return "#7DBC4F"; // Brighter Medium Green
+            else if (rating < 8.8) return "#5FAF45"; // Brighter Forest Green
+            // Strong greens for excellent ratings - brighter versions
+            else if (rating < 9.0) return "#2A9F2A"; // Brighter Kelly Green
+            else if (rating < 9.2) return "#208E20"; // Brighter Deep Green
+            else if (rating < 9.4) return "#207C20"; // Brighter Pine Green
+            else if (rating < 9.6)
+              return "#206B20"; // Brighter Dark Forest Green
+            // Darkest greens for exceptional top scores - brighter versions
+            else if (rating < 9.8) return "#205A20"; // Brighter Very Dark Green
+            else return "#204820"; // Brighter Almost Black Green
           })(),
         }}
       />
