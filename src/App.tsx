@@ -12,6 +12,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import ScrollToTop from "./components/ScrollToTop";
 import BlogPost from "./pages/BlogPost";
 import BlogPostEditor from "./components/BlogPostEditor";
+import GoogleAnalytics from "./components/GoogleAnalytics"; // Add this import
 
 function AppContent() {
   const { isLoading } = useAuth();
@@ -41,9 +42,13 @@ function AppContent() {
 }
 
 function App() {
+  // Replace GA_MEASUREMENT_ID with your actual Google Analytics ID
+  const googleAnalyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
+
   return (
     <AuthProvider>
       <Router>
+        <GoogleAnalytics measurementId={googleAnalyticsId} />
         <ScrollToTop />
         <AppContent />
       </Router>
