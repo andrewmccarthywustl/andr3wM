@@ -82,7 +82,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
   margin-top: 24px;
 }
 
@@ -112,7 +112,10 @@
 .pageInfo {
   color: var(--light-primary);
   font-size: 14px;
-  width: 90px;
+  width: 100px;
+  text-align: center;
+  font-family: var(--font-accent);
+  font-size: var(--font-size-xs);
 }
 
 @media (max-width: 768px) {
@@ -143,10 +146,6 @@
 
   .paginationButton.prevNext {
     padding: 6px 12px;
-    font-size: 13px;
-  }
-
-  .pageInfo {
     font-size: 13px;
   }
 }
