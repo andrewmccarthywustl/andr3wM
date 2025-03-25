@@ -112,7 +112,7 @@
 .pageInfo {
   color: var(--light-primary);
   font-size: 14px;
-  width: 80px;
+  width: 90px;
 }
 
 @media (max-width: 768px) {
