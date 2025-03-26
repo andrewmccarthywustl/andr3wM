@@ -1,5 +1,11 @@
 // src/pages/Media/Media.tsx
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useRef,
+} from "react";
 import {
   reviewApi,
   favoriteApi,
@@ -137,22 +143,32 @@ const Media: React.FC = () => {
   const [isAddingFavorite, setIsAddingFavorite] = useState<boolean>(false);
   const { user } = useAuth();
   const isMobile = useIsMobile();
+  const timeoutRef = useRef<number | null>(null);
 
   // Global review popup state
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
 
+  // Update the existing functions
   const openReviewPopup = (review: Review) => {
+    // Clear any pending timeouts to prevent state conflicts
+    if (timeoutRef.current !== null) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
     setSelectedReview(review);
     setIsPopupOpen(true);
   };
 
   const closeReviewPopup = () => {
     setIsPopupOpen(false);
-    // Keep the selected review during animation, then clear it
-    setTimeout(() => {
+
+    // Store the timeout ID in the ref so we can clear it if needed
+    timeoutRef.current = window.setTimeout(() => {
       setSelectedReview(null);
-    }, 300);
+      timeoutRef.current = null;
+    }, 300); // Match the animation duration
   };
 
   // Sort options for reviews
@@ -165,6 +181,11 @@ const Media: React.FC = () => {
   useEffect(() => {
     fetchReviews();
     fetchFavorites();
+    return () => {
+      if (timeoutRef.current !== null) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
   }, []);
 
   const fetchReviews = async () => {
