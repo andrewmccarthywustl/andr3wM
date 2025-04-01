@@ -72,7 +72,7 @@ const CircularScrollList: React.FC<CircularScrollListProps> = memo(
         case "artist":
           return "Open Artist's Website";
         case "channel":
-          return "Open Channel Link";
+          return "Open Link";
         default:
           return "View Profile";
       }

@@ -620,7 +620,7 @@ const Media: React.FC = () => {
           {favorites[FavoriteType.CHANNEL].length > 0 && (
             <div className={styles.favoriteSection}>
               <SectionHeader
-                title="YouTube Channels"
+                title="Creators"
                 actionButtons={[
                   {
                     type: "default",
