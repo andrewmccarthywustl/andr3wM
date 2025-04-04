@@ -408,10 +408,7 @@ const Media: React.FC = () => {
         {/* Reviews Section */}
         <SectionContainer noPaddingTop>
           <div className={styles.sectionWithActions}>
-            <SectionTitle
-              title="Reviews"
-              subtitle="I'm not trying to be a film critic but I'm trying to watch/read good stuff"
-            />
+            <SectionTitle title="Reviews" />
 
             {user && (
               <div className={styles.sectionActions}>
@@ -496,10 +493,7 @@ const Media: React.FC = () => {
         {/* Favorites Section */}
         <SectionContainer>
           <div className={styles.sectionWithActions}>
-            <SectionTitle
-              title="Favorites"
-              subtitle="A structure to remember - the stochasticity will be great when I forget"
-            />
+            <SectionTitle title="Favorites" />
 
             {user && (
               <div className={styles.sectionActions}>

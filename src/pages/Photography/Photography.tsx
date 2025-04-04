@@ -1,7 +1,7 @@
 // src/pages/Photography/Photography.tsx
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Masonry from "react-masonry-css";
 import PageContainer from "../../components/layout/PageContainer";
 import SectionContainer from "../../components/layout/SectionContainer";
@@ -41,6 +41,7 @@ const Photography: React.FC = () => {
     useState<boolean>(false);
   const [photoToDelete, setPhotoToDelete] = useState<number | null>(null);
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const fetchPhotos = useCallback(
     async (pageNum: number, filterValue: string, reset = false) => {
@@ -64,6 +65,21 @@ const Photography: React.FC = () => {
     },
     [hasMore]
   );
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        navigate("/my-works");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [navigate]);
 
   useEffect(() => {
     fetchPhotos(page, filter, true);

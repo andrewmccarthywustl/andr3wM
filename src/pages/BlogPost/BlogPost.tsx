@@ -39,6 +39,21 @@ const BlogPost: React.FC = () => {
     }
   }, [post]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        navigate("/blog");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [navigate]);
+
   const fetchBlogPost = async () => {
     if (!id) return;
 
